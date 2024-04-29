@@ -1,5 +1,6 @@
-import { Button } from "../../../styles/styledComponents";
-import { BottomGridStyle, ButtonFontStyle } from "../../../styles/styles";
+import { css } from "@emotion/css";
+import { Button } from "../../../../styles/styles";
+import { ButtonFontStyle } from "../../../../styles/styles";
 
 export default function BottomGrid() {
     return (
@@ -11,3 +12,9 @@ export default function BottomGrid() {
         </div>
     )
 }
+
+
+const BottomGridStyle = css`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  
+`

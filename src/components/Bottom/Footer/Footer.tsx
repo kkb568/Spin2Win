@@ -1,13 +1,24 @@
 import { css } from "@emotion/css";
-import { FooterStyle } from "../../../styles/styles";
 
 export default function Footer() {
     return (
         <div className={FooterStyle}>
-            <span className={css`
-                margin-left: 5em;
-            `}>Bet limits: Ksh10.00 - Ksh1000.00</span>
+            <span>Bet limits: Ksh10.00 - Ksh1000.00</span>
             <span>Max Payout: Ksh.50,000.00</span>
         </div>
     )
 }
+
+
+const FooterStyle = css`
+    width: 100%;
+    background-color: #013b93;
+    padding: .5em 0;
+    display: flex;
+    gap: 10em;
+    font-size: 13px;
+
+    span:first-child {
+        margin-left: 5em;
+    }
+`

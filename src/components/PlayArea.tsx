@@ -1,4 +1,4 @@
-import { PlayAreaStyle } from "../styles/styles";
+import { css } from "@emotion/css";
 import BottomComponent from "./Bottom/BottomComponent";
 import TopComponent from "./Top/TopComponent";
 
@@ -10,3 +10,10 @@ export default function PlayArea() {
         </div>
     )
 }
+
+
+const PlayAreaStyle = css`
+    width: 960px;
+    height: 80vh;
+    color: white;
+`

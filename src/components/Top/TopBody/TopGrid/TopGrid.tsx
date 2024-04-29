@@ -1,5 +1,6 @@
-import { Button } from "../../../styles/styledComponents";
-import { ButtonFontStyle, TopGridStyle } from "../../../styles/styles";
+import { css } from "@emotion/css";
+import { Button } from "../../../../styles/styles";
+import { ButtonFontStyle } from "../../../../styles/styles";
 
 export default function TopGrid() {
     return (
@@ -11,3 +12,11 @@ export default function TopGrid() {
         </div>
     )
 }
+
+
+const TopGridStyle = css`
+    float: right;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-right: -.5em;
+`

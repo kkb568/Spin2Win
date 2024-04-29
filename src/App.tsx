@@ -1,6 +1,6 @@
+import { css } from "@emotion/css"
 import PlayArea from "./components/PlayArea"
 import { backgroundImageUrl } from "./data/data"
-import { containerStyle, divBackgroundStyle, imageBackgroundStyle } from "./styles/styles"
 
 
 function App() {
@@ -18,3 +18,30 @@ function App() {
 }
 
 export default App
+
+const divBackgroundStyle = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #000004;
+  z-index: -2;
+`
+
+const imageBackgroundStyle = css`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120vh;
+    z-index: -1;
+`
+
+const containerStyle = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3em;
+    font-family: 'Roboto';
+`

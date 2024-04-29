@@ -1,6 +1,7 @@
+import { css } from "@emotion/css";
 import { firstRowNumbers, secondRowNumbers, thirdRowNumbers } from "../../../../data/data"
-import { Button } from "../../../../styles/styledComponents";
-import { ButtonFontStyle, MiddleGridDozenStyle, MiddleGridNumStyle } from "../../../../styles/styles"
+import { Button } from "../../../../styles/styles";
+import { ButtonFontStyle } from "../../../../styles/styles"
 import { NumButton } from "./NumButton";
 
 export default function MiddleGrid() {
@@ -19,3 +20,14 @@ export default function MiddleGrid() {
         </>
     )
 }
+
+
+const MiddleGridNumStyle = css`
+    display: grid;
+    grid-template-columns: repeat(12, 54px);
+`
+
+const MiddleGridDozenStyle = css`
+    display: grid;
+    grid-template-columns: repeat(3, 216px);
+`

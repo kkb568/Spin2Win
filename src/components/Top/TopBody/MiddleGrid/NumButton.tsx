@@ -1,5 +1,5 @@
 import { arrayNum } from "../../../../data/data";
-import { Button } from "../../../../styles/styledComponents";
+import { Button } from "../../../../styles/styles";
 import { assignBackgroundColor } from "../../../../utils/utils";
 
 interface Props {
