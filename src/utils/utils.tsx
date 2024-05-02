@@ -1,7 +1,7 @@
-import { chipData, redNumbers } from "../data/data";
+import { chipDataType, redNumbers } from "../data/data";
 
-/* Function for assigning the background color based on whether
-it's on the redNumbers array or not. */
+/* Function for assigning the background color of the main playing buttons 
+based on whether it's on the redNumbers array or not. */
 export function assignBackgroundColor(num: number): string {
     let buttonColor: string = "";
     for (let i = 0; i < redNumbers.length; i++) {
@@ -15,16 +15,17 @@ export function assignBackgroundColor(num: number): string {
     return buttonColor;
 }
 
-export function showSelected(key: number) {
-    for (let i = 0; i < chipData.length; i++) {
-        if (chipData[i].isSelected) {
-            chipData[i].isSelected = false;
-        }
-    }
-    for (let i = 0; i < chipData.length; i++) {
-        if (chipData[i].id == key) {
-            chipData[i].isSelected = true;
+/* The function is used to get the chip url which its isSelected value is true. 
+Useful for showing which chip is selected by the user on the 
+playing area buttons when hovered. */
+export function getSelectedChipUrl(): string {
+    let url: string ="";
+    const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
+    for (let i = 0; i < chipsArray.length; i++) {
+        if (chipsArray[i].isSelected === true) {
+            url = chipsArray[i].chipUrl;
             break;
         }
     }
+    return url;
 }

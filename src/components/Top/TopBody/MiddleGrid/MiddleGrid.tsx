@@ -1,10 +1,17 @@
 import { css } from "@emotion/css";
-import { firstRowNumbers, secondRowNumbers, thirdRowNumbers } from "../../../../data/data"
-import { Button } from "../../../../styles/styles";
-import { ButtonFontStyle } from "../../../../styles/styles"
+import { dozenGridButtons, firstRowNumbers, secondRowNumbers, thirdRowNumbers } from "../../../../data/data"
 import { NumButton } from "./NumButton";
+import DozenButton from "./DozenButton";
 
+// The component renders the number buttons and the buttons showing a group of dozen.
 export default function MiddleGrid() {
+    const dozenButtonList = dozenGridButtons.map((button) => {
+        return (
+            <DozenButton key={button.key} 
+                name={button.name}/>
+        )
+    })
+
     return (
         <>
             <div className={MiddleGridNumStyle}>
@@ -13,9 +20,7 @@ export default function MiddleGrid() {
                 <NumButton numArr={thirdRowNumbers}/>
             </div>
             <div className={MiddleGridDozenStyle}>
-                <Button style={ButtonFontStyle}>1~12</Button>
-                <Button style={ButtonFontStyle}>13~24</Button>
-                <Button style={ButtonFontStyle}>25~36</Button>
+                {dozenButtonList}
             </div>
         </>
     )

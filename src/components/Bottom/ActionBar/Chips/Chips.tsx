@@ -4,7 +4,7 @@ import ChipItem from "./ChipItem"
 import { useState } from "react"
 
 export default function Chips() {
-    const chipsArray = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
+    const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
     const [chipsData, setChipsData] = useState<chipDataType[]>(chipsArray)
     
     /* The function changes the selected value of the chip object 

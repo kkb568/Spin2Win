@@ -34,8 +34,23 @@ export const Button = styled.button`
     display: flex;
     justify-content: center;
 
-    &:hover {
-        background-color: rgba(255, 255, 255, .5);
-        border-color: yellow;
+    div:first-of-type {
+        display: none;
     }
+
+    &:hover {
+        border-color: yellow;
+
+        div:first-of-type {
+            display: block;
+        }
+    }
+`
+
+export const Diamond = styled.div`
+    position: absolute;
+    clip-path: polygon(50% 5%,100% 50%,50% 95%,0 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `

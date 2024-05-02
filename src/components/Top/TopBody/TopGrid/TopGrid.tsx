@@ -1,14 +1,20 @@
 import { css } from "@emotion/css";
-import { Button } from "../../../../styles/styles";
-import { ButtonFontStyle } from "../../../../styles/styles";
+import { topGridButtons } from "../../../../data/data";
+import TopGridButton from "./TopGridButton";
 
+/* This component renders the buttons at the first grid */
 export default function TopGrid() {
+    const topGridButtonList = topGridButtons.map((button) => {
+        return (
+            <TopGridButton key={button.key}
+                name={button.name}
+                diamondColor={button.backgroundColor} />
+        )
+    })
+
     return (
         <div className={TopGridStyle}>
-            <Button style={ButtonFontStyle}>Low</Button>
-            <Button style={ButtonFontStyle}>High</Button>
-            <Button style={ButtonFontStyle}>Low</Button>
-            <Button style={ButtonFontStyle}>High</Button>
+            {topGridButtonList}
         </div>
     )
 }

@@ -68,3 +68,56 @@ export const chipData: chipDataType[] = [
     }
 ]
 sessionStorage.setItem("chipsData", JSON.stringify(chipData))
+
+export const topGridButtons: {
+    key: number,
+    name: string,
+    backgroundColor: string
+}[] = [
+    {
+        key: 1,
+        name: "Low",
+        backgroundColor: "#d0021b"
+    },
+    {
+        key: 2,
+        name: "High",
+        backgroundColor: "#d0021b"
+    },
+    {
+        key: 3,
+        name: "Low",
+        backgroundColor: "#1f1f1f"
+    },
+    {
+        key: 4,
+        name: "High",
+        backgroundColor: "#1f1f1f"
+    },
+]
+
+export const dozenGridButtons: {
+    key: number,
+    name: string,
+    lowest: number,
+    higest: number
+}[] = [
+    {
+        key: 1,
+        name: "1~12",
+        lowest: 1,
+        higest: 12
+    },
+    {
+        key: 2,
+        name: "13~24",
+        lowest: 13,
+        higest: 24
+    },
+    {
+        key: 3,
+        name: "25~36",
+        lowest: 25,
+        higest: 36
+    }
+]
