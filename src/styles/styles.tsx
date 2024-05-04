@@ -23,7 +23,7 @@ export const ButtonFontStyle = {
     fontSize: '18px'
 }
 
-export const Button = styled.button`
+export const PlayButton = styled.button`
     cursor: pointer;
     background-color: transparent;
     color: white;
@@ -53,4 +53,33 @@ export const Diamond = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+export const FooterButton = styled.button`
+    width: 4em;
+    height: 1.6em;
+    background-color: #1967ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    position: relative;
+
+    a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+
+        &:hover {
+            background-color: rgba(95, 95, 95, 0.1);
+        }
+    }
+
+    span {
+        font-size: 1.2em;
+        color: white;
+    }
 `

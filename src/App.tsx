@@ -34,8 +34,9 @@ const imageBackgroundStyle = css`
     top: 0;
     left: 0;
     width: 100%;
-    height: 120vh;
+    height: 100%;
     z-index: -1;
+    object-fit: cover;
 `
 
 const containerStyle = css`

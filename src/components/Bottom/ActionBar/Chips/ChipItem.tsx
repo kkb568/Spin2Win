@@ -44,6 +44,8 @@ const ImageDivStyle = css`
 const ChipImageStyle = css`
     width: 32px;
     height: 32px;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
+    border-radius: 50%;
 `
 
 const ChipDetailsStyle = css`

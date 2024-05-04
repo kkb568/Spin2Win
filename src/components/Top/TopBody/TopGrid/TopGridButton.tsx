@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { Button, Diamond } from "../../../../styles/styles";
-import { ChipContext } from "../TopBody";
+import { Diamond, PlayButton } from "../../../../styles/styles";
 import { css } from "@emotion/css";
+import { ChipContext } from "../../../PlayArea";
 
 interface Props {
     name: string,
@@ -19,7 +19,7 @@ export default function TopGridButton({ name, diamondColor }: Props) {
     `
 
     return (
-        <Button className={ButtonTextStyle}>
+        <PlayButton className={ButtonTextStyle}>
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
@@ -27,7 +27,7 @@ export default function TopGridButton({ name, diamondColor }: Props) {
             <Diamond className={diamondStyle}>
                 <span>{name}</span>
             </Diamond>
-        </Button>
+        </PlayButton>
     )
 }
 
@@ -58,4 +58,6 @@ const chipStyle = css`
     width: 1.8em;
     margin-top: 1em;
     z-index: 4;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
+    border-radius: 50%;
 `

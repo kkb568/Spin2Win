@@ -1,9 +1,9 @@
 import { css } from "@emotion/css";
 import { arrayNum } from "../../../../data/data";
-import { Button } from "../../../../styles/styles";
+import { PlayButton } from "../../../../styles/styles";
 import { assignBackgroundColor } from "../../../../utils/utils";
 import { useContext } from "react";
-import { ChipContext } from "../TopBody";
+import { ChipContext } from "../../../PlayArea";
 
 interface Props {
     numArr: arrayNum
@@ -16,7 +16,7 @@ export function NumButton({ numArr }: Props): JSX.Element[] {
     const numberButtons: JSX.Element[] = numArr.map((num) => {
         const buttonColor = assignBackgroundColor(num);
         return (
-            <Button key={num} 
+            <PlayButton key={num} 
                 style={{
                     position: 'relative', 
                     backgroundColor: buttonColor,
@@ -27,7 +27,7 @@ export function NumButton({ numArr }: Props): JSX.Element[] {
                             <img className={chipStyle} src={chipUrl} />
                         </div>
                         {num}
-            </Button>
+            </PlayButton>
         )
     });
     return numberButtons;
@@ -55,4 +55,6 @@ const chipStyle = css`
     margin-left: -3.2em;
     margin-top: .2em;
     z-index: 4;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
+    border-radius: 50%;
 `
