@@ -1,4 +1,6 @@
+// Data types exports.
 export type arrayNum = number[];
+
 export interface chipDataType {
     id: number,
     chipUrl: string,
@@ -8,6 +10,30 @@ export interface chipDataType {
     isSelected: boolean
 }
 
+export interface betDataType {
+    betOn: number | string,
+    betValue: number
+}
+
+export interface playDataStoreType {
+    chipUrl: string,
+    enableButton: boolean,
+    totalBet: number,
+    buttonBetValue: number
+}
+
+export interface ChipContextType {
+    getChipUrl: (() => void) | null,
+    chipValue: number,
+    setAction: ((set: boolean) => void) | null
+    playDataStore: playDataStoreType,
+    updateBetData: (
+        (total: number, bet: number) => void
+    ) | null
+}
+
+
+// Data exports.
 export const firstRowNumbers: arrayNum  = [3,6,9,12,15,18,21,24,27,30,33,36]
 export const secondRowNumbers: arrayNum  = [2,5,8,11,14,17,20,23,26,29,32,35]
 export const thirdRowNumbers: arrayNum  = [1,4,7,10,13,16,19,22,25,28,31,34]
@@ -70,6 +96,9 @@ export const chipData: chipDataType[] = [
 ]
 sessionStorage.setItem("chipsData", JSON.stringify(chipData))
 
+const betData: betDataType[] | [] = []
+sessionStorage.setItem("betsData", JSON.stringify(betData))
+
 export const topGridButtons: {
     key: number,
     name: string,
@@ -77,22 +106,22 @@ export const topGridButtons: {
 }[] = [
     {
         key: 1,
-        name: "Low",
+        name: "low",
         backgroundColor: "#d0021b"
     },
     {
         key: 2,
-        name: "High",
+        name: "high",
         backgroundColor: "#d0021b"
     },
     {
         key: 3,
-        name: "Low",
+        name: "low",
         backgroundColor: "#1f1f1f"
     },
     {
         key: 4,
-        name: "High",
+        name: "high",
         backgroundColor: "#1f1f1f"
     },
 ]

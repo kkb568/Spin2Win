@@ -1,10 +1,15 @@
 import { css } from "@emotion/css";
+import { useContext } from "react";
+import { ChipContext } from "../../PlayArea";
 
 export default function BetBalance() {
+    const { playDataStore } = useContext(ChipContext)
+    const totalBetValue: number = playDataStore.totalBet
+
     return (
         <div className={BetBalanceStyle}>
             <p>Total Bet</p>
-            <p>Ksh0.00</p>
+            <p>KSh{totalBetValue}.00</p>
         </div>
     )
 }

@@ -12,7 +12,8 @@ export default function Chips() {
 
     /* The function changes the selected value of the chip object 
     whose keyValue is equal to the key parameter 
-    (called when user selects a specific chip). Afterwards, the chipsArray and the chipsData are updated
+    (called when user selects a specific chip). 
+    Afterwards, the chipsArray and the chipsData are updated
     and the getChipUrl function is called. */
     function showSelected(key: number) {
         const newChipsArray: chipDataType[] = chipsData.map(chip =>

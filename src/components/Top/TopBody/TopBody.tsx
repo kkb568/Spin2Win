@@ -1,8 +1,8 @@
 import { css } from "@emotion/css";
-import BottomGrid from "./BottomGrid/BottomGrid";
+import BottomGrid from "./Grid/BottomGrid/BottomGrid";
 import LionIcons from "./LionIcons";
-import MiddleGrid from "./MiddleGrid/MiddleGrid";
-import TopGrid from "./TopGrid/TopGrid";
+import MiddleGrid from "./Grid/MiddleGrid/MiddleGrid";
+import TopGrid from "./Grid/TopGrid/TopGrid";
 import ActionSection from "./ActionSection";
 
 // This is the main playing area.
