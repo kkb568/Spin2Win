@@ -1,18 +1,43 @@
 import { css } from "@emotion/css"
 import { useContext } from "react"
 import { ChipContext } from "../../PlayArea"
-import { clearBetsData, doubleBetValue } from "../../../utils/utils"
+import { Action } from "../../../data/data"
+import { clearBetsData, doubleBetValue, getTotalBet } from "../../../utils/betUtils"
+import { addAction, undoBetAction } from "../../../utils/actionUtils"
 
 export default function ActionSection() {
-    const { setAction, playDataStore, updateBetData } = useContext(ChipContext)
+    const { 
+        setAction, 
+        playDataStore, 
+        updateTotalBet
+    } = useContext(ChipContext)
     const { enableButton } = playDataStore;
 
     /* The functions clears all bets, disables the action buttons 
-    and updates the betData to the original state. */
+    and updates the total bet to the original state. */
     function deleteBets() {
         clearBetsData();
         setAction(false);
-        updateBetData(0, 0);
+        updateTotalBet(0);
+    }
+
+    /* The function doubles the bet values of all the bets,
+    adds the double_bets action to actionData storage and updates the total bet. */
+    function doubleBets() {
+        doubleBetValue();
+        addAction(Action.Double_Bets, null);
+        updateTotalBet(getTotalBet());
+    }
+
+    /*The function is undo the bets done by the user, updates the total bets 
+    and if the total bets is equal to zero, disable the action buttons. */
+    function undoBets() {
+        undoBetAction();
+        updateTotalBet(getTotalBet());
+        
+        if(getTotalBet() === 0) {
+            setAction(false);
+        }
     }
 
     return (
@@ -24,12 +49,12 @@ export default function ActionSection() {
 
             <button className={
                 enableButton === true ? enabledButtonStyle : disabledButtonStyle
-            } onClick={() => doubleBetValue()}>x2</button>
+            } onClick={() => doubleBets()}>x2</button>
             <br/>
 
             <button className={
                 enableButton === true ? enabledButtonStyle : disabledButtonStyle
-            }>
+            } onClick={() => undoBets()}>
                 <span className="material-symbols-outlined">
                     arrow_back
                 </span>

@@ -1,5 +1,6 @@
 // Data types exports.
 export type arrayNum = number[];
+export type betOnType = string | number;
 
 export interface chipDataType {
     id: number,
@@ -18,8 +19,13 @@ export interface betDataType {
 export interface playDataStoreType {
     chipUrl: string,
     enableButton: boolean,
-    totalBet: number,
-    buttonBetValue: number
+    totalBet: number
+}
+
+export interface actionDataType {
+    action: Action, 
+    lastBetValueAdded: number, 
+    betOn?: betOnType
 }
 
 export interface ChipContextType {
@@ -27,9 +33,35 @@ export interface ChipContextType {
     chipValue: number,
     setAction: ((set: boolean) => void) | null
     playDataStore: playDataStoreType,
-    updateBetData: (
-        (total: number, bet: number) => void
-    ) | null
+    updateTotalBet: ((total: number) => void) | null
+}
+
+export interface buttonStateType {
+    selectedChip: boolean,
+    showTotal: boolean
+}
+
+export interface actionChangeType {
+    action: Action,
+    betValueAdded: null | number
+}
+
+/* These are the types of actions that will occur, 
+depending on the button clicked and the state of the button.
+For example, clicking 'x2' button is for Double_Bets, 
+clicking for the first time on any grid button is for Add_Bet
+and clicking the same button again is for Add_BetValue. */
+export enum Action {
+    Add_Bet = "Add_Bet",
+    Double_Bets = "Double_Bets",
+    Add_BetValue = "Add_BetValue",
+    None = ""
+}
+
+export interface ActionData {
+    action: Action,
+    lastBetValueAdded: number | null, 
+    betOn?: betOnType
 }
 
 
@@ -44,7 +76,7 @@ export const backgroundImageUrl: string = "https://virtual-games.virtustec.com/d
 export const lionIconsUrl: string = "https://virtual-games.virtustec.com/desktop-v4/default/spin2win-royale-lion.c24f2de95fb5e09bb485.svg"
 export const howToPlayUrl: string = "https://virtual-games.virtustec.com/desktop-v4/default/assets/rules/en-GB/casinogame/how_to_play_casinogame_spin2win_deluxe_en-GB.pdf"
 
-export const chipData: chipDataType[] = [
+const chipData: chipDataType[] = [
     {
         id: 1,
         chipUrl: "https://virtual-games.virtustec.com/desktop-v4/default/assets/images/spin2win/chips/spin2win-chip-purple.svg",
@@ -151,3 +183,14 @@ export const dozenGridButtons: {
         higest: 36
     }
 ]
+
+/* The array is used to store the action that occurred, 
+the last bet value added and on which bet was the value is added. */ 
+const actionArray: ActionData[] = [
+    {
+        action: Action.None,
+        lastBetValueAdded: null,
+        betOn: "",
+    }
+]
+sessionStorage.setItem("actionData", JSON.stringify(actionArray));

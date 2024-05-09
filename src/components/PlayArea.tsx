@@ -2,8 +2,9 @@ import { css } from "@emotion/css";
 import BottomComponent from "./Bottom/BottomComponent";
 import TopComponent from "./Top/TopComponent";
 import { createContext, useState } from "react";
-import { getSelectedChipUrl, getSelectedChipValue } from "../utils/utils";
+import { getSelectedChipUrl, getSelectedChipValue } from "../utils/chipUtils";
 import { ChipContextType, playDataStoreType } from "../data/data";
+
 
 export const ChipContext = createContext<ChipContextType>({
     getChipUrl: null,
@@ -12,10 +13,9 @@ export const ChipContext = createContext<ChipContextType>({
     playDataStore: {
         chipUrl: "",
         enableButton: false,
-        totalBet: 0,
-        buttonBetValue: 0
+        totalBet: 0
     },
-    updateBetData: null
+    updateTotalBet: null
 });
 
 
@@ -23,8 +23,7 @@ export default function PlayArea() {
     const [playData, setPlayData] = useState<playDataStoreType>({
         chipUrl: getSelectedChipUrl(),
         enableButton: false,
-        totalBet: 0,
-        buttonBetValue: 0
+        totalBet: 0
     })
     const selectedChipValue = getSelectedChipValue();
 
@@ -51,18 +50,17 @@ export default function PlayArea() {
         })
     }
 
-    /* The function is used to update the total bet and bet value for 
-    the specified button when the user clicks on any of the play buttons
-    by using the value of the chip the user has selected. */
-    function updateBet(total: number, bet: number) {
+    /* The function is used to update the total bet 
+    and is called when the user clicks on any of the grid buttons. */
+    function updateTotalBet(total: number) {
         setPlayData(prevState => {
             return {
                 ...prevState,
-                totalBet: total,
-                buttonBetValue: bet,
+                totalBet: total
             }
         })
     }
+
 
      /* The contextValue provides the selected chip and 
         the getSelectedChip function to all elements within the PlayArea component, 
@@ -75,7 +73,7 @@ export default function PlayArea() {
         chipValue: selectedChipValue,
         setAction: setActionButtons,
         playDataStore: playData,
-        updateBetData: updateBet
+        updateTotalBet: updateTotalBet
     }
 
     return (

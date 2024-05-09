@@ -3,8 +3,10 @@ import { useContext, useState } from "react";
 import { ButtonFontStyle } from "../../../../../styles/styles";
 import { css } from "@emotion/css";
 import { ChipContext } from "../../../../PlayArea";
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/utils";
 import ShownChip from "../ShownChip/ShownChip";
+import { buttonStateType } from "../../../../../data/data";
+import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/betUtils";
+import { addAction, getGridButtonAction } from "../../../../../utils/actionUtils";
 
 interface Props {
     description: string
@@ -15,42 +17,56 @@ export default function DescButton({ description }: Props) {
         playDataStore, 
         chipValue, 
         setAction,
-        updateBetData
+        updateTotalBet
     } = useContext(ChipContext)
     const { chipUrl } = playDataStore;
-    // This is used to show chip when user selects a button.
-    const [selectedChip, setSelectedChip] = useState<boolean>(false);
-    // This is used to show the total bet forthe specified button when user hover over the button.
-    const [showTotal, setShowTotal] = useState<boolean>(false)
+    /* The selectedChip is for showing the shown chip when user clicks the button 
+    whereas the showTotal is for showing the total bet for the specified button 
+    when user hover over the button and the shown chip is present.*/
+    const [buttonState, setButtonState] = useState<buttonStateType>({
+        selectedChip: true,
+        showTotal: true
+    })
 
     const betChipUrl = getChipUrlByBet(description)
     const totalBetValue = getBetByBetOn(description)
 
+    function updateButtonState(key: string, value: boolean) {
+        setButtonState(prevState => {
+            return {
+                ...prevState,
+                [key]: value
+            }
+        })
+    }
+
     function showSelectedChip() {
-        addBet(description, chipValue);
-        setSelectedChip(true);
-        setAction(true);
-        updateBetData(
-            getTotalBet(),
-            getBetByBetOn(description)
+        addAction(
+            getGridButtonAction(description),
+            chipValue,
+            description
         );
+        addBet(description, chipValue);
+        updateButtonState("selectedChip", true);
+        setAction(true);
+        updateTotalBet(getTotalBet());
     }
 
     return (
         <PlayButton style={ButtonFontStyle} 
         onClick={() => showSelectedChip()}
-        onMouseEnter={() => setShowTotal(true)} 
-        onMouseLeave={() => setShowTotal(false)}>
+        onMouseEnter={() => updateButtonState("showTotal", true)} 
+        onMouseLeave={() => updateButtonState("showTotal", true)}>
                 {description}
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
             </div>
-            {selectedChip && 
+            {buttonState.selectedChip && 
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 
                     betTotal={totalBetValue}
-                    showTotal={showTotal} />
+                    showTotal={buttonState.showTotal} />
                 </div>
             }
         </PlayButton>

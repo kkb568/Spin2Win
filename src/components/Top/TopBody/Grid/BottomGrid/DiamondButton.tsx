@@ -2,8 +2,10 @@ import { css } from "@emotion/css"
 import { Diamond, PlayButton } from "../../../../../styles/styles"
 import { useContext, useState } from "react"
 import { ChipContext } from "../../../../PlayArea"
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/utils"
 import ShownChip from "../ShownChip/ShownChip"
+import { buttonStateType } from "../../../../../data/data"
+import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/betUtils"
+import { addAction, getGridButtonAction } from "../../../../../utils/actionUtils"
 
 interface Props {
     color: string
@@ -14,25 +16,39 @@ export default function DiamondButton({ color }: Props) {
         playDataStore, 
         chipValue, 
         setAction,
-        updateBetData
+        updateTotalBet
      } = useContext(ChipContext)
      const { chipUrl } = playDataStore
-    // This is used to show chip when user selects a button.
-    const [selectedChip, setSelectedChip] = useState<boolean>(false);
-    // This is used to show the total bet forthe specified button when user hover over the button.
-    const [showTotal, setShowTotal] = useState<boolean>(false)
+    /* The selectedChip is for showing the shown chip when user clicks the button 
+    whereas the showTotal is for showing the total bet for the specified button 
+    when user hover over the button and the shown chip is present.*/
+    const [buttonState, setButtonState] = useState<buttonStateType>({
+        selectedChip: true,
+        showTotal: true
+    })
 
     const betChipUrl = getChipUrlByBet(color)
     const totalBetValue = getBetByBetOn(color)
 
+    function updateButtonState(key: string, value: boolean) {
+        setButtonState(prevState => {
+            return {
+                ...prevState,
+                [key]: value
+            }
+        })
+    }
+
     function showSelectedChip() {
-        addBet(color, chipValue);
-        setSelectedChip(true);
-        setAction(true);
-        updateBetData(
-            getTotalBet(),
-            getBetByBetOn(color)
+        addAction(
+            getGridButtonAction(color),
+            chipValue,
+            color
         );
+        addBet(color, chipValue);
+        updateButtonState("selectedChip", true);
+        setAction(true);
+        updateTotalBet(getTotalBet());
     }
 
     const diamondStyle = css`
@@ -44,18 +60,18 @@ export default function DiamondButton({ color }: Props) {
 
     return (
         <PlayButton onClick={() => showSelectedChip()}
-        onMouseEnter={() => setShowTotal(true)} 
-        onMouseLeave={() => setShowTotal(false)}>
+        onMouseEnter={() => updateButtonState("showTotal", true)} 
+        onMouseLeave={() => updateButtonState("showTotal", false)}>
             <div className={hoverElementDiamondStyle}>
                 <div className={foregroundDiamondStyle}></div>
                 <img className={chipDiamondStyle} src={chipUrl} />
             </div>
             <Diamond className={diamondStyle} />
-            {selectedChip && 
+            {buttonState.selectedChip && 
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 
                     betTotal={totalBetValue}
-                    showTotal={showTotal} />
+                    showTotal={buttonState.showTotal} />
                 </div>
             }
         </PlayButton>
