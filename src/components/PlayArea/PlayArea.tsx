@@ -2,8 +2,8 @@ import { css } from "@emotion/css";
 import BottomComponent from "./Bottom/BottomComponent";
 import TopComponent from "./Top/TopComponent";
 import { createContext, useState } from "react";
-import { getSelectedChipUrl, getSelectedChipValue } from "../utils/chipUtils";
-import { ChipContextType, playDataStoreType } from "../data/data";
+import { getSelectedChipUrl, getSelectedChipValue } from "../../utils/chipUtils";
+import { ChipContextType, playDataStoreType } from "../../data/data";
 
 
 export const ChipContext = createContext<ChipContextType>({
@@ -18,7 +18,7 @@ export const ChipContext = createContext<ChipContextType>({
     updateTotalBet: null
 });
 
-
+// The component is the playing area that contains all the buttons and chips.
 export default function PlayArea() {
     const [playData, setPlayData] = useState<playDataStoreType>({
         chipUrl: getSelectedChipUrl(),
@@ -68,7 +68,7 @@ export default function PlayArea() {
         buttons in the TopComponent component.
         It also provide the enableButton for setting the action buttons 
         based on its value. */
-    const contextValue: ChipContextType = {
+    const chipContextValue: ChipContextType = {
         getChipUrl: getSelectedChip,
         chipValue: selectedChipValue,
         setAction: setActionButtons,
@@ -78,7 +78,7 @@ export default function PlayArea() {
 
     return (
         <div className={PlayAreaStyle}>
-            <ChipContext.Provider value={contextValue}>
+            <ChipContext.Provider value={chipContextValue}>
                 <TopComponent />
                 <BottomComponent />
             </ChipContext.Provider>
@@ -89,6 +89,5 @@ export default function PlayArea() {
 
 const PlayAreaStyle = css`
     width: 960px;
-    height: 80vh;
     color: white;
 `

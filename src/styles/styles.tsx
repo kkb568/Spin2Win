@@ -83,3 +83,10 @@ export const FooterButton = styled.button`
         color: white;
     }
 `
+
+export const PayTableGridSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+`

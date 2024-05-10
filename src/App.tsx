@@ -1,9 +1,38 @@
 import { css } from "@emotion/css"
-import PlayArea from "./components/PlayArea"
-import { backgroundImageUrl } from "./data/data"
+import { MainContextType, MainDataStoreType, backgroundImageUrl } from "./data/data"
+import PlayArea from "./components/PlayArea/PlayArea"
+import PayTable from "./components/PayTable/PayTable"
+import { createContext, useState } from "react"
+
+export const MainContext = createContext<MainContextType>({
+  mainData: {
+    displayValue: "none"
+  },
+  setDisplay: null
+})
 
 
 function App() {
+  // The displayValue is used to determine if the blue modal PayTable is shown or not.
+  const [mainData, setMainData] = useState<MainDataStoreType>({
+    displayValue: "none"
+  })
+
+  // The function is used to set the displayValue to the value parameter.
+  function displayModal(value: string) {
+    setMainData(prevState => {
+      return {
+        ...prevState,
+        displayValue: value
+      }
+    })
+  }
+
+  const mainContextValue: MainContextType = {
+    mainData: mainData,
+    setDisplay: displayModal
+  }
+
   return (
     <>
       <div className={divBackgroundStyle}></div>
@@ -11,7 +40,10 @@ function App() {
         alt="Spin2Win background image"
         className={imageBackgroundStyle}/>
       <div className={containerStyle}>
-        <PlayArea />
+        <MainContext.Provider value={mainContextValue}>
+          <PlayArea />
+          <PayTable />
+        </MainContext.Provider>
       </div>
     </>
   )
@@ -41,7 +73,6 @@ const imageBackgroundStyle = css`
 
 const containerStyle = css`
     display: flex;
-    align-items: center;
     justify-content: center;
     margin-top: 3em;
     font-family: 'Roboto';

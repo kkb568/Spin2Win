@@ -1,11 +1,11 @@
 import { css } from "@emotion/css";
-import { Diamond, PlayButton } from "../../../../../styles/styles";
+import { Diamond, PlayButton } from "../../../../../../styles/styles";
 import { useContext, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
-import { buttonStateType } from "../../../../../data/data";
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/betUtils";
-import { addAction, getGridButtonAction } from "../../../../../utils/actionUtils";
+import { buttonStateType } from "../../../../../../data/data";
+import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 const green: string = "#4a8c02"
 
@@ -21,8 +21,8 @@ export default function GreenButton() {
     whereas the showTotal is for showing the total bet for the specified button 
     when user hover over the button and the shown chip is present.*/
     const [buttonState, setButtonState] = useState<buttonStateType>({
-        selectedChip: true,
-        showTotal: true
+        selectedChip: false,
+        showTotal: false
     })
 
     const betChipUrl = getChipUrlByBet(green)

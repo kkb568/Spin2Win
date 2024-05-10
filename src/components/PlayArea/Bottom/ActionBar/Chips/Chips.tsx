@@ -1,5 +1,5 @@
 import { css } from "@emotion/css"
-import { chipDataType } from "../../../../data/data"
+import { chipDataType } from "../../../../../data/data"
 import ChipItem from "./ChipItem"
 import { useContext, useState } from "react"
 import { ChipContext } from "../../../PlayArea"

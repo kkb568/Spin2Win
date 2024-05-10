@@ -1,12 +1,12 @@
 import { css } from "@emotion/css";
-import { PlayButton } from "../../../../../styles/styles";
-import { assignBackgroundColor } from "../../../../../utils/chipUtils";
+import { PlayButton } from "../../../../../../styles/styles";
+import { assignBackgroundColor } from "../../../../../../utils/chipUtils";
 import { useContext, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
-import { buttonStateType } from "../../../../../data/data";
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/betUtils";
-import { addAction, getGridButtonAction } from "../../../../../utils/actionUtils";
+import { buttonStateType } from "../../../../../../data/data";
+import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
     num: number
@@ -24,8 +24,8 @@ export default function NumButton({ num }: Props) {
     whereas the showTotal is for showing the total bet for the specified button 
     when user hover over the button and the shown chip is present.*/
     const [buttonState, setButtonState] = useState<buttonStateType>({
-        selectedChip: true,
-        showTotal: true
+        selectedChip: false,
+        showTotal: false
     })
 
     const buttonColor = assignBackgroundColor(num);
@@ -119,7 +119,7 @@ const selectedChipStyle = css`
 
     p {
         position: absolute;
-        margin-left: .6em;
+        margin-left: .5em;
         margin-top: -2.4em;
         font-size: .6em;
     }

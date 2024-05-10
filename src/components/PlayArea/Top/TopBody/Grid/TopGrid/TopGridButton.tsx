@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { Diamond, PlayButton } from "../../../../../styles/styles";
+import { Diamond, PlayButton } from "../../../../../../styles/styles";
 import { css } from "@emotion/css";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
-import { buttonStateType } from "../../../../../data/data";
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/betUtils";
-import { addAction, getGridButtonAction } from "../../../../../utils/actionUtils";
+import { buttonStateType } from "../../../../../../data/data";
+import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
     name: string,
@@ -24,8 +24,8 @@ export default function TopGridButton({ name, diamondColor }: Props) {
     whereas the showTotal is for showing the total bet for the specified button 
     when user hover over the button and the shown chip is present.*/
     const [buttonState, setButtonState] = useState<buttonStateType>({
-        selectedChip: true,
-        showTotal: true
+        selectedChip: false,
+        showTotal: false
     })
 
     // The betOnValue is a combination of name and button color.

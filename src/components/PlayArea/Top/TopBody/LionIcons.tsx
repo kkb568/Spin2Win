@@ -1,5 +1,5 @@
 import { css, cx } from "@emotion/css";
-import { lionIconsUrl } from "../../../data/data";
+import { lionIconsUrl } from "../../../../data/data";
 
 export default function LionIcons() {
     return (

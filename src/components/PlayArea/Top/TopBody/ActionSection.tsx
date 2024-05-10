@@ -1,9 +1,9 @@
 import { css } from "@emotion/css"
 import { useContext } from "react"
 import { ChipContext } from "../../PlayArea"
-import { Action } from "../../../data/data"
-import { clearBetsData, doubleBetValue, getTotalBet } from "../../../utils/betUtils"
-import { addAction, undoBetAction } from "../../../utils/actionUtils"
+import { Action } from "../../../../data/data"
+import { clearBetsData, doubleBetValue, getTotalBet } from "../../../../utils/betUtils"
+import { addAction, undoBetAction } from "../../../../utils/actionUtils"
 
 export default function ActionSection() {
     const { 

@@ -1,8 +1,12 @@
 import { css } from "@emotion/css"
-import { FooterButton } from "../../../styles/styles"
-import { howToPlayUrl } from "../../../data/data"
+import { FooterButton } from "../../../../styles/styles"
+import { howToPlayUrl } from "../../../../data/data"
+import { useContext } from "react"
+import { MainContext } from "../../../../App"
 
 export default function FooterButtons() {
+    const { setDisplay } = useContext(MainContext);
+
     return (
         <div className={buttonDivStyle}>
             <FooterButton>
@@ -11,7 +15,7 @@ export default function FooterButtons() {
                         help
                 </span>
             </FooterButton>
-            <FooterButton>
+            <FooterButton onClick={() => setDisplay("block")}>
                 <span className="material-symbols-outlined">
                     attach_money
                 </span>

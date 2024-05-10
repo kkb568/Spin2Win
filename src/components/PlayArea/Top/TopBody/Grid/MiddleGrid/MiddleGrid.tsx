@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { arrayNum, dozenGridButtons, firstRowNumbers, secondRowNumbers, thirdRowNumbers } from "../../../../../data/data"
+import { arrayNum, dozenGridButtons, firstRowNumbers, secondRowNumbers, thirdRowNumbers } from "../../../../../../data/data"
 import NumButton from "./NumButton";
 import DozenButton from "./DozenButton";
 import GreenButton from "./GreenButton";

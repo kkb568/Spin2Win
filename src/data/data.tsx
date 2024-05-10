@@ -36,6 +36,15 @@ export interface ChipContextType {
     updateTotalBet: ((total: number) => void) | null
 }
 
+export interface MainDataStoreType {
+    displayValue: string
+}
+
+export interface MainContextType {
+    mainData: MainDataStoreType,
+    setDisplay: ((value: string) => void) | null
+}
+
 export interface buttonStateType {
     selectedChip: boolean,
     showTotal: boolean

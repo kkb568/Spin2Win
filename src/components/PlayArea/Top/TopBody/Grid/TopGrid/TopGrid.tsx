@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { topGridButtons } from "../../../../../data/data";
+import { topGridButtons } from "../../../../../../data/data";
 import TopGridButton from "./TopGridButton";
 
 /* This component renders the buttons at the first grid */

@@ -1,34 +1,35 @@
-import { css } from "@emotion/css"
-import { Diamond, PlayButton } from "../../../../../styles/styles"
-import { useContext, useState } from "react"
-import { ChipContext } from "../../../../PlayArea"
-import ShownChip from "../ShownChip/ShownChip"
-import { buttonStateType } from "../../../../../data/data"
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../utils/betUtils"
-import { addAction, getGridButtonAction } from "../../../../../utils/actionUtils"
+import { PlayButton } from "../../../../../../styles/styles"
+import { useContext, useState } from "react";
+import { ButtonFontStyle } from "../../../../../../styles/styles";
+import { css } from "@emotion/css";
+import { ChipContext } from "../../../../PlayArea";
+import ShownChip from "../ShownChip/ShownChip";
+import { buttonStateType } from "../../../../../../data/data";
+import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
-    color: string
+    description: string
 }
 
-export default function DiamondButton({ color }: Props) {
+export default function DescButton({ description }: Props) {
     const { 
         playDataStore, 
         chipValue, 
         setAction,
         updateTotalBet
-     } = useContext(ChipContext)
-     const { chipUrl } = playDataStore
+    } = useContext(ChipContext)
+    const { chipUrl } = playDataStore;
     /* The selectedChip is for showing the shown chip when user clicks the button 
     whereas the showTotal is for showing the total bet for the specified button 
     when user hover over the button and the shown chip is present.*/
     const [buttonState, setButtonState] = useState<buttonStateType>({
-        selectedChip: true,
-        showTotal: true
+        selectedChip: false,
+        showTotal: false
     })
 
-    const betChipUrl = getChipUrlByBet(color)
-    const totalBetValue = getBetByBetOn(color)
+    const betChipUrl = getChipUrlByBet(description)
+    const totalBetValue = getBetByBetOn(description)
 
     function updateButtonState(key: string, value: boolean) {
         setButtonState(prevState => {
@@ -41,32 +42,26 @@ export default function DiamondButton({ color }: Props) {
 
     function showSelectedChip() {
         addAction(
-            getGridButtonAction(color),
+            getGridButtonAction(description),
             chipValue,
-            color
+            description
         );
-        addBet(color, chipValue);
+        addBet(description, chipValue);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());
     }
 
-    const diamondStyle = css`
-        width: 5.1em;
-        height: 3.4em;
-        margin-top: -.5em;
-        background-color: ${color};
-    `
-
     return (
-        <PlayButton onClick={() => showSelectedChip()}
+        <PlayButton style={ButtonFontStyle} 
+        onClick={() => showSelectedChip()}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}>
-            <div className={hoverElementDiamondStyle}>
-                <div className={foregroundDiamondStyle}></div>
-                <img className={chipDiamondStyle} src={chipUrl} />
+                {description}
+            <div className={hoverElementStyle}>
+                <div className={foregroundStyle}></div>
+                <img className={chipStyle} src={chipUrl} />
             </div>
-            <Diamond className={diamondStyle} />
             {buttonState.selectedChip && 
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 
@@ -78,27 +73,26 @@ export default function DiamondButton({ color }: Props) {
     )
 }
 
-const hoverElementDiamondStyle = css`
+
+const hoverElementStyle = css`
     position: absolute;
-    margin-left: 5.5em;
+    margin-left: 7.6em;
     margin-top: 1em;
 `
 
-const foregroundDiamondStyle = css`
+const foregroundStyle = css`
     background-color: rgba(255, 255, 255, .3);
     position: absolute;
-    width: 7.9em;
-    height: 3.4em;
+    width: 5.9em;
+    height: 2.5em;
     margin-left: -6.7em;
     margin-top: -1.5em;
-    z-index: 3;
 `
 
-const chipDiamondStyle = css`
+const chipStyle = css`
     position: absolute;
-    width: 2.1em;
-    margin-left: .4em;
-    margin-top: .5em;
+    width: 1.5em;
+    margin-left: -1.5em;
     z-index: 4;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
     border-radius: 50%;
@@ -112,19 +106,19 @@ const selectedChipStyle = css`
         position: absolute;
         color: #1467ff;
         margin-top: -1em;
-        margin-left: -.1em;
-        font-size: 3em;
+        margin-left: -.25em;
+        font-size: 2.5em;
     }
 
     p {
         position: absolute;
-        margin-left: .3em;
         margin-top: -2.4em;
+        font-size: .8em;
     }
 
     img {
-        width: 2.2em;
-        height: 2.2em;
+        width: 1.6em;
+        height: 1.6em;
         box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
         border-radius: 50%;
     }
