@@ -1,4 +1,4 @@
-import { betDataType, betOnType } from "../data/data";
+import { betDataType, betOnType } from "../data/dataTypes";
 import { getChipUrlByValue } from "./chipUtils";
 
 // The function is used to add bet to the betsData session storage.

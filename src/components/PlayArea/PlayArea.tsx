@@ -3,7 +3,7 @@ import BottomComponent from "./Bottom/BottomComponent";
 import TopComponent from "./Top/TopComponent";
 import { createContext, useState } from "react";
 import { getSelectedChipUrl, getSelectedChipValue } from "../../utils/chipUtils";
-import { ChipContextType, playDataStoreType } from "../../data/data";
+import { ChipContextType, playDataStoreType } from "../../data/dataTypes";
 
 
 export const ChipContext = createContext<ChipContextType>({

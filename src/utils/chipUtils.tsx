@@ -1,4 +1,5 @@
-import { chipDataType, redNumbers } from "../data/data";
+import { redNumbers } from "../data/data";
+import { chipDataType } from "../data/dataTypes";
 
 /* Function for assigning the background color of the main playing buttons 
 based on whether it's on the redNumbers array or not. */

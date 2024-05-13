@@ -1,7 +1,7 @@
 import { css } from "@emotion/css"
 import { useContext } from "react"
 import { ChipContext } from "../../PlayArea"
-import { Action } from "../../../../data/data"
+import { Action } from "../../../../data/dataTypes"
 import { clearBetsData, doubleBetValue, getTotalBet } from "../../../../utils/betUtils"
 import { addAction, undoBetAction } from "../../../../utils/actionUtils"
 

@@ -1,8 +1,9 @@
 import { css } from "@emotion/css";
-import { arrayNum, dozenGridButtons, firstRowNumbers, secondRowNumbers, thirdRowNumbers } from "../../../../../../data/data"
+import { dozenGridButtons, firstRowNumbers, secondRowNumbers, thirdRowNumbers } from "../../../../../../data/data"
 import NumButton from "./NumButton";
 import DozenButton from "./DozenButton";
 import GreenButton from "./GreenButton";
+import { arrayNum } from "../../../../../../data/dataTypes";
 
 // The component renders the number buttons and the buttons showing a group of dozen.
 export default function MiddleGrid() {

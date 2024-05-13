@@ -1,8 +1,9 @@
 import { css } from "@emotion/css"
-import { MainContextType, MainDataStoreType, backgroundImageUrl } from "./data/data"
+import { backgroundImageUrl } from "./data/data"
 import PlayArea from "./components/PlayArea/PlayArea"
 import PayTable from "./components/PayTable/PayTable"
 import { createContext, useState } from "react"
+import { MainContextType, MainDataStoreType } from "./data/dataTypes"
 
 export const MainContext = createContext<MainContextType>({
   mainData: {

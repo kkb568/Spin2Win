@@ -1,4 +1,4 @@
-import { Action, actionDataType, betDataType, betOnType } from "../data/data";
+import { Action, actionDataType, betDataType, betOnType } from "../data/dataTypes";
 
 /* The function is used to set the action for the clicked button in the any of the grid buttons. 
 If the button was clicked more than once, the action is "Add_BetValue", 
