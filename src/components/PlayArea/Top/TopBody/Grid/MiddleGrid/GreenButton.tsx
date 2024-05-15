@@ -6,8 +6,7 @@ import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType } from "../../../../../../data/dataTypes";
 import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
-
-const green: string = "#4a8c02"
+import { green } from "../../../../../../data/data";
 
 export default function GreenButton() {
     const { 

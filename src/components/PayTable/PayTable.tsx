@@ -12,7 +12,7 @@ export default function PayTable() {
     const { mainData, setDisplay } = useContext(MainContext);
 
     const PayTableStyle = css`
-        display: ${mainData.displayValue};
+        display: ${mainData.displayPayTable};
         position: absolute;
         z-index: 6;
         width: 960px;
@@ -38,7 +38,7 @@ export default function PayTable() {
         <div className={PayTableStyle}>
             <p className={PayTableHeadingStyle}>Paytable</p>
             <i className="fa-solid fa-xmark"
-            onClick={() => setDisplay("none")}></i>
+            onClick={() => setDisplay("displayPayTable", "none")}></i>
             <TopGridTable />
             <NumGridTable />
             <GreenButtonTable />

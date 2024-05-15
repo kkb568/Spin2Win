@@ -15,7 +15,7 @@ export default function FooterButtons() {
                         help
                 </span>
             </FooterButton>
-            <FooterButton onClick={() => setDisplay("block")}>
+            <FooterButton onClick={() => setDisplay("displayPayTable", "block")}>
                 <span className="material-symbols-outlined">
                     attach_money
                 </span>

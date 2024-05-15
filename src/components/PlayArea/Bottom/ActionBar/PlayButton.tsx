@@ -1,9 +1,11 @@
 import { css, cx } from "@emotion/css";
 import { useContext } from "react";
 import { ChipContext } from "../../PlayArea";
+import { MainContext } from "../../../../App";
 
 export default function PlayButton() {
     const { playDataStore } = useContext(ChipContext)
+    const { setDisplay } = useContext(MainContext)
     const { enableButton } = playDataStore
 
     // The style is for ensuring the button is not clicked if there's no chip in the playing area.
@@ -17,8 +19,16 @@ export default function PlayButton() {
         pointer-events: none;
     `
 
+    // Once called, change the displayWheel value to block after 1 second.
+    function startPlay() {
+        setTimeout(() => {
+            setDisplay("displayWheel", "block");
+        }, 1000);
+    }
+
     return (
-        <button className={cx(playButtonStyle, visibleButtonStyle)}>
+        <button className={cx(playButtonStyle, visibleButtonStyle)}
+        onClick={() => startPlay()}>
             <i className="fa-solid fa-play"></i>
         </button>
     )

@@ -4,34 +4,37 @@ import PlayArea from "./components/PlayArea/PlayArea"
 import PayTable from "./components/PayTable/PayTable"
 import { createContext, useState } from "react"
 import { MainContextType, MainDataStoreType } from "./data/dataTypes"
+import RouletteWheel from "./components/RouletteWheel/RouletteWheel"
 
 export const MainContext = createContext<MainContextType>({
   mainData: {
-    displayValue: "none"
+    displayPayTable: "none",
+    displayWheel: "none"
   },
   setDisplay: null
 })
 
 
 function App() {
-  // The displayValue is used to determine if the blue modal PayTable is shown or not.
+  /* The displayPayTable is used to determine if the blue modal PayTable is shown or not
+  whereas the displayWheel does the same but for the RouletteWheel. */
   const [mainData, setMainData] = useState<MainDataStoreType>({
-    displayValue: "none"
+    displayPayTable: "none",
+    displayWheel: "none"
   })
 
-  // The function is used to set the displayValue to the value parameter.
-  function displayModal(value: string) {
+  function setMainState(key: string, value: string) {
     setMainData(prevState => {
       return {
         ...prevState,
-        displayValue: value
+        [key]: value
       }
     })
   }
 
   const mainContextValue: MainContextType = {
     mainData: mainData,
-    setDisplay: displayModal
+    setDisplay: setMainState
   }
 
   return (
@@ -44,6 +47,7 @@ function App() {
         <MainContext.Provider value={mainContextValue}>
           <PlayArea />
           <PayTable />
+          <RouletteWheel />
         </MainContext.Provider>
       </div>
     </>
