@@ -11,7 +11,9 @@ export const backgroundImageUrl: string = "https://virtual-games.virtustec.com/d
 export const lionIconsUrl: string = "https://virtual-games.virtustec.com/desktop-v4/default/spin2win-royale-lion.c24f2de95fb5e09bb485.svg"
 export const howToPlayUrl: string = "https://virtual-games.virtustec.com/desktop-v4/default/assets/rules/en-GB/casinogame/how_to_play_casinogame_spin2win_deluxe_en-GB.pdf"
 
-export const green: string = "#4a8c02"
+export const green: string = "#4a8c02";
+export const red: string = "#ff001f";
+export const black: string = "#1f1f1f";
 
 const chipData: chipDataType[] = [
     {
@@ -76,48 +78,40 @@ export const topGridButtons: {
     {
         key: 1,
         name: "low",
-        backgroundColor: "#d0021b"
+        backgroundColor: red
     },
     {
         key: 2,
         name: "high",
-        backgroundColor: "#d0021b"
+        backgroundColor: red
     },
     {
         key: 3,
         name: "low",
-        backgroundColor: "#1f1f1f"
+        backgroundColor: black
     },
     {
         key: 4,
         name: "high",
-        backgroundColor: "#1f1f1f"
+        backgroundColor: black
     },
 ]
 
 export const dozenGridButtons: {
     key: number,
     name: string,
-    lowest: number,
-    higest: number
 }[] = [
     {
         key: 1,
-        name: "1~12",
-        lowest: 1,
-        higest: 12
+        name: "1~12"
     },
     {
         key: 2,
-        name: "13~24",
-        lowest: 13,
-        higest: 24
+        name: "13~24"
     },
     {
         key: 3,
-        name: "25~36",
-        lowest: 25,
-        higest: 36
+        name: "25~36"
     }
 ]
 

@@ -1,14 +1,15 @@
 import { css } from "@emotion/css";
 import DescButton from "./DescButton";
 import DiamondButton from "./DiamondButton";
+import { black, red } from "../../../../../../data/data";
 
 export default function BottomGrid() {
     return (
         <div className={BottomGridStyle}>
             <DescButton description="low"/>
             <DescButton description="even"/>
-            <DiamondButton color="#ff001f"/>
-            <DiamondButton color="#1f1f1f"/>
+            <DiamondButton color={red}/>
+            <DiamondButton color={black}/>
             <DescButton description="odd"/>
             <DescButton description="high"/>
         </div>

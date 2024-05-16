@@ -8,15 +8,18 @@ import { MainContext } from "../../App";
 import { setRotation } from "../../utils/wheelUtils";
 
 export default function RouletteWheel() {
-    const { mainData } = useContext(MainContext);
+    const { mainData, setDisplay } = useContext(MainContext);
     const ref = useRef<HTMLUListElement>();
 
-    // If the displayWheel value is equal to block, the setRotation is called after 2 seconds.
     useEffect(() => {
+        // If the displayWheel value is equal to block, the setRotation is called after 2 seconds.
         if (mainData.displayWheel === "block") {
             setTimeout(() => {
                 setRotation(ref);
             }, 2000);
+            setTimeout(() => {
+                setDisplay("displayWheel", "none");
+            }, 15000);
         }
     }, [mainData.displayWheel])
 

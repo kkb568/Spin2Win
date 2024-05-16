@@ -1,4 +1,4 @@
-import { redNumbers } from "../data/data";
+import { black, red, redNumbers } from "../data/data";
 import { chipDataType } from "../data/dataTypes";
 
 /* Function for assigning the background color of the main playing buttons 
@@ -7,10 +7,10 @@ export function assignBackgroundColor(num: number): string {
     let buttonColor: string = "";
     for (let i = 0; i < redNumbers.length; i++) {
         if (redNumbers[i] == num) {
-            buttonColor = "#d0021b";
+            buttonColor = red;
             break;
         } else {
-            buttonColor = "#1f1f1f";
+            buttonColor = black;
         }
     }
     return buttonColor;
