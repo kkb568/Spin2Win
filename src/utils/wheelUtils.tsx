@@ -14,7 +14,7 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>) {
     ref.current.style.transition = 'all 10s ease-in-out';
     ref.current.style.transform = `rotate(${deg}deg)`;
 
-    return new Promise<number>((resolve, reject) => { 
+    return new Promise<number>((resolve) => { 
         setTimeout(() => {
             // Get the actual degrees that the ref element will rotated by.
             const actualDeg = (deg % 360);
