@@ -9,7 +9,7 @@ import RouletteWheel from "./components/RouletteWheel/RouletteWheel"
 export const MainContext = createContext<MainContextType>({
   mainData: {
     displayPayTable: "none",
-    displayWheel: "none"
+    displayWheel: "hidden"
   },
   setDisplay: null
 })
@@ -20,7 +20,7 @@ function App() {
   whereas the displayWheel does the same but for the RouletteWheel. */
   const [mainData, setMainData] = useState<MainDataStoreType>({
     displayPayTable: "none",
-    displayWheel: "none"
+    displayWheel: "hidden"
   })
 
   function setMainState(key: string, value: string) {

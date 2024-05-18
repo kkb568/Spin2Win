@@ -12,7 +12,8 @@ export const lionIconsUrl: string = "https://virtual-games.virtustec.com/desktop
 export const howToPlayUrl: string = "https://virtual-games.virtustec.com/desktop-v4/default/assets/rules/en-GB/casinogame/how_to_play_casinogame_spin2win_deluxe_en-GB.pdf"
 
 export const green: string = "#4a8c02";
-export const red: string = "#ff001f";
+export const red: string = "#d0021b";
+export const diamondRed: string = "#ff001f";
 export const black: string = "#1f1f1f";
 
 const chipData: chipDataType[] = [

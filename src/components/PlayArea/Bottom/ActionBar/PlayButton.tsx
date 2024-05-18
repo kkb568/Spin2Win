@@ -4,7 +4,7 @@ import { ChipContext } from "../../PlayArea";
 import { MainContext } from "../../../../App";
 
 export default function PlayButton() {
-    const { playDataStore } = useContext(ChipContext)
+    const { playDataStore, setAction, updateTotalBet } = useContext(ChipContext)
     const { setDisplay } = useContext(MainContext)
     const { enableButton } = playDataStore
 
@@ -22,8 +22,14 @@ export default function PlayButton() {
     // Once called, change the displayWheel value to block after 1 second.
     function startPlay() {
         setTimeout(() => {
-            setDisplay("displayWheel", "block");
+            setDisplay("displayWheel", "visible");
         }, 1000);
+        /* Wait for 21 seconds (for the wheel to implement fully) 
+        then set the enable button to false and update the total bet to zero. */
+        setTimeout(() => {
+            setAction(false);
+            updateTotalBet(0);
+        }, 21000)
     }
 
     return (
