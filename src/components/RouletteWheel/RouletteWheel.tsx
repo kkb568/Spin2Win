@@ -62,16 +62,14 @@ export default function RouletteWheel() {
     return (
         <div className={rouletteWheelStyle}>
             <div className={wheelContentStyle}>
-                <div className={wheelStyle}>
-                    <Wheel spinWheel={rouletteWheelState.spinWheelState}
-                    setWheelState={setWheelState}/>
-                    <WheelHead />
-                    
-                    {/* Show the Prize component if the showPrize is true and the winningPrize is not equal to zero. */}
-                    {rouletteWheelState.showPrize &&
-                        <Prize winningPrize={rouletteWheelState.winningPrize}/>
-                    }
-                </div>
+                <Wheel spinWheel={rouletteWheelState.spinWheelState}
+                setWheelState={setWheelState}/>
+                <WheelHead />
+                
+                {/* Show the Prize component if the showPrize is true and the winningPrize is not equal to zero. */}
+                {rouletteWheelState.showPrize &&
+                    <Prize winningPrize={rouletteWheelState.winningPrize}/>
+                }
             </div>
         </div>
     )
@@ -86,12 +84,12 @@ const wheelContentStyle = css`
     justify-content: center;
 `
 
-const wheelStyle = css`
-    width: 35em;
-    height: 35em;
-    border-radius: 50%;
-    font-family: 'Adamina';
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
+// const wheelStyle = css`
+//     width: 35em;
+//     height: 35em;
+//     border-radius: 50%;
+//     font-family: 'Adamina';
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// `

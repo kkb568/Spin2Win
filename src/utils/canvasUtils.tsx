@@ -41,7 +41,7 @@ function drawSlice(deg: number,
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.moveTo(center, center);
-    ctx.arc(center, center, center, degRad(deg), degRad(deg + sliceDeg), false);
+    ctx.arc(center, center, center, degRad(deg), degRad(deg + sliceDeg));
     ctx.lineTo(center, center);
     ctx.fill();
 }

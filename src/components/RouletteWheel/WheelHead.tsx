@@ -15,6 +15,7 @@ export default function WheelHead() {
 
 const wheelHeadStyle = css`
     background-color: black;
+    font-family: 'Adamina';
     color: white;
     width: 8em;
     height: 8em;
