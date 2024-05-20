@@ -9,10 +9,11 @@ import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../..
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
-    description: string
+    description: string,
+    correctValueDesc: string
 }
 
-export default function DescButton({ description }: Props) {
+export default function DescButton({ description, correctValueDesc }: Props) {
     const { 
         playDataStore, 
         chipValue, 
@@ -58,10 +59,19 @@ export default function DescButton({ description }: Props) {
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}>
                 {description}
+
+            {/* The below div is shown when the user hovers over the button. */}
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
             </div>
+
+            {/* The below div is shown when the correct value description (from the chosen value from the wheel spin functionality)
+            is equal to the description value. */}
+            {correctValueDesc === description &&
+                <div className={correctHoverStyle}></div>
+            }
+
             {buttonState.selectedChip && 
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 
@@ -121,5 +131,20 @@ const selectedChipStyle = css`
         height: 1.6em;
         box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
         border-radius: 50%;
+    }
+`
+
+const correctHoverStyle = css`
+    background-color: rgba(255, 255, 255, .3);
+    position: absolute;
+    width: 5.9em;
+    height: 2.5em;
+    margin-top: -.5em;
+    animation: blink 1s linear 5;
+
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
     }
 `

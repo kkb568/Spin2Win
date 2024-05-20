@@ -1,4 +1,4 @@
-import { Action, ActionData, arrayNum, betDataType, chipDataType } from "./dataTypes"
+import { Action, ActionData, arrayNum, betDataType, chipDataType, redColorsType } from "./dataTypes"
 
 // Data exports
 export const firstRowNumbers: arrayNum  = [3,6,9,12,15,18,21,24,27,30,33,36]
@@ -12,8 +12,10 @@ export const lionIconsUrl: string = "https://virtual-games.virtustec.com/desktop
 export const howToPlayUrl: string = "https://virtual-games.virtustec.com/desktop-v4/default/assets/rules/en-GB/casinogame/how_to_play_casinogame_spin2win_deluxe_en-GB.pdf"
 
 export const green: string = "#4a8c02";
-export const red: string = "#d0021b";
-export const diamondRed: string = "#ff001f";
+export const redColors: redColorsType = {
+    diamondRed: "#ff001f",
+    normalRed: "#d0021b"
+}
 export const black: string = "#1f1f1f";
 
 const chipData: chipDataType[] = [
@@ -79,12 +81,12 @@ export const topGridButtons: {
     {
         key: 1,
         name: "low",
-        backgroundColor: red
+        backgroundColor: redColors.normalRed
     },
     {
         key: 2,
         name: "high",
-        backgroundColor: red
+        backgroundColor: redColors.normalRed
     },
     {
         key: 3,

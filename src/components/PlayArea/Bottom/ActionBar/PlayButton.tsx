@@ -4,7 +4,11 @@ import { ChipContext } from "../../PlayArea";
 import { MainContext } from "../../../../App";
 
 export default function PlayButton() {
-    const { playDataStore, setAction, updateTotalBet } = useContext(ChipContext)
+    const { playDataStore, 
+        setAction, 
+        updateTotalBet,
+        updateIfSpinned
+    } = useContext(ChipContext)
     const { setDisplay } = useContext(MainContext)
     const { enableButton } = playDataStore
 
@@ -25,10 +29,12 @@ export default function PlayButton() {
             setDisplay("displayWheel", "visible");
         }, 1000);
         /* Wait for 21 seconds (for the wheel to implement fully) 
-        then set the enable button to false and update the total bet to zero. */
+        then set the enable button to false, update the total bet to zero
+        and update the ifSpinned value from ChipContext to true. */
         setTimeout(() => {
             setAction(false);
             updateTotalBet(0);
+            updateIfSpinned(true);
         }, 21000)
     }
 

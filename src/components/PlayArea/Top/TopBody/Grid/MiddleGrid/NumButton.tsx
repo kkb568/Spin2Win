@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 import { PlayButton } from "../../../../../../styles/styles";
 import { assignBackgroundColor } from "../../../../../../utils/chipUtils";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType } from "../../../../../../data/dataTypes";
@@ -9,10 +9,11 @@ import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../..
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
-    num: number
+    num: number,
+    chosenNum: number
 }
 
-export default function NumButton({ num }: Props) {
+export default function NumButton({ num, chosenNum }: Props) {
     const { 
         playDataStore, 
         chipValue, 
@@ -26,7 +27,8 @@ export default function NumButton({ num }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false
-    })
+    });
+    const [correctHover, setCorrectHover] = useState<boolean>(false);
 
     const buttonColor = assignBackgroundColor(num);
     const betChipUrl = getChipUrlByBet(num)
@@ -53,6 +55,16 @@ export default function NumButton({ num }: Props) {
         updateTotalBet(getTotalBet());
     }
 
+    useEffect(() => {
+        if (chosenNum === num) {
+            setCorrectHover(true);
+
+            setTimeout(() => {
+                setCorrectHover(false);
+            }, 5000);
+        }
+    }, [chosenNum])
+
     return (
         <PlayButton
             onClick={() => showSelectedChip()}
@@ -63,11 +75,18 @@ export default function NumButton({ num }: Props) {
                 backgroundColor: buttonColor,
                 fontSize: '24px'
                 }}>
+                    {/* The below div is shown when the user hovers over the button. */}
                     <div className={hoverElementStyle}>
                         <div className={foregroundStyle}></div>
                         <img className={chipStyle} src={chipUrl} />
                     </div>
                     {num}
+                    {/* The below div is shown when the correct value 
+                    (from the chosen value from the wheel spin functionality)
+                    is equal to the num value. */}
+                    {correctHover &&
+                        <div className={correctHoverStyle}></div>
+                    }
                     {buttonState.selectedChip &&
                         <div className={selectedChipStyle}>
                             <ShownChip url={betChipUrl} 
@@ -129,5 +148,20 @@ const selectedChipStyle = css`
         height: 1.5em;
         box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
         border-radius: 50%;
+    }
+`
+
+const correctHoverStyle = css`
+    background-color: rgba(255, 255, 255, .3);
+    position: absolute;
+    width: 2.2em;
+    height: 2.5em;
+    margin-top: -.5em;
+    animation: blink 1s linear 5;
+
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
     }
 `

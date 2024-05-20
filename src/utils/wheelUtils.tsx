@@ -1,5 +1,5 @@
-import { black, diamondRed, red, redNumbers, wheelSequence } from "../data/data";
-import { betDataType } from "../data/dataTypes";
+import { black, redColors, redNumbers, wheelSequence } from "../data/data";
+import { betDataType, correctValueDataType } from "../data/dataTypes";
 
 /*The function is used to set the rotation of the roulette wheel 
 and returns the winning prize.*/
@@ -25,6 +25,9 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>) {
             var index = Math.floor(((360 - actualDeg - 90) % 360) / sliceDeg);
             index = (wheelSequence.length + index) % wheelSequence.length; // This is used to fix any negative index value.
             const chosenNum = wheelSequence[index];
+
+            // Store the details of the chosenNum to the session storage.
+            addCorrectValue(chosenNum);
     
             // Get the winning prize based on the chosenNum value.
             winningPrize = getWinningPrize(chosenNum);
@@ -99,7 +102,7 @@ function getPrizeByStringBetOn(betOn: string,
                 prize = betValue * 2;
             }
             break;
-        case diamondRed:
+        case redColors.diamondRed:
             if (checkRedColor(chosenNum)) {
                 prize = betValue * 2;
             }
@@ -109,12 +112,12 @@ function getPrizeByStringBetOn(betOn: string,
                 prize = betValue * 2;
             }
             break;
-        case `low ${red}`:
+        case `low ${redColors.normalRed}`:
             if (checkNumRange(1, 18, chosenNum) && checkRedColor(chosenNum) ) {
                 prize = betValue * 4;
             }
             break;
-        case `high ${red}`:
+        case `high ${redColors.normalRed}`:
             if (checkNumRange(19, 36, chosenNum) && checkRedColor(chosenNum) ) {
                 prize = betValue * 4;
             }
@@ -167,4 +170,30 @@ function checkEven(chosenNum: number) {
         correct = true;
     }
     return correct;
+}
+
+/* The function is used to get the details of the chosen value from the wheel spin rotation
+and store the details in the correctValueData session storage. */ 
+function addCorrectValue(value: number) {
+    const evenOdd: string = checkEven(value) ? "even" : "odd";
+    const lowHigh: string = checkNumRange(1, 18, value) ? "low" : "high";
+    const redBlack: string = checkRedColor(value) ? redColors.normalRed : black;
+
+    let dozenRange: string = "";
+    if (checkNumRange(1, 12, value)) {
+        dozenRange = "1~12";
+    } else if (checkNumRange(13, 24, value)) {
+        dozenRange = "13~24"
+    } else if (checkNumRange(25, 36, value)) {
+        dozenRange = "25~36"
+    }
+
+    const winValue: correctValueDataType = {
+        value: value,
+        even_odd: evenOdd,
+        low_high: lowHigh,
+        red_black: redBlack,
+        dozenRange: dozenRange
+    }
+    sessionStorage.setItem("correctValueData", JSON.stringify(winValue));
 }

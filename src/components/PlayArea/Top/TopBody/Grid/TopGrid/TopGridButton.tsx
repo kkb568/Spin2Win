@@ -9,10 +9,11 @@ import { addAction, getGridButtonAction } from "../../../../../../utils/actionUt
 
 interface Props {
     name: string,
-    diamondColor: string
+    diamondColor: string,
+    chosenNumDetails: string
 }
 
-export default function TopGridButton({ name, diamondColor }: Props) {
+export default function TopGridButton({ name, diamondColor, chosenNumDetails }: Props) {
     const { 
         chipValue, 
         setAction, 
@@ -74,6 +75,12 @@ export default function TopGridButton({ name, diamondColor }: Props) {
             <Diamond className={diamondStyle}>
                 <span>{name}</span>
             </Diamond>
+            {/* The below div is shown when the chosenNumDetails value 
+            (from the chosen value from the wheel spin functionality)
+            is equal to the betOn value. */}
+            {betOnValue === chosenNumDetails &&
+                <div className={correctHoverStyle}></div>
+            }
             {/* The chip is shown when the selectedChip is false 
             and the betChipUrl is not an empty string. */}
             {buttonState.selectedChip && betChipUrl !== "" &&
@@ -141,5 +148,20 @@ const selectedChipStyle = css`
         height: 2.2em;
         box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
         border-radius: 50%;
+    }
+`
+
+const correctHoverStyle = css`
+    background-color: rgba(255, 255, 255, .3);
+    position: absolute;
+    width: 5.5em;
+    height: 3.4em;
+    margin-top: -.5em;
+    animation: blink 1s linear 5;
+
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
     }
 `

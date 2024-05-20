@@ -20,7 +20,7 @@ export function addBet(betOnParam: betOnType, betValueParam: number) {
         return;
     }
 
-    /* If the betsData is not empty, if the betOn value exists in the betsData storage,
+    /* If the betsData is not empty and the betOn value exists in the betsData storage,
     update the betValue from the found bet and to the betsData storage. */
     for (let i = 0; i < betDataArray.length; i++) {
         if (betDataArray[i].betOn === betOnParam) {
@@ -30,8 +30,8 @@ export function addBet(betOnParam: betOnType, betValueParam: number) {
         }
     }
 
-    /* If the betOn value does not exists, push the new bet to the bets array
-    and update the betsData storage. */
+    /* If the betOn value does not exists but the betsData is not empty, 
+    push the new bet to the bets array and update the betsData storage. */
     betDataArray.push(newBetData);
     sessionStorage.setItem("betsData", JSON.stringify(betDataArray));
 }

@@ -7,11 +7,16 @@ import { buttonStateType } from "../../../../../../data/dataTypes"
 import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils"
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils"
 
+/*The diamondColor is the color of the diamond, the represent color is the color the diamond represents
+(since the red diamond's color is different in hex value from the button's color which are red in color) 
+and the chosenColor is the color for the chosen number from the wheel spin rotation. */
 interface Props {
-    color: string
+    diamondColor: string,
+    representColor?: string
+    chosenColor: string
 }
 
-export default function DiamondButton({ color }: Props) {
+export default function DiamondButton({ diamondColor, chosenColor, representColor }: Props) {
     const { 
         playDataStore, 
         chipValue, 
@@ -27,8 +32,8 @@ export default function DiamondButton({ color }: Props) {
         showTotal: false
     })
 
-    const betChipUrl = getChipUrlByBet(color)
-    const totalBetValue = getBetByBetOn(color)
+    const betChipUrl = getChipUrlByBet(diamondColor)
+    const totalBetValue = getBetByBetOn(diamondColor)
 
     function updateButtonState(key: string, value: boolean) {
         setButtonState(prevState => {
@@ -41,11 +46,11 @@ export default function DiamondButton({ color }: Props) {
 
     function showSelectedChip() {
         addAction(
-            getGridButtonAction(color),
+            getGridButtonAction(diamondColor),
             chipValue,
-            color
+            diamondColor
         );
-        addBet(color, chipValue);
+        addBet(diamondColor, chipValue);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());
@@ -55,7 +60,7 @@ export default function DiamondButton({ color }: Props) {
         width: 5.1em;
         height: 3.4em;
         margin-top: -.5em;
-        background-color: ${color};
+        background-color: ${diamondColor};
     `
 
     return (
@@ -67,6 +72,12 @@ export default function DiamondButton({ color }: Props) {
                 <img className={chipDiamondStyle} src={chipUrl} />
             </div>
             <Diamond className={diamondStyle} />
+            {/* The below div is shown when the chosen color value description 
+            (from the chosen value from the wheel spin functionality)
+            is equal to the represent color value. */}
+            {chosenColor === representColor &&
+                <div className={correctHoverStyle}></div>
+            }
             {buttonState.selectedChip && 
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 
@@ -127,5 +138,20 @@ const selectedChipStyle = css`
         height: 2.2em;
         box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
         border-radius: 50%;
+    }
+`
+
+const correctHoverStyle = css`
+    background-color: rgba(255, 255, 255, .3);
+    position: absolute;
+    width: 7.9em;
+    height: 3.4em;
+    margin-top: -.5em;
+    animation: blink 1s linear 5;
+
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
     }
 `

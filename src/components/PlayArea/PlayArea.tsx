@@ -5,7 +5,7 @@ import { createContext, useState } from "react";
 import { getSelectedChipUrl, getSelectedChipValue } from "../../utils/chipUtils";
 import { ChipContextType, playDataStoreType } from "../../data/dataTypes";
 
-
+// The context is used for all components inside the PlayArea component.
 export const ChipContext = createContext<ChipContextType>({
     getChipUrl: null,
     chipValue: 0,
@@ -13,9 +13,11 @@ export const ChipContext = createContext<ChipContextType>({
     playDataStore: {
         chipUrl: "",
         enableButton: false,
-        totalBet: 0
+        totalBet: 0,
+        ifSpinned: false
     },
-    updateTotalBet: null
+    updateTotalBet: null,
+    updateIfSpinned: null
 });
 
 // The component is the playing area that contains all the buttons and chips.
@@ -23,7 +25,8 @@ export default function PlayArea() {
     const [playData, setPlayData] = useState<playDataStoreType>({
         chipUrl: getSelectedChipUrl(),
         enableButton: false,
-        totalBet: 0
+        totalBet: 0,
+        ifSpinned: false
     })
     const selectedChipValue = getSelectedChipValue();
 
@@ -61,6 +64,17 @@ export default function PlayArea() {
         })
     }
 
+    /* The function is used to update the ifSpinned value.
+    The ifSpinned state is used to show if the wheel had already completed the spinning process. */
+    function updateIfSpinned(value: boolean) {
+        setPlayData(prevState => {
+            return {
+                ...prevState,
+                ifSpinned: value
+            }
+        })
+    }
+
 
      /* The contextValue provides the selected chip and 
         the getSelectedChip function to all elements within the PlayArea component, 
@@ -73,7 +87,8 @@ export default function PlayArea() {
         chipValue: selectedChipValue,
         setAction: setActionButtons,
         playDataStore: playData,
-        updateTotalBet: updateTotalBet
+        updateTotalBet: updateTotalBet,
+        updateIfSpinned: updateIfSpinned
     }
 
     return (

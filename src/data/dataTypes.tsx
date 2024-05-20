@@ -2,6 +2,11 @@
 export type arrayNum = number[];
 export type betOnType = string | number;
 
+export interface redColorsType {
+    diamondRed: string,
+    normalRed: string
+}
+
 export interface chipDataType {
     id: number,
     chipUrl: string,
@@ -19,7 +24,8 @@ export interface betDataType {
 export interface playDataStoreType {
     chipUrl: string,
     enableButton: boolean,
-    totalBet: number
+    totalBet: number,
+    ifSpinned: boolean
 }
 
 export interface actionDataType {
@@ -33,7 +39,8 @@ export interface ChipContextType {
     chipValue: number,
     setAction: ((set: boolean) => void) | null
     playDataStore: playDataStoreType,
-    updateTotalBet: ((total: number) => void) | null
+    updateTotalBet: ((total: number) => void) | null,
+    updateIfSpinned: ((value: boolean) => void) | null
 }
 
 export interface MainDataStoreType {
@@ -72,4 +79,12 @@ export interface ActionData {
     action: Action,
     lastBetValueAdded: number | null, 
     betOn?: betOnType
+}
+
+export interface correctValueDataType {
+    value: number,
+    even_odd: string,
+    low_high: string,
+    red_black: string,
+    dozenRange: string
 }

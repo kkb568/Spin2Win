@@ -8,10 +8,11 @@ import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../..
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
-    name: string
+    name: string,
+    chosenDozenRange: string
 }
 
-export default function DozenButton({ name }: Props) {
+export default function DozenButton({ name, chosenDozenRange }: Props) {
     const { 
         playDataStore,
         chipValue, 
@@ -57,11 +58,19 @@ export default function DozenButton({ name }: Props) {
         onClick={() => showSelectedChip()}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}>
+            {/* The below div is shown when the user hovers over the button. */}
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
             </div>
             {name}
+
+            {/* The below div is shown when the correct value 
+            (from the chosen value from the wheel spin functionality)
+            is equal to the name value. */}
+            {chosenDozenRange === name &&
+                <div className={correctHoverStyle}></div>
+            }
             {buttonState.selectedChip && 
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 
@@ -123,5 +132,20 @@ const selectedChipStyle = css`
         height: 1.5em;
         box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
         border-radius: 50%;
+    }
+`
+
+const correctHoverStyle = css`
+    background-color: rgba(255, 255, 255, .3);
+    position: absolute;
+    width: 11.8em;
+    height: 2.5em;
+    margin-top: -.5em;
+    animation: blink 1s linear 5;
+
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
     }
 `

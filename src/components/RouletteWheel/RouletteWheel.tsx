@@ -43,7 +43,8 @@ export default function RouletteWheel() {
 
             /* After the wheel implementation is done, 
             hide the Prize component (to prevent being shown the previous win when the user plays again),
-            set the displayWheel to none and clear the data in the betsData session storage. */
+            set the spinWheelState to false, set the displayWheel to hidden 
+            and clear the data in the betsData session storage. */
             setTimeout(() => {
                 setWheelState("showPrize", false);
                 setWheelState("spinWheelState", false);
@@ -66,7 +67,7 @@ export default function RouletteWheel() {
                 setWheelState={setWheelState}/>
                 <WheelHead />
                 
-                {/* Show the Prize component if the showPrize is true and the winningPrize is not equal to zero. */}
+                {/* Show the Prize component if the showPrize is true. */}
                 {rouletteWheelState.showPrize &&
                     <Prize winningPrize={rouletteWheelState.winningPrize}/>
                 }
