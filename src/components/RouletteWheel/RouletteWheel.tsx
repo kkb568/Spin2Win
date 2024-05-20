@@ -83,13 +83,3 @@ const wheelContentStyle = css`
     align-items: center;
     justify-content: center;
 `
-
-// const wheelStyle = css`
-//     width: 35em;
-//     height: 35em;
-//     border-radius: 50%;
-//     font-family: 'Adamina';
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// `
