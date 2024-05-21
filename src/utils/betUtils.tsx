@@ -1,4 +1,4 @@
-import { betDataType, betOnType } from "../data/dataTypes";
+import { betDataType, betOnType, lastBetValueType } from "../data/dataTypes";
 import { getChipUrlByValue } from "./chipUtils";
 
 // The function is used to add bet to the betsData session storage.
@@ -60,7 +60,7 @@ This is useful for showing the chip when user clicks on the button
 to represent the total bet for the specified button. */
 export function getChipUrlByBet(betOn: betOnType): string {
     let url: string = "";
-    const totalBet = getBetByBetOn(betOn);
+    const totalBet: number = getBetByBetOn(betOn);
     
     // If the totalBet is equal to zero, return the url as an empty string.
     if (totalBet === 0) {
@@ -125,4 +125,35 @@ export function doubleBetValue() {
         betDataArray[i].betValue *= 2;
     }
     sessionStorage.setItem("betsData", JSON.stringify(betDataArray));
+}
+
+/*The function is used to push all the bets in the betsData storage
+to the lastBetData storage. The function is called when the PlayButton is clicked. */
+export function addLastBetData() {
+    const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData"));
+    const lastBetDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("lastBetData"));
+
+    betDataArray.forEach((bet) => {
+        const lastBet: betDataType = {
+            betOn: bet.betOn,
+            betValue: bet.betValue
+        }
+        lastBetDataArray.push(lastBet);
+    });
+    sessionStorage.setItem("lastBetData", JSON.stringify(lastBetDataArray));
+}
+
+/* The function is used to check if the betOn value is in any 
+of the data in the lastBetData storage. */
+export function checkValueFromLastBet(betOnValue: betOnType) {
+    const lastBetDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("lastBetData"));
+    let returnValue: lastBetValueType = [false, null]
+
+    lastBetDataArray.forEach((bet) => {
+        if (bet.betOn === betOnValue) {
+            returnValue = [true, bet.betValue]
+            return returnValue;
+        }
+    })
+    return returnValue;
 }

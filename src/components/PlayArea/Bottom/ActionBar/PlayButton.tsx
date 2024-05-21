@@ -2,6 +2,8 @@ import { css, cx } from "@emotion/css";
 import { useContext } from "react";
 import { ChipContext } from "../../PlayArea";
 import { MainContext } from "../../../../App";
+import { addLastBetData } from "../../../../utils/betUtils";
+import { clearUserActions } from "../../../../utils/actionUtils";
 
 export default function PlayButton() {
     const { playDataStore, 
@@ -23,9 +25,12 @@ export default function PlayButton() {
         pointer-events: none;
     `
 
-    // Once called, change the displayWheel value to block after 1 second.
+    /* Once called, clear the user actions, call the addLastBetData function 
+    and change the displayWheel value to block after 1 second. */
     function startPlay() {
         setTimeout(() => {
+            clearUserActions();
+            addLastBetData();
             setDisplay("displayWheel", "visible");
         }, 1000);
         /* Wait for 21 seconds (for the wheel to implement fully) 

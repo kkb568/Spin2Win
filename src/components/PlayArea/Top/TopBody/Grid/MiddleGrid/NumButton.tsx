@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType } from "../../../../../../data/dataTypes";
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
@@ -18,9 +18,11 @@ export default function NumButton({ num, chosenNum }: Props) {
         playDataStore, 
         chipValue, 
         setAction,
-        updateTotalBet
+        updateTotalBet,
+        updateReloadLastBets
     } = useContext(ChipContext);
-    const { chipUrl } = playDataStore;
+    const { chipUrl, reloadLastBets } = playDataStore;
+
     /* The selectedChip is for showing the shown chip when user clicks the button 
     whereas the showTotal is for showing the total bet for the specified button 
     when user hover over the button and the shown chip is present.*/
@@ -43,18 +45,21 @@ export default function NumButton({ num, chosenNum }: Props) {
         })
     }
 
-    function showSelectedChip() {
+    function showSelectedChip(value: number) {
         addAction(
             getGridButtonAction(num),
-            chipValue,
+            value,
             num
         );
-        addBet(num, chipValue);
+        addBet(num, value);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());
     }
 
+    /* If the correct value (from the chosen value from the wheel spin functionality)
+    is equal to the num value, update the correctHover to true
+    and then after 5 seconds, update the correctHover to false. */
     useEffect(() => {
         if (chosenNum === num) {
             setCorrectHover(true);
@@ -65,9 +70,22 @@ export default function NumButton({ num, chosenNum }: Props) {
         }
     }, [chosenNum])
 
+    /*If the reloadLastBets is true, get the found and the lastBetValue using the betOn value
+    and if found is true (meaning that the betOn value is in the lastBetData storage), 
+    call the showSelectedChip function and update the reloadLastBets to false. */
+    useEffect(() => {
+        if (reloadLastBets) {
+            const [ found, lastBetValue ] = checkValueFromLastBet(num);
+            if (found) {
+                showSelectedChip(lastBetValue);
+                updateReloadLastBets(false);
+            }
+        }
+    }, [reloadLastBets])
+
     return (
         <PlayButton
-            onClick={() => showSelectedChip()}
+            onClick={() => showSelectedChip(chipValue)}
             onMouseEnter={() => updateButtonState("showTotal", true)} 
             onMouseLeave={() => updateButtonState("showTotal", false)}
             style={{
@@ -81,9 +99,7 @@ export default function NumButton({ num, chosenNum }: Props) {
                         <img className={chipStyle} src={chipUrl} />
                     </div>
                     {num}
-                    {/* The below div is shown when the correct value 
-                    (from the chosen value from the wheel spin functionality)
-                    is equal to the num value. */}
+                    {/* The below div is shown when the correctHover is true. */}
                     {correctHover &&
                         <div className={correctHoverStyle}></div>
                     }

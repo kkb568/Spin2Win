@@ -1,6 +1,7 @@
 // Data types exports.
 export type arrayNum = number[];
 export type betOnType = string | number;
+export type lastBetValueType = [boolean, number];
 
 export interface redColorsType {
     diamondRed: string,
@@ -25,7 +26,9 @@ export interface playDataStoreType {
     chipUrl: string,
     enableButton: boolean,
     totalBet: number,
-    ifSpinned: boolean
+    ifSpinned: boolean,
+    reloadLastBets: boolean,
+    countReload?: number
 }
 
 export interface actionDataType {
@@ -40,7 +43,8 @@ export interface ChipContextType {
     setAction: ((set: boolean) => void) | null
     playDataStore: playDataStoreType,
     updateTotalBet: ((total: number) => void) | null,
-    updateIfSpinned: ((value: boolean) => void) | null
+    updateIfSpinned: ((value: boolean) => void) | null,
+    updateReloadLastBets: ((value: boolean, count?: number) => void) | null
 }
 
 export interface MainDataStoreType {
@@ -87,4 +91,9 @@ export interface correctValueDataType {
     low_high: string,
     red_black: string,
     dozenRange: string
+}
+
+export interface prevNumDataType {
+    key: number,
+    value: number
 }

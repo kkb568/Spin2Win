@@ -1,5 +1,5 @@
 import { black, redColors, redNumbers, wheelSequence } from "../data/data";
-import { betDataType, correctValueDataType } from "../data/dataTypes";
+import { arrayNum, betDataType, correctValueDataType, prevNumDataType } from "../data/dataTypes";
 
 /*The function is used to set the rotation of the roulette wheel 
 and returns the winning prize.*/
@@ -26,8 +26,9 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>) {
             index = (wheelSequence.length + index) % wheelSequence.length; // This is used to fix any negative index value.
             const chosenNum = wheelSequence[index];
 
-            // Store the details of the chosenNum to the session storage.
+            // Store the chosenNum value and its details to the session storage.
             addCorrectValue(chosenNum);
+            addPreviousNum(chosenNum);
     
             // Get the winning prize based on the chosenNum value.
             winningPrize = getWinningPrize(chosenNum);
@@ -196,4 +197,15 @@ function addCorrectValue(value: number) {
         dozenRange: dozenRange
     }
     sessionStorage.setItem("correctValueData", JSON.stringify(winValue));
+}
+
+// The function is used to add the chosen value to the previousChosenNums session storage.
+function addPreviousNum(value: number) {
+    const previousChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const newPrevChosenNum: prevNumDataType = {
+        key: previousChosenNums.length + 1,
+        value: value
+    }
+    previousChosenNums.unshift(newPrevChosenNum);
+    sessionStorage.setItem("previousChosenNums", JSON.stringify(previousChosenNums));
 }

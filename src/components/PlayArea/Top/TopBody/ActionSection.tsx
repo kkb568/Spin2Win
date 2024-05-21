@@ -1,24 +1,29 @@
 import { css } from "@emotion/css"
 import { useContext } from "react"
 import { ChipContext } from "../../PlayArea"
-import { Action } from "../../../../data/dataTypes"
+import { Action, betDataType } from "../../../../data/dataTypes"
 import { clearBetsData, doubleBetValue, getTotalBet } from "../../../../utils/betUtils"
-import { addAction, undoBetAction } from "../../../../utils/actionUtils"
+import { addAction, clearUserActions, undoBetAction } from "../../../../utils/actionUtils"
 
 export default function ActionSection() {
     const { 
         setAction, 
         playDataStore, 
-        updateTotalBet
+        updateTotalBet,
+        updateReloadLastBets
     } = useContext(ChipContext)
-    const { enableButton } = playDataStore;
+    const { enableButton,countReload } = playDataStore;
 
-    /* The functions clears all bets, disables the action buttons 
-    and updates the total bet to the original state. */
+    const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
+
+    /* The functions clear all user actions and bets, disables the action buttons,
+    updates the total bet to the original state and update the countReload to zero. */
     function deleteBets() {
+        clearUserActions();
         clearBetsData();
         setAction(false);
         updateTotalBet(0);
+        updateReloadLastBets(false, 0);
     }
 
     /* The function doubles the bet values of all the bets,
@@ -29,20 +34,33 @@ export default function ActionSection() {
         updateTotalBet(getTotalBet());
     }
 
-    /*The function is undo the bets done by the user, updates the total bets 
-    and if the total bets is equal to zero, disable the action buttons. */
+    /* The function is undo the bets done by the user, updates the total bets 
+    and if the total bets is equal to zero, disable the action buttons
+    and update the countReload to zero. */
     function undoBets() {
         undoBetAction();
         updateTotalBet(getTotalBet());
         
         if(getTotalBet() === 0) {
             setAction(false);
+            updateReloadLastBets(false, 0);
+        }
+    }
+
+    /* If the countReload is equal to zero (so as to avoid repetition of adding the last bets to the playing area),
+    update the reloadLastBets to true and increment the countReload by one. */
+    function reloadPrevBets() {
+        if (countReload === 0) {
+            updateReloadLastBets(true, countReload + 1);
         }
     }
 
     return (
         <div className={actionSectionStyle}> 
-            <button>
+            {/* The below button is enabled if there is data in the lastBetData storage. */}
+            <button className={
+                lastBetDataArray.length === 0 ? disabledButtonStyle : enabledButtonStyle
+            } onClick={() => reloadPrevBets()}>
                 <i className="fa-solid fa-rotate-right"></i>
             </button>
             <br/>

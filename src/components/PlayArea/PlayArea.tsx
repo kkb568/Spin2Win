@@ -14,10 +14,13 @@ export const ChipContext = createContext<ChipContextType>({
         chipUrl: "",
         enableButton: false,
         totalBet: 0,
-        ifSpinned: false
+        ifSpinned: false,
+        reloadLastBets: false,
+        countReload: 0
     },
     updateTotalBet: null,
-    updateIfSpinned: null
+    updateIfSpinned: null,
+    updateReloadLastBets: null
 });
 
 // The component is the playing area that contains all the buttons and chips.
@@ -26,7 +29,9 @@ export default function PlayArea() {
         chipUrl: getSelectedChipUrl(),
         enableButton: false,
         totalBet: 0,
-        ifSpinned: false
+        ifSpinned: false,
+        reloadLastBets: false,
+        countReload: 0
     })
     const selectedChipValue = getSelectedChipValue();
 
@@ -75,6 +80,20 @@ export default function PlayArea() {
         })
     }
 
+    /*The function is used to set the reloadLastBets value. It's called when
+    the reload button (the first button) from the ActionSection component is clicked. 
+    The countReload is used to count the number of times the reload button is clicked. */
+    function updateReload(value: boolean, count?: number) {
+        setPlayData(prevState => {
+            return {
+                ...prevState,
+                reloadLastBets: value,
+                countReload: count
+            }
+        })
+    }
+
+
 
      /* The contextValue provides the selected chip and 
         the getSelectedChip function to all elements within the PlayArea component, 
@@ -88,7 +107,8 @@ export default function PlayArea() {
         setAction: setActionButtons,
         playDataStore: playData,
         updateTotalBet: updateTotalBet,
-        updateIfSpinned: updateIfSpinned
+        updateIfSpinned: updateIfSpinned,
+        updateReloadLastBets: updateReload
     }
 
     return (

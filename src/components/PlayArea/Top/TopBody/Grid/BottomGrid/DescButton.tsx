@@ -1,11 +1,11 @@
 import { PlayButton } from "../../../../../../styles/styles"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ButtonFontStyle } from "../../../../../../styles/styles";
 import { css } from "@emotion/css";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType } from "../../../../../../data/dataTypes";
-import { addBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
@@ -18,9 +18,11 @@ export default function DescButton({ description, correctValueDesc }: Props) {
         playDataStore, 
         chipValue, 
         setAction,
-        updateTotalBet
+        updateTotalBet,
+        updateReloadLastBets
     } = useContext(ChipContext)
-    const { chipUrl } = playDataStore;
+    const { chipUrl, reloadLastBets } = playDataStore;
+    
     /* The selectedChip is for showing the shown chip when user clicks the button 
     whereas the showTotal is for showing the total bet for the specified button 
     when user hover over the button and the shown chip is present.*/
@@ -41,13 +43,28 @@ export default function DescButton({ description, correctValueDesc }: Props) {
         })
     }
 
-    function showSelectedChip() {
+    /*If the reloadLastBets is true, get the found and the lastBetValue using the betOn value
+    and if found is true (meaning that the betOn value is in the lastBetData storage), 
+    call the showSelectedChip function and update the reloadLastBets to false. */
+    useEffect(() => {
+        if (reloadLastBets) {
+            const [ found, lastBetValue ] = checkValueFromLastBet(description);
+            if (found) {
+                showSelectedChip(lastBetValue);
+                updateReloadLastBets(false);
+            }
+        }
+    }, [reloadLastBets])
+
+    /* The function adds the add action, adds the bet to the betsData storage,
+    updates the selectedChip to true, enable the action buttons and updates the total bet. */
+    function showSelectedChip(value: number) {
         addAction(
             getGridButtonAction(description),
-            chipValue,
+            value,
             description
         );
-        addBet(description, chipValue);
+        addBet(description, value);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());
@@ -55,7 +72,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
 
     return (
         <PlayButton style={ButtonFontStyle} 
-        onClick={() => showSelectedChip()}
+        onClick={() => showSelectedChip(chipValue)}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}>
                 {description}

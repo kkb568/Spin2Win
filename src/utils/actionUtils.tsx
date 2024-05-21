@@ -88,3 +88,12 @@ function removeBetValue(betArray: betDataType[], value: number, betOn: betOnType
     }
     sessionStorage.setItem("betsData", JSON.stringify(betArray));
 }
+
+// The function clears all the actions that the user did on the playing area.
+export function clearUserActions() {
+    const actionArray: actionDataType[] = JSON.parse(sessionStorage.getItem("actionData") || '{}');
+    while (actionArray.length > 1) {
+        actionArray.pop();
+    }
+    sessionStorage.setItem("actionData", JSON.stringify(actionArray));
+}

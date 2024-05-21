@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import TopBody from "./TopBody/TopBody";
-import TopHeader from "./TopHeader";
+import TopHeader from "./TopHeader/TopHeader";
 
 // This is the top part of the PlayArea (the whole red area).
 export default function TopComponent() {
