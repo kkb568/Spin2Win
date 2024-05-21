@@ -50,7 +50,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
         if (reloadLastBets) {
             const [ found, lastBetValue ] = checkValueFromLastBet(description);
             if (found) {
-                showSelectedChip(lastBetValue);
+                showSelectedChip(lastBetValue, true);
                 updateReloadLastBets(false);
             }
         }
@@ -58,13 +58,13 @@ export default function DescButton({ description, correctValueDesc }: Props) {
 
     /* The function adds the add action, adds the bet to the betsData storage,
     updates the selectedChip to true, enable the action buttons and updates the total bet. */
-    function showSelectedChip(value: number) {
+    function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
-            getGridButtonAction(description),
+            getGridButtonAction(description, ifPrevBet),
             value,
             description
         );
-        addBet(description, value);
+        addBet(description, value, ifPrevBet);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());

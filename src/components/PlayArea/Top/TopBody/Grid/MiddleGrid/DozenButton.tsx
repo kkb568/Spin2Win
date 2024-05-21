@@ -48,7 +48,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
         if (reloadLastBets) {
             const [ found, lastBetValue ] = checkValueFromLastBet(name);
             if (found) {
-                showSelectedChip(lastBetValue);
+                showSelectedChip(lastBetValue, true);
                 updateReloadLastBets(false);
             }
         }
@@ -56,13 +56,13 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
 
     /* The function adds the add action, adds the bet to the betsData storage,
     updates the selectedChip to true, enable the action buttons and updates the total bet. */
-    function showSelectedChip(value: number) {
+    function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
-            getGridButtonAction(name),
+            getGridButtonAction(name, ifPrevBet),
             value,
             name
         );
-        addBet(name, value);
+        addBet(name, value, ifPrevBet);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());

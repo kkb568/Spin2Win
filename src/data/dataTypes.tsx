@@ -19,7 +19,8 @@ export interface chipDataType {
 
 export interface betDataType {
     betOn: number | string,
-    betValue: number
+    betValue: number,
+    ifPrevBet?: boolean
 }
 
 export interface playDataStoreType {
@@ -76,6 +77,7 @@ export enum Action {
     Add_Bet = "Add_Bet",
     Double_Bets = "Double_Bets",
     Add_BetValue = "Add_BetValue",
+    Add_PrevBets = "Add_PrevBets",
     None = ""
 }
 

@@ -48,9 +48,10 @@ export default function ActionSection() {
     }
 
     /* If the countReload is equal to zero (so as to avoid repetition of adding the last bets to the playing area),
-    update the reloadLastBets to true and increment the countReload by one. */
+    clear the betsData and then update the reloadLastBets to true and increment the countReload by one. */
     function reloadPrevBets() {
         if (countReload === 0) {
+            clearBetsData();
             updateReloadLastBets(true, countReload + 1);
         }
     }

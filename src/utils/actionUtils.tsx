@@ -3,7 +3,7 @@ import { Action, actionDataType, betDataType, betOnType } from "../data/dataType
 /* The function is used to set the action for the clicked button in the any of the grid buttons. 
 If the button was clicked more than once, the action is "Add_BetValue", 
 otherwise, the action is "Add_Bet". */
-export function getGridButtonAction(betOnValue: betOnType) {
+export function getGridButtonAction(betOnValue: betOnType, redoBets?: boolean) {
     const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
     let action: Action;
 
@@ -13,7 +13,12 @@ export function getGridButtonAction(betOnValue: betOnType) {
             return action;
         }
     }
-    action = Action.Add_Bet;
+
+    if (redoBets) {
+        action = Action.Add_PrevBets;
+    } else {
+        action = Action.Add_Bet;
+    }
     return action; 
 }
 
@@ -38,10 +43,14 @@ export function undoBetAction() {
     const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
 
     const actionArrayLength = actionArray.length;
+    // Count the number of bets from the previous play.
+    const prevBetsCount: number = countPrevBets(betDataArray);
+
     // If the array length is equal to one, stop the functionality.
     if (actionArrayLength === 1) {
         return;
     }
+    
     // Get the respective values of the last action done by the user (last element of the actionArray).
     const { action, lastBetValueAdded, betOn } = actionArray[actionArrayLength - 1];
 
@@ -56,10 +65,19 @@ export function undoBetAction() {
         case Action.Add_BetValue:
             removeBetValue(betDataArray, lastBetValueAdded, betOn)
             break;
+        case Action.Add_PrevBets:
+            removePrevBets(betDataArray, prevBetsCount);
+            removePrevActions(actionArray, prevBetsCount);
+            break;
     }
-    // Remove the last element of the actionArray and then update it to the actionData storage.
-    actionArray.pop();
-    sessionStorage.setItem("actionData", JSON.stringify(actionArray));
+
+    /* If the action is not equal to "Add_PrevBets" (so as to prevent further
+    removal of actions from the actionData after all the actions with "Add_PrevBets" are removed),
+    remove the last element from the actionArray and update the array to the actionData storage. */
+    if (action !== Action.Add_PrevBets) {
+        actionArray.pop();
+        sessionStorage.setItem("actionData", JSON.stringify(actionArray));
+    }
 }
 
 // The function is used to remove the last bet from the betArray and update it to betsData storage.
@@ -87,6 +105,42 @@ function removeBetValue(betArray: betDataType[], value: number, betOn: betOnType
         }
     }
     sessionStorage.setItem("betsData", JSON.stringify(betArray));
+}
+
+/* The function is used to remove all bets in which its ifPrevBet value
+is true (indicating that it was a bet from previous play). */
+function removePrevBets(betArray: betDataType[], betsNum: number) {
+    for (let i = 0; i < betArray.length; i++) {
+        if (betArray[i].ifPrevBet) {
+            betArray.splice(i, betsNum);
+        }
+    }
+    sessionStorage.setItem("betsData", JSON.stringify(betArray));
+}
+
+/* The function is used to remove all the actions data which its action value
+is equal to "Add_PrevBets" and then store the array to the actionData storage */
+function removePrevActions(actionArray: actionDataType[], actionsNum: number) {
+    for (let i = 0; i < actionArray.length; i++) {
+        if (actionArray[i].action === Action.Add_PrevBets) {
+            actionArray.splice(i, actionsNum);
+            sessionStorage.setItem("actionData", JSON.stringify(actionArray));
+            return;
+        }
+    }
+}
+
+/*The function is used to count the number of bets in which its ifPrevBet
+value is true (indicating that they were previous bets from the last play done). */
+function countPrevBets(betArray: betDataType[]): number {
+    let count: number = 0;
+
+    for (let i = 0; i < betArray.length; i++) {
+        if (betArray[i].ifPrevBet) {
+            count++;
+        }
+    }
+    return count;
 }
 
 // The function clears all the actions that the user did on the playing area.

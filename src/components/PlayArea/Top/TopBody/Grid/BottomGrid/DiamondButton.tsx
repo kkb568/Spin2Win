@@ -53,7 +53,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
         if (reloadLastBets) {
             const [ found, lastBetValue ] = checkValueFromLastBet(diamondColor);
             if (found) {
-                showSelectedChip(lastBetValue);
+                showSelectedChip(lastBetValue, true);
                 updateReloadLastBets(false);
             }
         }
@@ -61,13 +61,13 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
 
     /* The function adds the add action, adds the bet to the betsData storage,
     updates the selectedChip to true, enable the action buttons and updates the total bet. */
-    function showSelectedChip(value: number) {
+    function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
-            getGridButtonAction(diamondColor),
+            getGridButtonAction(diamondColor, ifPrevBet),
             value,
             diamondColor
         );
-        addBet(diamondColor, value);
+        addBet(diamondColor, value, ifPrevBet);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());

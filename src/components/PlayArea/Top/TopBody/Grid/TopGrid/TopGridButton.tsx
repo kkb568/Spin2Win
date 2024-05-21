@@ -59,7 +59,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
         if (reloadLastBets) {
             const [ found, lastBetValue ] = checkValueFromLastBet(betOnValue);
             if (found) {
-                showSelectedChip(lastBetValue);
+                showSelectedChip(lastBetValue, true);
                 updateReloadLastBets(false);
             }
         }
@@ -67,13 +67,13 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
 
     /* The function adds the add action, adds the bet to the betsData storage,
     updates the selectedChip to true, enable the action buttons and updates the total bet. */
-    function showSelectedChip(value: number) {
+    function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
-            getGridButtonAction(betOnValue),
+            getGridButtonAction(betOnValue, ifPrevBet),
             value,
             betOnValue
         );
-        addBet(betOnValue, value);
+        addBet(betOnValue, value, ifPrevBet);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());

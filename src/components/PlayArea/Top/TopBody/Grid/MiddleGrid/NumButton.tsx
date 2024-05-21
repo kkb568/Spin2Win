@@ -45,13 +45,13 @@ export default function NumButton({ num, chosenNum }: Props) {
         })
     }
 
-    function showSelectedChip(value: number) {
+    function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
-            getGridButtonAction(num),
+            getGridButtonAction(num, ifPrevBet),
             value,
             num
         );
-        addBet(num, value);
+        addBet(num, value, ifPrevBet);
         updateButtonState("selectedChip", true);
         setAction(true);
         updateTotalBet(getTotalBet());
@@ -77,7 +77,7 @@ export default function NumButton({ num, chosenNum }: Props) {
         if (reloadLastBets) {
             const [ found, lastBetValue ] = checkValueFromLastBet(num);
             if (found) {
-                showSelectedChip(lastBetValue);
+                showSelectedChip(lastBetValue, true);
                 updateReloadLastBets(false);
             }
         }

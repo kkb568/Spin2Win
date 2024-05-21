@@ -2,14 +2,15 @@ import { betDataType, betOnType, lastBetValueType } from "../data/dataTypes";
 import { getChipUrlByValue } from "./chipUtils";
 
 // The function is used to add bet to the betsData session storage.
-export function addBet(betOnParam: betOnType, betValueParam: number) {
+export function addBet(betOnParam: betOnType, betValueParam: number, prevBet?: boolean) {
     // Get the bets array from the betsData storage.
     const betDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
     
     // The new bet data.
     let newBetData: betDataType = {
         betOn: betOnParam,
-        betValue: betValueParam
+        betValue: betValueParam,
+        ifPrevBet: prevBet
     }
 
     /* If the betsData is empty, push the new bet data to bets array 
@@ -156,4 +157,17 @@ export function checkValueFromLastBet(betOnValue: betOnType) {
         }
     })
     return returnValue;
+}
+
+/* The function is used to clear all the last bets, if any. 
+It's called when the PlayButton is clicked. */
+export function clearLastBets() {
+    const lastBetDataArray: betDataType[] | [] = JSON.parse(sessionStorage.getItem("lastBetData"));
+    
+    if (lastBetDataArray.length > 0) {
+        while (lastBetDataArray.length > 0) {
+            lastBetDataArray.pop();
+        }
+    }
+    sessionStorage.setItem("lastBetData", JSON.stringify(lastBetDataArray));
 }

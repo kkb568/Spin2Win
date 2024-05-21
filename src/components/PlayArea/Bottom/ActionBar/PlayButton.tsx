@@ -2,7 +2,7 @@ import { css, cx } from "@emotion/css";
 import { useContext } from "react";
 import { ChipContext } from "../../PlayArea";
 import { MainContext } from "../../../../App";
-import { addLastBetData } from "../../../../utils/betUtils";
+import { addLastBetData, clearLastBets } from "../../../../utils/betUtils";
 import { clearUserActions } from "../../../../utils/actionUtils";
 
 export default function PlayButton() {
@@ -25,11 +25,12 @@ export default function PlayButton() {
         pointer-events: none;
     `
 
-    /* Once called, clear the user actions, call the addLastBetData function 
-    and change the displayWheel value to block after 1 second. */
+    /* Once called, clear the user actions and the last bets data, 
+    call the addLastBetData function and change the displayWheel value to block after 1 second. */
     function startPlay() {
         setTimeout(() => {
             clearUserActions();
+            clearLastBets();
             addLastBetData();
             setDisplay("displayWheel", "visible");
         }, 1000);
