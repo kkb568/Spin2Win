@@ -1,5 +1,5 @@
 import { black, redColors, redNumbers, wheelSequence } from "../data/data";
-import { arrayNum, betDataType, correctValueDataType, prevNumDataType } from "../data/dataTypes";
+import { betDataType, correctValueDataType, prevNumDataType } from "../data/dataTypes";
 
 /*The function is used to set the rotation of the roulette wheel 
 and returns the winning prize.*/

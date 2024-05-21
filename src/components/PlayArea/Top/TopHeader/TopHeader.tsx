@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { arrayNum, prevNumDataType } from "../../../../data/dataTypes";
+import { prevNumDataType } from "../../../../data/dataTypes";
 import PreviousNum from "./PreviousNum";
 import { assignBackgroundColor } from "../../../../utils/chipUtils";
 
