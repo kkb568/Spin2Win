@@ -14,17 +14,14 @@ interface Props {
 }
 
 export default function TopGridButton({ name, diamondColor, chosenNumDetails }: Props) {
-    const { 
-        chipValue, 
-        setAction, 
-        playDataStore, 
-        updateTotalBet,
-        updateReloadLastBets
-    } = useContext(ChipContext);
+    const { chipValue, playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { chipUrl, reloadLastBets } = playDataStore;
-    /* The selectedChip is for showing the shown chip when user clicks the button 
-    whereas the showTotal is for showing the total bet for the specified button 
-    when user hover over the button and the shown chip is present.*/
+    
+    /**
+     * 1. selectedChip: For showing the shown chip when user clicks the button.
+     * 2. showTotal: For showing the total bet for the specified button 
+            when user hover over the button and the shown chip is present.
+     */
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false
@@ -60,13 +57,13 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
             const [ found, lastBetValue ] = checkValueFromLastBet(betOnValue);
             if (found) {
                 showSelectedChip(lastBetValue, true);
-                updateReloadLastBets(false);
+                updatePlayAreaState("reloadLastBets", false);
             }
         }
     }, [reloadLastBets])
 
     /* The function adds the add action, adds the bet to the betsData storage,
-    updates the selectedChip to true, enable the action buttons and updates the total bet. */
+    updates the selectedChip and ifNumClicked to true, enable the action buttons and updates the total bet. */
     function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
             getGridButtonAction(betOnValue, ifPrevBet),
@@ -75,8 +72,9 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
         );
         addBet(betOnValue, value, ifPrevBet);
         updateButtonState("selectedChip", true);
-        setAction(true);
-        updateTotalBet(getTotalBet());
+        updatePlayAreaState("ifNumClicked", true);
+        updatePlayAreaState("enableButton", true);
+        updatePlayAreaState("totalBet", getTotalBet());
     }
 
     return (
@@ -84,19 +82,25 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
         onClick={() => showSelectedChip(chipValue)} 
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}>
+
+            {/* The below div is shown when the user hovers over the button
+                    (Check the PlayButton component from styles.tsx). */}
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
             </div>
+
             <Diamond className={diamondStyle}>
                 <span>{name}</span>
             </Diamond>
+
             {/* The below div is shown when the chosenNumDetails value 
             (from the chosen value from the wheel spin functionality)
             is equal to the betOn value. */}
             {betOnValue === chosenNumDetails &&
                 <div className={correctHoverStyle}></div>
             }
+            
             {/* The chip is shown when the selectedChip is false 
             and the betChipUrl is not an empty string. */}
             {buttonState.selectedChip && betChipUrl !== "" &&

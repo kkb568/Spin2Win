@@ -6,13 +6,9 @@ import { addLastBetData, clearLastBets } from "../../../../utils/betUtils";
 import { clearUserActions } from "../../../../utils/actionUtils";
 
 export default function PlayButton() {
-    const { playDataStore, 
-        setAction, 
-        updateTotalBet,
-        updateIfSpinned
-    } = useContext(ChipContext)
-    const { setDisplay } = useContext(MainContext)
-    const { enableButton } = playDataStore
+    const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
+    const { enableButton } = playDataStore;
+    const { setDisplay } = useContext(MainContext);
 
     // The style is for ensuring the button is not clicked if there's no chip in the playing area.
     const visibleButtonStyle: string = enableButton ? css`
@@ -26,21 +22,23 @@ export default function PlayButton() {
     `
 
     /* Once called, clear the user actions and the last bets data, 
-    call the addLastBetData function and change the displayWheel value to block after 1 second. */
+    call the addLastBetData function, set the ifNumClicked to false 
+    and change the displayWheel value to block after 1 second. */
     function startPlay() {
         setTimeout(() => {
             clearUserActions();
             clearLastBets();
             addLastBetData();
+            updatePlayAreaState("ifNumClicked", false);
             setDisplay("displayWheel", "visible");
         }, 1000);
         /* Wait for 21 seconds (for the wheel to implement fully) 
         then set the enable button to false, update the total bet to zero
         and update the ifSpinned value from ChipContext to true. */
         setTimeout(() => {
-            setAction(false);
-            updateTotalBet(0);
-            updateIfSpinned(true);
+            updatePlayAreaState("enableButton", false);
+            updatePlayAreaState("totalBet", 0);
+            updatePlayAreaState("ifSpinned", true);
         }, 21000)
     }
 

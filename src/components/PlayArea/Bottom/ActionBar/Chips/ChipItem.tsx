@@ -10,7 +10,13 @@ interface ChipProps {
 }
 
 export default function ChipItem({ 
-    url, name, details, keyValue, selected, changeSelected }: ChipProps) {
+    url, 
+    name, 
+    details, 
+    keyValue, 
+    selected, 
+    changeSelected 
+}: ChipProps) {
     
     /* The selected property is boolean value used to 
     determine if the image border should be visible or not. */

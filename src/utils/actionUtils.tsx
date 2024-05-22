@@ -2,7 +2,7 @@ import { Action, actionDataType, betDataType, betOnType } from "../data/dataType
 
 /* The function is used to set the action for the clicked button in the any of the grid buttons. 
 If the button was clicked more than once, the action is "Add_BetValue", 
-otherwise, the action is "Add_Bet". */
+otherwise, the action is "Add_Bet" or "Add_PrevBets", depending on the redoBets value. */
 export function getGridButtonAction(betOnValue: betOnType, redoBets?: boolean) {
     const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
     let action: Action;
@@ -14,6 +14,9 @@ export function getGridButtonAction(betOnValue: betOnType, redoBets?: boolean) {
         }
     }
 
+    /* If redBets is true (meaning the added bets where 
+        from the previous play), the action should be "Add_PrevBets",
+        otherwise, the action should be "Add_Bet". */
     if (redoBets) {
         action = Action.Add_PrevBets;
     } else {
@@ -23,9 +26,11 @@ export function getGridButtonAction(betOnValue: betOnType, redoBets?: boolean) {
 }
 
 // The function is used to add an action to the actionData array.
-export function addAction(action: Action,
+export function addAction(
+    action: Action,
     lastBetValueAdded: number | null,
-    betOn?: betOnType) {
+    betOn?: betOnType
+){
         const newActionData: actionDataType = {
             action: action,
             lastBetValueAdded: lastBetValueAdded,
@@ -52,7 +57,11 @@ export function undoBetAction() {
     }
     
     // Get the respective values of the last action done by the user (last element of the actionArray).
-    const { action, lastBetValueAdded, betOn } = actionArray[actionArrayLength - 1];
+    const { 
+        action, 
+        lastBetValueAdded, 
+        betOn 
+    } = actionArray[actionArrayLength - 1];
 
     // Call the respective reverse function based on the action value.
     switch (action) {
@@ -73,7 +82,7 @@ export function undoBetAction() {
 
     /* If the action is not equal to "Add_PrevBets" (so as to prevent further
     removal of actions from the actionData after all the actions with "Add_PrevBets" are removed),
-    remove the last element from the actionArray and update the array to the actionData storage. */
+    remove only the last element from the actionArray and update the array to the actionData storage. */
     if (action !== Action.Add_PrevBets) {
         actionArray.pop();
         sessionStorage.setItem("actionData", JSON.stringify(actionArray));

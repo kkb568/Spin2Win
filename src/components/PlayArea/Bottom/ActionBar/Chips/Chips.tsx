@@ -3,18 +3,19 @@ import { chipDataType } from "../../../../../data/dataTypes"
 import ChipItem from "./ChipItem"
 import { useContext, useState } from "react"
 import { ChipContext } from "../../../PlayArea"
+import { getSelectedChipUrl } from "../../../../../utils/chipUtils"
 
 export default function Chips() {
     const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
     const [chipsData, setChipsData] = useState<chipDataType[]>(chipsArray)
     
-    const { getChipUrl } = useContext(ChipContext)
+    const { updatePlayAreaState } = useContext(ChipContext)
 
     /* The function changes the selected value of the chip object 
     whose keyValue is equal to the key parameter 
     (called when user selects a specific chip). 
     Afterwards, the chipsArray and the chipsData are updated
-    and the getChipUrl function is called. */
+    and the chipUrl PlayArea state is updated. */
     function showSelected(key: number) {
         const newChipsArray: chipDataType[] = chipsData.map(chip =>
             chip.id === key ? 
@@ -23,7 +24,7 @@ export default function Chips() {
         )
         setChipsData(newChipsArray)
         sessionStorage.setItem("chipsData", JSON.stringify(newChipsArray))
-        getChipUrl();
+        updatePlayAreaState("chipUrl", getSelectedChipUrl())
     }
 
     const chipItems: JSX.Element[] = chipsData.map((chip) => {

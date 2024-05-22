@@ -184,9 +184,9 @@ function addCorrectValue(value: number) {
     if (checkNumRange(1, 12, value)) {
         dozenRange = "1~12";
     } else if (checkNumRange(13, 24, value)) {
-        dozenRange = "13~24"
+        dozenRange = "13~24";
     } else if (checkNumRange(25, 36, value)) {
-        dozenRange = "25~36"
+        dozenRange = "25~36";
     }
 
     const winValue: correctValueDataType = {

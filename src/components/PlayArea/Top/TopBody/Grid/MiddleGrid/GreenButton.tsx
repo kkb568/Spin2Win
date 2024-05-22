@@ -11,14 +11,16 @@ import { green } from "../../../../../../data/data";
 export default function GreenButton() {
     const { 
         playDataStore,
-        chipValue, 
-        setAction,
-        updateTotalBet
+        chipValue,
+        updatePlayAreaState
     } = useContext(ChipContext);
     const { chipUrl } = playDataStore;
-     /* The selectedChip is for showing the shown chip when user clicks the button 
-    whereas the showTotal is for showing the total bet for the specified button 
-    when user hover over the button and the shown chip is present.*/
+    
+    /**
+     * 1. selectedChip: For showing the shown chip when user clicks the button.
+     * 2. showTotal: For showing the total bet for the specified button 
+            when user hover over the button and the shown chip is present.
+     */
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false
@@ -36,6 +38,8 @@ export default function GreenButton() {
         })
     }
 
+    /* The function adds the add action, adds the bet to the betsData storage,
+    updates the selectedChip and ifNumClicked to true, enable the action buttons and updates the total bet. */
     function showSelectedChip() {
         addAction(
             getGridButtonAction(green),
@@ -44,8 +48,9 @@ export default function GreenButton() {
         );
         addBet(green, chipValue);
         updateButtonState("selectedChip", true);
-        setAction(true);
-        updateTotalBet(getTotalBet());
+        updatePlayAreaState("ifNumClicked", true);
+        updatePlayAreaState("enableButton", true);
+        updatePlayAreaState("totalBet" ,getTotalBet());
     }
 
     return (
@@ -53,11 +58,16 @@ export default function GreenButton() {
         onClick={() => showSelectedChip()}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}>
+            {/* The below div is shown when the user hovers over the button
+            (Check the PlayButton component from styles.tsx). */}
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
             </div>
+
             <Diamond className={diamondStyle} />
+
+            {/* The chip is shown when the selectedChip is false. */}
             {buttonState.selectedChip &&
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 

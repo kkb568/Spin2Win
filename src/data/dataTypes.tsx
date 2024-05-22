@@ -1,5 +1,6 @@
 // Data types exports.
 export type arrayNum = number[];
+export type playDataStateType = number | boolean | string;
 export type betOnType = string | number;
 export type lastBetValueType = [boolean, number];
 
@@ -23,29 +24,26 @@ export interface betDataType {
     ifPrevBet?: boolean
 }
 
-export interface playDataStoreType {
-    chipUrl: string,
-    enableButton: boolean,
-    totalBet: number,
-    ifSpinned: boolean,
-    reloadLastBets: boolean,
-    countReload?: number
-}
-
 export interface actionDataType {
     action: Action, 
     lastBetValueAdded: number, 
     betOn?: betOnType
 }
 
+export interface playDataStoreType {
+    chipUrl: string,
+    enableButton: boolean,
+    totalBet: number,
+    ifSpinned: boolean,
+    reloadLastBets: boolean,
+    countReload: number,
+    ifNumClicked: boolean
+}
+
 export interface ChipContextType {
-    getChipUrl: (() => void) | null,
     chipValue: number,
-    setAction: ((set: boolean) => void) | null
     playDataStore: playDataStoreType,
-    updateTotalBet: ((total: number) => void) | null,
-    updateIfSpinned: ((value: boolean) => void) | null,
-    updateReloadLastBets: ((value: boolean, count?: number) => void) | null
+    updatePlayAreaState: ((key: string, value: playDataStateType) => void) | null
 }
 
 export interface MainDataStoreType {
@@ -60,7 +58,9 @@ export interface MainContextType {
 
 export interface buttonStateType {
     selectedChip: boolean,
-    showTotal: boolean
+    showTotal: boolean,
+    correctHover?: boolean,
+    showChessPiece?: boolean
 }
 
 export interface actionChangeType {

@@ -31,6 +31,7 @@ export function wheelDraw (
     }
 }
 
+// The function is used to draw the slices for the roulette wheel.
 function drawSlice(deg: number,
     sliceDeg: number,
     color: string,
@@ -46,6 +47,8 @@ function drawSlice(deg: number,
     ctx.fill();
 }
 
+/* The function is used to insert the numbers for each of 
+the slices in the roulette wheel. */
 function insertNum(deg: number,
     center: number, 
     num: string,
@@ -61,7 +64,7 @@ function insertNum(deg: number,
     ctx.restore();
 }
 
-// The function is used to convert degrees to radians (whick is used in canvas element).
+// The function is used to convert degrees to radians (which is used in canvas element).
 function degRad(deg: number) {
     return deg * Math.PI/180;
 }

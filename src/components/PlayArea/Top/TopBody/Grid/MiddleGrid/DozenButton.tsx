@@ -13,17 +13,14 @@ interface Props {
 }
 
 export default function DozenButton({ name, chosenDozenRange }: Props) {
-    const { 
-        playDataStore,
-        chipValue, 
-        setAction,
-        updateTotalBet,
-        updateReloadLastBets 
-    } = useContext(ChipContext)
+    const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext)
     const { chipUrl, reloadLastBets } = playDataStore;
-    /* The selectedChip is for showing the shown chip when user clicks the button 
-    whereas the showTotal is for showing the total bet for the specified button 
-    when user hover over the button and the shown chip is present.*/
+    
+    /**
+     * 1. selectedChip: For showing the shown chip when user clicks the button.
+     * 2. showTotal: For showing the total bet for the specified button 
+            when user hover over the button and the shown chip is present.
+     */
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false
@@ -49,13 +46,13 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
             const [ found, lastBetValue ] = checkValueFromLastBet(name);
             if (found) {
                 showSelectedChip(lastBetValue, true);
-                updateReloadLastBets(false);
+                updatePlayAreaState("reloadLastBets", false);
             }
         }
     }, [reloadLastBets])
 
     /* The function adds the add action, adds the bet to the betsData storage,
-    updates the selectedChip to true, enable the action buttons and updates the total bet. */
+    updates the selectedChip and ifNumClicked to true, enable the action buttons and updates the total bet. */
     function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
             getGridButtonAction(name, ifPrevBet),
@@ -64,8 +61,9 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
         );
         addBet(name, value, ifPrevBet);
         updateButtonState("selectedChip", true);
-        setAction(true);
-        updateTotalBet(getTotalBet());
+        updatePlayAreaState("ifNumClicked", true);
+        updatePlayAreaState("enableButton", true);
+        updatePlayAreaState("totalBet", getTotalBet());
     }
 
     return (
@@ -73,11 +71,13 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
         onClick={() => showSelectedChip(chipValue)}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}>
-            {/* The below div is shown when the user hovers over the button. */}
+            {/* The below div is shown when the user hovers over the button
+            (Check the PlayButton component from styles.tsx). */}
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
             </div>
+            
             {name}
 
             {/* The below div is shown when the correct value 
@@ -86,6 +86,8 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
             {chosenDozenRange === name &&
                 <div className={correctHoverStyle}></div>
             }
+
+             {/* The chip is shown when the selectedChip is false. */}
             {buttonState.selectedChip && 
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 

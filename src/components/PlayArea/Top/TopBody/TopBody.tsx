@@ -18,7 +18,7 @@ export const GridContext = createContext<correctValueDataType>({
 
 // This is the main playing area.
 export default function TopBody() {
-    const { playDataStore, updateIfSpinned } = useContext(ChipContext);
+    const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { ifSpinned } = playDataStore;
 
     // The state is shared only on the buttons in the three grids.
@@ -31,7 +31,8 @@ export default function TopBody() {
     });
 
     /* If ifSpinned is true, update the gridState to the correctValueData session storage
-    and then after 5 seconds, update the gridState, the ifSpinned to false
+    and then after 5 seconds (to wait for the correctHover div from each button to be fully shown),
+    update the gridState, the ifSpinned to false
     and remove the correctValueData session storage. */
     useEffect(() => {
         if (ifSpinned) {
@@ -48,7 +49,7 @@ export default function TopBody() {
                         dozenRange: ""
                     }
                 });
-                updateIfSpinned(false);
+                updatePlayAreaState("ifSpinned", false);
                 sessionStorage.removeItem("correctValueData");
             }, 5000);
         }

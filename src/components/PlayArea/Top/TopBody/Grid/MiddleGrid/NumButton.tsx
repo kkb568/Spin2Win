@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css, cx } from "@emotion/css";
 import { PlayButton } from "../../../../../../styles/styles";
 import { assignBackgroundColor } from "../../../../../../utils/chipUtils";
 import { useContext, useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType } from "../../../../../../data/dataTypes";
 import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
+import chessPiece from "../../../../../../assets/cbimage.svg";
 
 interface Props {
     num: number,
@@ -14,23 +15,25 @@ interface Props {
 }
 
 export default function NumButton({ num, chosenNum }: Props) {
-    const { 
-        playDataStore, 
-        chipValue, 
-        setAction,
-        updateTotalBet,
-        updateReloadLastBets
-    } = useContext(ChipContext);
-    const { chipUrl, reloadLastBets } = playDataStore;
+    const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext);
+    const { chipUrl, reloadLastBets, ifNumClicked } = playDataStore;
 
-    /* The selectedChip is for showing the shown chip when user clicks the button 
-    whereas the showTotal is for showing the total bet for the specified button 
-    when user hover over the button and the shown chip is present.*/
+    /**
+     * 1. selectedChip: For showing the shown chip when user clicks the button.
+     * 2. showTotal: For showing the total bet for the specified button 
+            when user hover over the button and the shown chip is present.
+     * 3. correctHover: To show the div with the correctHoverStyle classname.
+            It's specific to NumButton since the showChessPiece also depends
+            on its value.
+     * 4. showChessPiece: To show the chess piece image on the button whose
+            num value is equal to the chosenNum from the wheel spin functionality.
+     */
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
-        showTotal: false
+        showTotal: false,
+        correctHover: false,
+        showChessPiece: false
     });
-    const [correctHover, setCorrectHover] = useState<boolean>(false);
 
     const buttonColor = assignBackgroundColor(num);
     const betChipUrl = getChipUrlByBet(num)
@@ -45,6 +48,8 @@ export default function NumButton({ num, chosenNum }: Props) {
         })
     }
 
+    /* The function adds the add action, adds the bet to the betsData storage,
+    updates the selectedChip and ifNumClicked to true, enable the action buttons and updates the total bet. */
     function showSelectedChip(value: number, ifPrevBet?: boolean) {
         addAction(
             getGridButtonAction(num, ifPrevBet),
@@ -53,35 +58,52 @@ export default function NumButton({ num, chosenNum }: Props) {
         );
         addBet(num, value, ifPrevBet);
         updateButtonState("selectedChip", true);
-        setAction(true);
-        updateTotalBet(getTotalBet());
+        updatePlayAreaState("ifNumClicked", true);
+        updatePlayAreaState("enableButton", true);
+        updatePlayAreaState("totalBet", getTotalBet());
     }
 
     /* If the correct value (from the chosen value from the wheel spin functionality)
     is equal to the num value, update the correctHover to true
-    and then after 5 seconds, update the correctHover to false. */
+    and then after 5 seconds, update the correctHover to false and the showChessPiece to true. */
     useEffect(() => {
         if (chosenNum === num) {
-            setCorrectHover(true);
+            updateButtonState("correctHover", true);
 
             setTimeout(() => {
-                setCorrectHover(false);
+                updateButtonState("correctHover", false);
+                updateButtonState("showChessPiece", true);
             }, 5000);
         }
-    }, [chosenNum])
+    }, [chosenNum]);
 
-    /*If the reloadLastBets is true, get the found and the lastBetValue using the betOn value
-    and if found is true (meaning that the betOn value is in the lastBetData storage), 
-    call the showSelectedChip function and update the reloadLastBets to false. */
+    /*If the reloadLastBets is true, set the showChessPiece to false, 
+    get the found and the lastBetValue using the betOn value and if found is true 
+    (meaning that the betOn value is in the lastBetData storage), call the showSelectedChip function 
+    and update the reloadLastBets to false. */
     useEffect(() => {
         if (reloadLastBets) {
+            updateButtonState("showChessPiece", false);
             const [ found, lastBetValue ] = checkValueFromLastBet(num);
             if (found) {
                 showSelectedChip(lastBetValue, true);
-                updateReloadLastBets(false);
+                updatePlayAreaState("reloadLastBets", false);
             }
         }
     }, [reloadLastBets])
+
+    // If ifNumClicked is true, set the showChessPiece to false.
+    useEffect(() => {
+        if (ifNumClicked) {
+            updateButtonState("showChessPiece", false);
+        }
+    }, [ifNumClicked])
+
+    /*The chess piece becomes invisible if the showTotal is true.
+    The showTotal changes when the user hover over the button. */
+    const chessPieceHoverStyle = css`
+        opacity: ${buttonState.showTotal ? 0 : 1};
+    `
 
     return (
         <PlayButton
@@ -93,16 +115,27 @@ export default function NumButton({ num, chosenNum }: Props) {
                 backgroundColor: buttonColor,
                 fontSize: '24px'
                 }}>
-                    {/* The below div is shown when the user hovers over the button. */}
+                    {/* The below div is shown when the user hovers over the button
+                    (Check the PlayButton component from styles.tsx). */}
                     <div className={hoverElementStyle}>
                         <div className={foregroundStyle}></div>
                         <img className={chipStyle} src={chipUrl} />
                     </div>
+                    
                     {num}
+
                     {/* The below div is shown when the correctHover is true. */}
-                    {correctHover &&
+                    {buttonState.correctHover &&
                         <div className={correctHoverStyle}></div>
                     }
+
+                    {/* The chess piece image is shown when the showChessPiece is true. */}
+                    {
+                        buttonState.showChessPiece &&
+                        <img src={chessPiece} className={cx(chessPieceStyle, chessPieceHoverStyle)} />
+                    }
+
+                    {/* The chip is shown when the selectedChip is false. */}
                     {buttonState.selectedChip &&
                         <div className={selectedChipStyle}>
                             <ShownChip url={betChipUrl} 
@@ -178,6 +211,28 @@ const correctHoverStyle = css`
     @keyframes blink {
         50% {
             opacity: 0;
+        }
+    }
+`
+
+const chessPieceStyle = css`
+    position: absolute;
+    z-index: 6;
+    width: 2em;
+    height: 2em;
+    margin-top: -.5em;
+    transition: all .25s ease-in-out;
+    animation: movePiece 1s ease-in-out;
+
+    @keyframes movePiece {
+        0% {
+            opacity: 0;
+            margin-top: -2.5em;
+        }
+
+        100% {
+            opacity: 1;
+            margin-top: -.5em;
         }
     }
 `

@@ -6,13 +6,8 @@ import { clearBetsData, doubleBetValue, getTotalBet } from "../../../../utils/be
 import { addAction, clearUserActions, undoBetAction } from "../../../../utils/actionUtils"
 
 export default function ActionSection() {
-    const { 
-        setAction, 
-        playDataStore, 
-        updateTotalBet,
-        updateReloadLastBets
-    } = useContext(ChipContext)
-    const { enableButton,countReload } = playDataStore;
+    const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
+    const { enableButton, countReload } = playDataStore;
 
     const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
 
@@ -21,9 +16,10 @@ export default function ActionSection() {
     function deleteBets() {
         clearUserActions();
         clearBetsData();
-        setAction(false);
-        updateTotalBet(0);
-        updateReloadLastBets(false, 0);
+        updatePlayAreaState("enableButton", false);
+        updatePlayAreaState("totalBet", 0);
+        updatePlayAreaState("reloadLastBets", false);
+        updatePlayAreaState("countReload", 0);
     }
 
     /* The function doubles the bet values of all the bets,
@@ -31,7 +27,7 @@ export default function ActionSection() {
     function doubleBets() {
         doubleBetValue();
         addAction(Action.Double_Bets, null);
-        updateTotalBet(getTotalBet());
+        updatePlayAreaState("totalBet", getTotalBet());
     }
 
     /* The function is undo the bets done by the user, updates the total bets 
@@ -39,11 +35,12 @@ export default function ActionSection() {
     and update the countReload to zero. */
     function undoBets() {
         undoBetAction();
-        updateTotalBet(getTotalBet());
+        updatePlayAreaState("totalBet", getTotalBet());
         
         if(getTotalBet() === 0) {
-            setAction(false);
-            updateReloadLastBets(false, 0);
+            updatePlayAreaState("enableButton", false);
+            updatePlayAreaState("reloadLastBets", false);
+            updatePlayAreaState("countReload", 0);
         }
     }
 
@@ -52,7 +49,8 @@ export default function ActionSection() {
     function reloadPrevBets() {
         if (countReload === 0) {
             clearBetsData();
-            updateReloadLastBets(true, countReload + 1);
+            updatePlayAreaState("reloadLastBets", true);
+            updatePlayAreaState("countReload", countReload + 1);
         }
     }
 
