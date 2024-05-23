@@ -20,12 +20,12 @@ export default function PreviousNum({ keyValue,
     // Make the most recent previous chosen value larger than the rest of the values.
     const numSizeStyle: string = keyValue === recentKeyValue
     ? css`
-        width: 1.55em;
-        height: 1.55em;
+        width: 1.4em;
+        height: 1.7em;
         font-size: 1.2em;
     ` : css`
-        width: 1.5em;
-        height: 1.5em;
+        width: 1.2em;
+        height: 1.4em;
         font-size: 1em;
     `
 

@@ -34,7 +34,9 @@ export default function TopHeader() {
 
     return (
         <div className={TopHeaderStyle}>
-            {prevNumsData}
+            <div className={prevNumListStyle}>
+                {prevNumsData}
+            </div>
         </div>
     )
 }
@@ -50,4 +52,9 @@ const TopHeaderStyle = css`
         margin-left: 1.5em;
         font-size: 13px;
     }
+`
+
+const prevNumListStyle = css`
+    display: flex;
+    align-items: center;
 `
