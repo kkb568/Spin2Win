@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { GridContext } from "../../TopBody";
 
 export default function BottomGrid() {
-    const { even_odd, low_high, red_black } = useContext(GridContext)
+    const { even_odd, low_high, numColor } = useContext(GridContext)
 
     return (
         <div className={BottomGridStyle}>
@@ -16,10 +16,10 @@ export default function BottomGrid() {
                 correctValueDesc={even_odd} />
             <DiamondButton diamondColor={redColors.diamondRed}
                 representColor={redColors.normalRed}
-                chosenColor={red_black}/>
+                chosenColor={numColor}/>
             <DiamondButton diamondColor={black}
                 representColor={black}
-                chosenColor={red_black}/>
+                chosenColor={numColor}/>
             <DescButton description="odd" 
                 correctValueDesc={even_odd} />
             <DescButton description="high" 

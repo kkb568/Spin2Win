@@ -5,6 +5,7 @@ import { MainContext } from "../../App";
 import { clearBetsData } from "../../utils/betUtils";
 import Prize from "./Prize";
 import Wheel from "./Wheel";
+import { prevNumDataType } from "../../data/dataTypes";
 
 /* The spinWheel is used to indicate if the wheel should spin or not,
 The winningPrize is used to store the prize amount that the user wins by 
@@ -23,6 +24,11 @@ export default function RouletteWheel() {
         winningPrize: 0,
         showPrize: false
     })
+
+    const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+
+    // Make the heightValue match up to the height of the PlayArea component.
+    const heightValue: number = prevChosenNums.length === 0 ? 84.5 : 85.1;
 
     function setWheelState(key:string, value: boolean | number) {
         setRouletteWheelState(prevState => {
@@ -54,10 +60,20 @@ export default function RouletteWheel() {
         }
     }, [mainData.displayWheel])
 
+    
     const rouletteWheelStyle = css`
         position: absolute;
         z-index: 8;
         visibility: ${mainData.displayWheel};
+    `
+
+    const wheelContentStyle = css`
+        width: 960px;
+        height: ${`${heightValue}vh`};
+        background: radial-gradient(circle,rgba(0,0,0,0) 0,rgba(0,0,0,0) 52.6%,rgba(0,0,0,.8) 100%) rgba(0,0,0,.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     `
 
     return (
@@ -75,12 +91,3 @@ export default function RouletteWheel() {
         </div>
     )
 }
-
-const wheelContentStyle = css`
-    width: 960px;
-    height: 84.5vh;
-    background: radial-gradient(circle,rgba(0,0,0,0) 0,rgba(0,0,0,0) 52.6%,rgba(0,0,0,.8) 100%) rgba(0,0,0,.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`

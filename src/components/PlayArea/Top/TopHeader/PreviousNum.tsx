@@ -35,11 +35,6 @@ export default function PreviousNum({ keyValue,
         font-size: 1em;
     `
 
-    // The below two strings are the diamond's styles.
-    const diamondColorStyle = css`
-        background-color: #3e7600;
-    `
-
     const diamondSizeStyle: string = keyValue === recentKeyValue 
     ? css`
         width: .8em;
@@ -70,4 +65,8 @@ const prevNumStyle = css`
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+const diamondColorStyle = css`
+    background-color: #3e7600;
 `
