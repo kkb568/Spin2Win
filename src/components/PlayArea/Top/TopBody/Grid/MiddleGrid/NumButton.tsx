@@ -89,10 +89,11 @@ export default function NumButton({ num, chosenNum }: Props) {
     /*If the reloadLastBets is true, set the showChessPiece to false, 
     get the found and the lastBetValue using the betOn value and if found is true 
     (meaning that the betOn value is in the lastBetData storage), call the showSelectedChip function 
-    and update the reloadLastBets to false. */
+    and then update the reloadLastBets to false. */
     useEffect(() => {
         if (reloadLastBets) {
             updateButtonState("showChessPiece", false);
+            
             const [ found, lastBetValue ] = checkValueFromLastBet(num);
             if (found) {
                 showSelectedChip(lastBetValue, true);

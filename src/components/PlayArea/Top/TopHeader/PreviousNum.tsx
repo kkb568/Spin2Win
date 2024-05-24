@@ -1,4 +1,5 @@
 import { css, cx } from "@emotion/css"
+import { Diamond } from "../../../../styles/styles"
 
 interface previousNumProps {
     keyValue: number
@@ -13,7 +14,12 @@ export default function PreviousNum({ keyValue,
     recentKeyValue 
 }: previousNumProps) {
     
-    const backgroundColorStyle = css`
+    /* If the value is equal to zero, set the background to the light-green gradient,
+    otherwise, set the background to the color props value. */
+    const backgroundColorStyle = value === 0 ?
+    css`
+        background: linear-gradient(180deg,#7ec000 0,#5eb300 100%);
+    ` : css`
         background-color: ${color};
     `
 
@@ -29,9 +35,27 @@ export default function PreviousNum({ keyValue,
         font-size: 1em;
     `
 
+    // The below two strings are the diamond's styles.
+    const diamondColorStyle = css`
+        background-color: #3e7600;
+    `
+
+    const diamondSizeStyle: string = keyValue === recentKeyValue 
+    ? css`
+        width: .8em;
+        height: 1.4em;
+    ` : css`
+        width: .6em;
+        height: 1.1em;
+    `
+
+    // Show green diamond shape if the value is equal to zero, otherwise, show only the value.
     return (
         <div className={cx(prevNumStyle, numSizeStyle, backgroundColorStyle)}>
-            {value}
+            {value === 0 ?
+                <Diamond className={cx(diamondColorStyle, diamondSizeStyle)}/>
+                : value
+            }
         </div>
     )
 }

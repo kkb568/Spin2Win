@@ -92,7 +92,7 @@ export interface correctValueDataType {
     value: number,
     even_odd: string,
     low_high: string,
-    red_black: string,
+    numColor: string,
     dozenRange: string
 }
 

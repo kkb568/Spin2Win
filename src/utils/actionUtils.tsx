@@ -1,4 +1,5 @@
 import { Action, actionDataType, betDataType, betOnType } from "../data/dataTypes";
+import { countPrevBets, divideBetByTwo, removeBet, removeBetValue, removePrevBets } from "./betUtils";
 
 /* The function is used to set the action for the clicked button in the any of the grid buttons. 
 If the button was clicked more than once, the action is "Add_BetValue", 
@@ -14,7 +15,7 @@ export function getGridButtonAction(betOnValue: betOnType, redoBets?: boolean) {
         }
     }
 
-    /* If redBets is true (meaning the added bets where 
+    /* If redoBets is true (meaning the added bets where 
         from the previous play), the action should be "Add_PrevBets",
         otherwise, the action should be "Add_Bet". */
     if (redoBets) {
@@ -89,44 +90,6 @@ export function undoBetAction() {
     }
 }
 
-// The function is used to remove the last bet from the betArray and update it to betsData storage.
-function removeBet(betArray: betDataType[]) {
-    betArray.pop();
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
-}
-
-// The function is used to divide each betValue by 2.
-function divideBetByTwo(betArray: betDataType[]) {
-    for (let i = 0; i < betArray.length; i++) {
-        betArray[i].betValue /= 2;
-    }
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
-}
-
-/* The function is used to subtract the betValue
-of the element which its betOn value is equal to the betOn parameter 
-(so as to get which bet was added last) by the value parameter. */
-function removeBetValue(betArray: betDataType[], value: number, betOn: betOnType) {
-    for (let i = 0; i < betArray.length; i++) {
-        if (betArray[i].betOn === betOn) {
-            betArray[i].betValue -= value;
-            break;
-        }
-    }
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
-}
-
-/* The function is used to remove all bets in which its ifPrevBet value
-is true (indicating that it was a bet from previous play). */
-function removePrevBets(betArray: betDataType[], betsNum: number) {
-    for (let i = 0; i < betArray.length; i++) {
-        if (betArray[i].ifPrevBet) {
-            betArray.splice(i, betsNum);
-        }
-    }
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
-}
-
 /* The function is used to remove all the actions data which its action value
 is equal to "Add_PrevBets" and then store the array to the actionData storage */
 function removePrevActions(actionArray: actionDataType[], actionsNum: number) {
@@ -137,19 +100,6 @@ function removePrevActions(actionArray: actionDataType[], actionsNum: number) {
             return;
         }
     }
-}
-
-/*The function is used to count the number of bets in which its ifPrevBet
-value is true (indicating that they were previous bets from the last play done). */
-function countPrevBets(betArray: betDataType[]): number {
-    let count: number = 0;
-
-    for (let i = 0; i < betArray.length; i++) {
-        if (betArray[i].ifPrevBet) {
-            count++;
-        }
-    }
-    return count;
 }
 
 // The function clears all the actions that the user did on the playing area.

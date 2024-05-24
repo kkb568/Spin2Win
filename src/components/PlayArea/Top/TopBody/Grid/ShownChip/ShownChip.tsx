@@ -12,9 +12,9 @@ export default function ShownChip({ url, betTotal, showTotal }: chipProp) {
     const { playDataStore } = useContext(ChipContext);
     const { enableButton } = playDataStore;
     
-    /* The component is rendered if the enableButton is true 
-    and the betTotal is greater than 0. 
-    This helps to remove unwanted chip display when the delete button is clicked. */
+    /* The component is rendered if the enableButton is true and the betTotal is greater than 0. 
+    This helps to remove unwanted chip display when the delete button is clicked
+    and user clicks on another button afterwards. */
     return (
         <>
             {enableButton && betTotal > 0 &&

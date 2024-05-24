@@ -1,4 +1,4 @@
-import { black, redColors, redNumbers, wheelSequence } from "../data/data";
+import { black, green, redColors, redNumbers, wheelSequence } from "../data/data";
 import { betDataType, correctValueDataType, prevNumDataType } from "../data/dataTypes";
 
 /*The function is used to set the rotation of the roulette wheel 
@@ -61,6 +61,7 @@ function getWinningPrize(chosenNum: number): number {
 }
 
 // The function is used to get the prize based on the betOn value if the value's type is a string.
+// If the value is the green hex value, the prize = betValue * 36 if the chosenNum is zero.
 function getPrizeByStringBetOn(betOn: string, 
     betValue: number, 
     chosenNum: number
@@ -133,6 +134,11 @@ function getPrizeByStringBetOn(betOn: string,
                 prize = betValue * 4;
             }
             break;
+        case green:
+            if (chosenNum === 0) {
+                prize = betValue * 36;
+            }
+            break;
         default:
             break;
     }
@@ -176,24 +182,37 @@ function checkEven(chosenNum: number) {
 /* The function is used to get the details of the chosen value from the wheel spin rotation
 and store the details in the correctValueData session storage. */ 
 function addCorrectValue(value: number) {
-    const evenOdd: string = checkEven(value) ? "even" : "odd";
-    const lowHigh: string = checkNumRange(1, 18, value) ? "low" : "high";
-    const redBlack: string = checkRedColor(value) ? redColors.normalRed : black;
+    /* If the value is 0, the numColor is green hex value and other values are empty strings, otherwise,
+    the variables depend on their respective function's return value. */
+    let numColor: string;
+    let evenOdd: string;
+    let lowHigh: string;
+    if (value === 0) {
+        numColor = green;
+        evenOdd = "";
+        lowHigh = "";
+    } else {
+        numColor = checkRedColor(value) ? redColors.normalRed : black;
+        evenOdd = checkEven(value) ? "even" : "odd";
+        lowHigh = checkNumRange(1, 18, value) ? "low" : "high";
+    }
 
-    let dozenRange: string = "";
+    let dozenRange: string;
     if (checkNumRange(1, 12, value)) {
         dozenRange = "1~12";
     } else if (checkNumRange(13, 24, value)) {
         dozenRange = "13~24";
     } else if (checkNumRange(25, 36, value)) {
         dozenRange = "25~36";
+    } else {
+        dozenRange = "";
     }
 
     const winValue: correctValueDataType = {
         value: value,
         even_odd: evenOdd,
         low_high: lowHigh,
-        red_black: redBlack,
+        numColor: numColor,
         dozenRange: dozenRange
     }
     sessionStorage.setItem("correctValueData", JSON.stringify(winValue));

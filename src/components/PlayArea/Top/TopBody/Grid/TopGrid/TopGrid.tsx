@@ -6,8 +6,8 @@ import { GridContext } from "../../TopBody";
 
 /* This component renders the buttons at the first grid */
 export default function TopGrid() {
-    const { low_high, red_black } = useContext(GridContext);
-    const chosenNumDetails = low_high.concat(` ${red_black}`);
+    const { low_high, numColor } = useContext(GridContext);
+    const chosenNumDetails = low_high.concat(` ${numColor}`);
 
     const topGridButtonList = topGridButtons.map((button) => {
         return (

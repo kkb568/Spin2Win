@@ -10,11 +10,12 @@ export default function TopHeader() {
     let prevNumsList: JSX.Element[];
     if (prevChosenNums.length > 0) {
         const prevNumsArr: prevNumDataType[] = prevChosenNums;
-        // Get the most recent previous number.
+        // Get the most recent previous number's key.
         const recentPrevNumKey: number = prevNumsArr[0].key;
          
         prevNumsList = prevNumsArr.map((prev) => {
-            const color: string = assignBackgroundColor(prev.value);
+            const color: string = prev.value !== 0 && 
+            assignBackgroundColor(prev.value);
 
             return (
                 <PreviousNum key={prev.key}

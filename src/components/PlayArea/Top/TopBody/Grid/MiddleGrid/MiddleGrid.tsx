@@ -38,7 +38,7 @@ export default function MiddleGrid() {
             <div className={MiddleGridDozenStyle}>
                 {dozenButtonList}
             </div>
-            <GreenButton />
+            <GreenButton chosenNum={value}/>
         </>
     )
 }

@@ -13,14 +13,15 @@ import { ChipContext } from "../../PlayArea";
  * 1. value: The chosen value from the spin wheel functionality.
  * 2. even_odd: If the value is even or odd number.
  * 3. low_high: If the value is low (between 1 and 18) or high (between 19 and 36).
- * 4. red_black: If the value is from redNumbers array (having red background color - "red") or not "black".
+ * 4. numColor: If the value is from redNumbers array (having red background color - "red") or not "black".
+ *      If the value is zero, the numColor will be the green hex value.
  * 5. dozenRange: The dozen range in which the value lies.
  */
 export const GridContext = createContext<correctValueDataType>({
     value: null,
     even_odd: "",
     low_high: "",
-    red_black: "",
+    numColor: "",
     dozenRange: ""
 })
 
@@ -31,17 +32,16 @@ export default function TopBody() {
 
     // The state is shared only on the buttons in the three grids.
     const [gridState, setGridState] = useState<correctValueDataType>({
-        value: 0,
+        value: null,
         even_odd: "",
         low_high: "",
-        red_black: "",
+        numColor: "",
         dozenRange: ""
     });
 
     /* If ifSpinned is true, update the gridState to the correctValueData session storage
     and then after 5 seconds (to wait for the correctHover div from each button to be fully shown),
-    update the gridState, the ifSpinned to false
-    and remove the correctValueData session storage. */
+    update the gridState, the ifSpinned to false and remove the correctValueData session storage. */
     useEffect(() => {
         if (ifSpinned) {
             const correctValueData: correctValueDataType = JSON.parse(sessionStorage.getItem("correctValueData"));
@@ -53,7 +53,7 @@ export default function TopBody() {
                         ...prevState,
                         even_odd: "",
                         low_high: "",
-                        red_black: "",
+                        numColor: "",
                         dozenRange: ""
                     }
                 });
