@@ -16,7 +16,7 @@ interface Props {
 
 export default function NumButton({ num, chosenNum }: Props) {
     const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, reloadLastBets, ifNumClicked } = playDataStore;
+    const { chipUrl, reloadLastBets, ifNumClicked, disableButtonEvents } = playDataStore;
 
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -63,10 +63,14 @@ export default function NumButton({ num, chosenNum }: Props) {
         updatePlayAreaState("totalBet", getTotalBet());
     }
 
-    /* If the correct value (from the chosen value from the wheel spin functionality)
+    /* In case the chosenNum changes, set the disableButtonEvents to true 
+    and if the correct value (from the chosen value from the wheel spin functionality)
     is equal to the num value, update the correctHover to true
-    and then after 5 seconds, update the correctHover to false and the showChessPiece to true. */
+    and then after 5 seconds, update the correctHover to false, the showChessPiece to true
+    and the disableButtonEvents to false. */
     useEffect(() => {
+        updatePlayAreaState("disableButtonEvents", true);
+
         if (chosenNum === num) {
             updateButtonState("correctHover", true);
 
@@ -75,6 +79,11 @@ export default function NumButton({ num, chosenNum }: Props) {
                 updateButtonState("showChessPiece", true);
             }, 5000);
         }
+
+        setTimeout(() => {
+            updatePlayAreaState("disableButtonEvents", false);
+        }, 5000)
+        
     }, [chosenNum]);
 
     /*If the reloadLastBets is true, set the showChessPiece to false, 
@@ -113,7 +122,9 @@ export default function NumButton({ num, chosenNum }: Props) {
             style={{
                 position: 'relative', 
                 backgroundColor: buttonColor,
-                fontSize: '24px'
+                fontSize: '24px',
+                cursor: disableButtonEvents ? "context-menu" : "pointer",
+                pointerEvents: disableButtonEvents ? "none" : "all"
                 }}>
                     {/* The below div is shown when the user hovers over the button
                     (Check the PlayButton component from styles.tsx). */}

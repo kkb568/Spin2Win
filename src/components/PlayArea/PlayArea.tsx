@@ -19,8 +19,10 @@ import { ChipContextType, playDataStoreType, playDataStateType } from "../../dat
  * 6. reloadLastBets: Changes when the reload button (the first button) from the ActionSection component is clicked
  *      so as to show the bets from the previous play.
  * 7. countReload: Count the number of times the reload button is clicked.
- * 8. ifNumClicked: Check if any of the NumButton buttons has been clicked. Useful for removing the chess piece
- *      if there it is present on the playing area.
+ * 8. ifNumClicked: Check if any of the NumButton buttons has been clicked. Useful for removing 
+ *      the chess piece if it is present on the playing area.
+ * 9. disableButtonEvents: Used for disabling the grid button events when the ifNumClicked is true so as to
+ *      prevent the grid button's event listeners when the correctHoverStyle div is shown for 5 seconds.
  */
 export const ChipContext = createContext<ChipContextType>({
     chipValue: 0,
@@ -31,7 +33,8 @@ export const ChipContext = createContext<ChipContextType>({
         ifSpinned: false,
         reloadLastBets: false,
         countReload: 0,
-        ifNumClicked: false
+        ifNumClicked: false,
+        disableButtonEvents: false
     },
     updatePlayAreaState: null
 });
@@ -45,7 +48,8 @@ export default function PlayArea() {
         ifSpinned: false,
         reloadLastBets: false,
         countReload: 0,
-        ifNumClicked: false
+        ifNumClicked: false,
+        disableButtonEvents: false
     })
     const selectedChipValue = getSelectedChipValue();
 

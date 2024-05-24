@@ -1,6 +1,5 @@
 import { PlayButton } from "../../../../../../styles/styles"
 import { useContext, useEffect, useState } from "react";
-import { ButtonFontStyle } from "../../../../../../styles/styles";
 import { css } from "@emotion/css";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
@@ -15,7 +14,7 @@ interface Props {
 
 export default function DescButton({ description, correctValueDesc }: Props) {
     const { playDataStore, chipValue,updatePlayAreaState } = useContext(ChipContext)
-    const { chipUrl, reloadLastBets } = playDataStore;
+    const { chipUrl, reloadLastBets, disableButtonEvents } = playDataStore;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -68,10 +67,14 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     }
 
     return (
-        <PlayButton style={ButtonFontStyle} 
-        onClick={() => showSelectedChip(chipValue)}
+        <PlayButton onClick={() => showSelectedChip(chipValue)}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
-        onMouseLeave={() => updateButtonState("showTotal", false)}>
+        onMouseLeave={() => updateButtonState("showTotal", false)}
+        style={{
+            cursor: disableButtonEvents ? "context-menu" : "pointer",
+            pointerEvents: disableButtonEvents ? "none" : "all",
+            fontSize: '18px'
+        }} >
             
             {description}
 

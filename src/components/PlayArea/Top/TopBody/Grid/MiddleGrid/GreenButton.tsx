@@ -14,7 +14,7 @@ export default function GreenButton() {
         chipValue,
         updatePlayAreaState
     } = useContext(ChipContext);
-    const { chipUrl } = playDataStore;
+    const { chipUrl, disableButtonEvents } = playDataStore;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -57,7 +57,11 @@ export default function GreenButton() {
         <PlayButton className={greenButtonStyle}
         onClick={() => showSelectedChip()}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
-        onMouseLeave={() => updateButtonState("showTotal", false)}>
+        onMouseLeave={() => updateButtonState("showTotal", false)}
+        style={{
+            cursor: disableButtonEvents ? "context-menu" : "pointer",
+            pointerEvents: disableButtonEvents ? "none" : "all"
+        }}>
             {/* The below div is shown when the user hovers over the button
             (Check the PlayButton component from styles.tsx). */}
             <div className={hoverElementStyle}>

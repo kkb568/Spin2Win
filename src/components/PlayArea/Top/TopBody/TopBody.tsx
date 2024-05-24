@@ -8,8 +8,16 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { correctValueDataType } from "../../../../data/dataTypes";
 import { ChipContext } from "../../PlayArea";
 
+// This is used to store the details of the chosen value stored in the correctValueData storage.
+/**
+ * 1. value: The chosen value from the spin wheel functionality.
+ * 2. even_odd: If the value is even or odd number.
+ * 3. low_high: If the value is low (between 1 and 18) or high (between 19 and 36).
+ * 4. red_black: If the value is from redNumbers array (having red background color - "red") or not "black".
+ * 5. dozenRange: The dozen range in which the value lies.
+ */
 export const GridContext = createContext<correctValueDataType>({
-    value: 0,
+    value: null,
     even_odd: "",
     low_high: "",
     red_black: "",

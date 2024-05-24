@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { ButtonFontStyle, PlayButton } from "../../../../../../styles/styles";
+import { PlayButton } from "../../../../../../styles/styles";
 import { useContext, useEffect, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
@@ -14,7 +14,7 @@ interface Props {
 
 export default function DozenButton({ name, chosenDozenRange }: Props) {
     const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext)
-    const { chipUrl, reloadLastBets } = playDataStore;
+    const { chipUrl, reloadLastBets, disableButtonEvents } = playDataStore;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -67,10 +67,15 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     }
 
     return (
-        <PlayButton style={ButtonFontStyle} 
+        <PlayButton
         onClick={() => showSelectedChip(chipValue)}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
-        onMouseLeave={() => updateButtonState("showTotal", false)}>
+        onMouseLeave={() => updateButtonState("showTotal", false)}
+        style={{
+            cursor: disableButtonEvents ? "context-menu" : "pointer",
+            pointerEvents: disableButtonEvents ? "none" : "all",
+            fontSize: '18px'
+        }}>
             {/* The below div is shown when the user hovers over the button
             (Check the PlayButton component from styles.tsx). */}
             <div className={hoverElementStyle}>

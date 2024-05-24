@@ -15,7 +15,7 @@ interface Props {
 
 export default function TopGridButton({ name, diamondColor, chosenNumDetails }: Props) {
     const { chipValue, playDataStore, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, reloadLastBets } = playDataStore;
+    const { chipUrl, reloadLastBets, disableButtonEvents } = playDataStore;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -76,12 +76,17 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
         updatePlayAreaState("enableButton", true);
         updatePlayAreaState("totalBet", getTotalBet());
     }
+    
 
     return (
         <PlayButton className={ButtonTextStyle} 
         onClick={() => showSelectedChip(chipValue)} 
         onMouseEnter={() => updateButtonState("showTotal", true)} 
-        onMouseLeave={() => updateButtonState("showTotal", false)}>
+        onMouseLeave={() => updateButtonState("showTotal", false)}
+        style={{
+            cursor: disableButtonEvents ? "context-menu" : "pointer",
+            pointerEvents: disableButtonEvents ? "none" : "all"
+        }}>
 
             {/* The below div is shown when the user hovers over the button
                     (Check the PlayButton component from styles.tsx). */}

@@ -37,7 +37,8 @@ export interface playDataStoreType {
     ifSpinned: boolean,
     reloadLastBets: boolean,
     countReload: number,
-    ifNumClicked: boolean
+    ifNumClicked: boolean,
+    disableButtonEvents: boolean
 }
 
 export interface ChipContextType {

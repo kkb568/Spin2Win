@@ -19,12 +19,7 @@ injectGlobal`
     }
 `
 
-export const ButtonFontStyle = {
-    fontSize: '18px'
-}
-
 export const PlayButton = styled.button`
-    cursor: pointer;
     background-color: transparent;
     color: white;
     padding: .5em 1em;
