@@ -22,7 +22,9 @@ import { ChipContextType, playDataStoreType, playDataStateType } from "../../dat
  * 8. ifNumClicked: Check if any of the NumButton buttons has been clicked. Useful for removing 
  *      the chess piece if it is present on the playing area.
  * 9. disableButtonEvents: Used for disabling the grid button events when the ifNumClicked is true so as to
- *      prevent the grid button's event listeners when the correctHoverStyle div is shown for 5 seconds.
+ *      prevent the grid button's event listeners when the correctHoverStyle div is shown for 5 seconds.  
+ * 10. disableFooterButtons: Used to disable the second and third footer buttons
+ *      when the wheel spin implementation is occurring.
  */
 export const ChipContext = createContext<ChipContextType>({
     chipValue: 0,
@@ -34,7 +36,8 @@ export const ChipContext = createContext<ChipContextType>({
         reloadLastBets: false,
         countReload: 0,
         ifNumClicked: false,
-        disableButtonEvents: false
+        disableButtonEvents: false,
+        disableFooterButtons: false
     },
     updatePlayAreaState: null
 });
@@ -49,7 +52,8 @@ export default function PlayArea() {
         reloadLastBets: false,
         countReload: 0,
         ifNumClicked: false,
-        disableButtonEvents: false
+        disableButtonEvents: false,
+        disableFooterButtons: false
     })
     const selectedChipValue = getSelectedChipValue();
 

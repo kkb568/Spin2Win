@@ -85,7 +85,9 @@ export default function RouletteWheel() {
                 
                 {/* Show the Prize component if the showPrize is true. */}
                 {rouletteWheelState.showPrize &&
-                    <Prize winningPrize={rouletteWheelState.winningPrize}/>
+                    <>
+                        <Prize winningPrize={rouletteWheelState.winningPrize}/>
+                    </>
                 }
             </div>
         </div>

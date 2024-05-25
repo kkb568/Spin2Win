@@ -135,3 +135,6 @@ sessionStorage.setItem("previousChosenNums", JSON.stringify(previousChosenNums))
 
 const lastBetData: betDataType[] | [] = [];
 sessionStorage.setItem("lastBetData", JSON.stringify(lastBetData));
+
+// Data for confetti.
+export const confettiColors: string[] = ["#ffd300", "#17d3ff", "#ff4e91", "#90EE90", "#FFA500"];

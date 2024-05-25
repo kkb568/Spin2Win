@@ -53,11 +53,9 @@ export const Diamond = styled.div`
 export const FooterButton = styled.button`
     width: 4em;
     height: 1.6em;
-    background-color: #1967ff;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     border: none;
     border-radius: 2px;
     position: relative;

@@ -21,11 +21,12 @@ export default function PlayButton() {
         pointer-events: none;
     `
 
-    /* Once called, clear the user actions and the last bets data, 
+    /* Once called, disable the footer buttons, clear the user actions and the last bets data, 
     call the addLastBetData function, set the ifNumClicked to false 
     and change the displayWheel value to block after 1 second. */
     function startPlay() {
         setTimeout(() => {
+            updatePlayAreaState("disableFooterButtons", true);
             clearUserActions();
             clearLastBets();
             addLastBetData();
@@ -33,9 +34,10 @@ export default function PlayButton() {
             setDisplay("displayWheel", "visible");
         }, 1000);
         /* Wait for 21 seconds (for the wheel to implement fully) 
-        then set the enable button to false, update the total bet to zero
-        and update the ifSpinned value from ChipContext to true. */
+        then set the disableFooterButtons and the enableButton to false, 
+        update the total bet to zero and update the ifSpinned value from ChipContext to true. */
         setTimeout(() => {
+            updatePlayAreaState("disableFooterButtons", false);
             updatePlayAreaState("enableButton", false);
             updatePlayAreaState("totalBet", 0);
             updatePlayAreaState("ifSpinned", true);
