@@ -28,7 +28,7 @@ export default function RouletteWheel() {
     const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
 
     // Make the heightValue match up to the height of the PlayArea component.
-    const heightValue: number = prevChosenNums.length === 0 ? 84.5 : 85.1;
+    const heightValue: number = prevChosenNums.length === 0 ? 79.5 : 80.1;
 
     function setWheelState(key:string, value: boolean | number) {
         setRouletteWheelState(prevState => {
