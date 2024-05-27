@@ -8,7 +8,7 @@ import { ActionButton } from "../../../../styles/styles"
 
 export default function ActionSection() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
-    const { enableButton, countReload } = playDataStore;
+    const { enableButton, countReload, disableButtonEvents } = playDataStore;
 
     const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
 
@@ -57,9 +57,10 @@ export default function ActionSection() {
 
     return (
         <div className={actionSectionStyle}> 
-            {/* The below button is enabled if there is data in the lastBetData storage. */}
+            {/* The below button is enabled if there is data in the lastBetData storage
+            and the disableButtonEvents is false. */}
             <ActionButton className={
-                lastBetDataArray.length === 0 ? disabledButtonStyle : enabledButtonStyle
+                lastBetDataArray.length === 0 || disableButtonEvents ? disabledButtonStyle : enabledButtonStyle
             } onClick={() => reloadPrevBets()}>
                 <i className="fa-solid fa-rotate-right"></i>
             </ActionButton>

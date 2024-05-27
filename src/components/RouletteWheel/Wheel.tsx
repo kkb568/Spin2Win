@@ -1,6 +1,6 @@
 import { css } from "@emotion/css"
 import { useEffect, useRef } from "react"
-import { wheelDraw } from "../../utils/canvasUtils";
+import { wheelDraw } from "../../utils/wheelCanvasUtils";
 import { setRotation } from "../../utils/wheelUtils";
 
 interface wheelProps {
@@ -9,18 +9,18 @@ interface wheelProps {
 }
 
 export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
-    const canvasRef = useRef<HTMLCanvasElement>();
+    const wheelCanvasRef = useRef<HTMLCanvasElement>();
 
     useEffect(() => {
-        const canvas = canvasRef.current;
+        const canvas = wheelCanvasRef.current;
         const context = canvas.getContext('2d');
-        wheelDraw(context, canvasRef);
+        wheelDraw(context, wheelCanvasRef);
     }, [])
 
     useEffect(() => {
         if (spinWheel) {
             const getWinValue = async () => {
-                const winValue: number = await setRotation(canvasRef);
+                const winValue: number = await setRotation(wheelCanvasRef);
                 setWheelState("winningPrize", winValue);
                 
                 /* If the winValue is not equal to zero 
@@ -38,7 +38,7 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
 
     return (
         <canvas className={sequenceListStyle}
-        ref={canvasRef}></canvas>
+        ref={wheelCanvasRef}></canvas>
     )
 }
 
