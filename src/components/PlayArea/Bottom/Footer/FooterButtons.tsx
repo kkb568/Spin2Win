@@ -48,6 +48,15 @@ const buttonDivStyle = css`
     display: flex;
     gap: .2em;
     margin-left: 7em;
+
+    @media (max-width: 900px) {
+        margin-left: -2em;
+        margin-right: 1em;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 2em;
+    }
 `
 
 const enabledButtonStyle = css`

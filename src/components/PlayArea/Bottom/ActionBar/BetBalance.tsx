@@ -25,6 +25,14 @@ export const BetBalanceStyle = css`
     margin-left: 2em;
     margin-right: 15em;
 
+    @media (max-width: 900px) {
+        margin-right: 7em;
+    }
+
+    @media (max-width: 600px) {
+        margin-bottom: 1em;
+    }
+
     p:first-child {
         color: #4a4a4a;
         font-size: 11px;

@@ -123,12 +123,20 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
 const ButtonTextStyle = css`
     width: 5.5em;
     height: 3.5em;
+
+    @media (max-width: 600px) {
+        width: 6.1em;
+    }
 `
 
 const hoverElementStyle = css`
     position: absolute;
     margin-left: 4.5em;
     margin-top: 1em;
+
+    @media (max-width: 600px) {
+        margin-left: 4em;
+    }
 `
 
 const foregroundStyle = css`
@@ -139,6 +147,10 @@ const foregroundStyle = css`
     margin-left: -5em;
     margin-top: -1.5em;
     z-index: 3;
+
+    @media (max-width: 600px) {
+        width: 6.1em;
+    }
 `
 
 const chipStyle = css`

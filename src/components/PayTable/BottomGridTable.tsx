@@ -17,4 +17,20 @@ const BottomGridTableStyle = css`
     margin-left: 7.6em;
     margin-top: 1em;
     background-color: rgba(25,103,255,.35);
+
+    @media (max-width: 900px) {
+        width: 15.5em;
+        height: 4.2em;
+
+        p {
+            margin: 0 .5em;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 600px) {
+        width: 7.5em;
+        height: 13em;
+        margin-left: 4.6em;
+    }
 `

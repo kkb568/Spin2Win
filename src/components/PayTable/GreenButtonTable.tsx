@@ -19,4 +19,13 @@ const GreenButtonTableStyle = css`
     border-bottom: 0;
     border-radius: 3px 3px 0 0;
     transform: rotate(-90deg);
+
+    @media (max-width: 900px) {
+        margin-top: -14.12em;
+    }
+
+    @media (max-width: 600px) {
+        margin-top: -31.52em;
+        margin-left: -1.02em;
+    }
 `

@@ -89,4 +89,12 @@ export default function PlayArea() {
 const PlayAreaStyle = css`
     width: 960px;
     color: white;
+
+    @media (max-width: 900px) {
+        width: 600px;
+    }
+
+    @media (max-width: 600px) {
+        width: 350px;
+    }
 `

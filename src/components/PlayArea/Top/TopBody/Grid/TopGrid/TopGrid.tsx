@@ -31,4 +31,14 @@ const TopGridStyle = css`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     margin-right: -.5em;
+
+    @media (max-width: 900px) {
+        float: left;
+    }
+
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(2, 1fr);
+        margin-left: -4em;
+        margin-bottom: 1em;
+    }
 `

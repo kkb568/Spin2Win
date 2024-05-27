@@ -46,4 +46,9 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
 const sequenceListStyle = css`
     height: 30em;
     width: 30em;
+
+    @media (max-width: 600px) {
+        height: 20em;
+        width: 20em;
+    }
 `

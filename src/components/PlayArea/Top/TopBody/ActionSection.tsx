@@ -4,6 +4,7 @@ import { ChipContext } from "../../PlayArea"
 import { Action, betDataType } from "../../../../data/dataTypes"
 import { clearBetsData, doubleBetValue, getTotalBet } from "../../../../utils/betUtils"
 import { addAction, clearUserActions, undoBetAction } from "../../../../utils/actionUtils"
+import { ActionButton } from "../../../../styles/styles"
 
 export default function ActionSection() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
@@ -57,32 +58,32 @@ export default function ActionSection() {
     return (
         <div className={actionSectionStyle}> 
             {/* The below button is enabled if there is data in the lastBetData storage. */}
-            <button className={
+            <ActionButton className={
                 lastBetDataArray.length === 0 ? disabledButtonStyle : enabledButtonStyle
             } onClick={() => reloadPrevBets()}>
                 <i className="fa-solid fa-rotate-right"></i>
-            </button>
+            </ActionButton>
             <br/>
 
-            <button className={
+            <ActionButton className={
                 enableButton === true ? enabledButtonStyle : disabledButtonStyle
-            } onClick={() => doubleBets()}>x2</button>
+            } onClick={() => doubleBets()}>x2</ActionButton>
             <br/>
 
-            <button className={
+            <ActionButton className={
                 enableButton === true ? enabledButtonStyle : disabledButtonStyle
             } onClick={() => undoBets()}>
                 <span className="material-symbols-outlined">
                     arrow_back
                 </span>
-            </button>
+            </ActionButton>
             <br/>
             
-            <button className={
+            <ActionButton className={
                 enableButton === true ? enabledButtonStyle : disabledButtonStyle
             } onClick={() => deleteBets()}>
                 <i className="fa-solid fa-trash-can"></i>
-            </button>
+            </ActionButton>
         </div>
     )
 }
@@ -92,24 +93,15 @@ const actionSectionStyle = css`
     position: absolute;
     margin-left: 44em;
     margin-top: -21em;
-    
-    button {
-        border: none;
-        width: 2.1em;
-        height: 2.1em;
-        border-radius: 20em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 0 5px 0 rgba(0,0,0,.1),0 5px 5px 0 rgba(0,0,0,.2);
-        font-size: 1em;
-        font-family: 'Roboto';
-        font-weight: 700;
-        transition: 50ms ease-in;
 
-        &:hover {
-            transform: scale(1.1);
-        }
+    @media (max-width: 900px) {
+        margin-left: 23em;
+        margin-top: -31em;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 8em;
+        margin-top: -55em;
     }
 `
 

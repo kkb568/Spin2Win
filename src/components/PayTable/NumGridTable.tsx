@@ -17,4 +17,17 @@ const NumGridTableStyle = css`
     background-color: rgba(25,103,255,.7);
     border: 3px solid white;
     border-radius: 0 3px 0 0;
+
+    @media (max-width: 900px) {
+        width: 15.5em;
+        height: 17em;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 4.6em;
+        margin-top: 6.2em;
+        width: 7.5em;
+        height: 34.4em;
+        text-align: center;
+    }
 `

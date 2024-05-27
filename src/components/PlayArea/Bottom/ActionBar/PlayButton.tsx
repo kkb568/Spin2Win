@@ -61,4 +61,12 @@ const playButtonStyle = css`
     border-radius: 3px;
     box-shadow: 0 6px 6px 0 rgba(0,0,0,.5);
     font-size: 1.6em;
+
+    @media (max-width: 900px) {
+        height: 3em;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 1em;
+    }
 `

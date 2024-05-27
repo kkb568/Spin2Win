@@ -20,11 +20,36 @@ const FooterStyle = css`
     gap: 10em;
     font-size: 13px;
 
+    @media (max-width: 900px) {
+        padding: 1em 0;
+        margin-bottom: 1em;
+        gap: 5em;
+    }
+
+    @media (max-width: 600px) {
+        display: grid;
+        gap: 1.5em;
+    }
+
     > span {
         margin-top: .2em;
 
         :first-child {
             margin-left: 5em;
+
+            @media (max-width: 900px) {
+                margin-left: 2.5em;
+            }
+
+            @media (max-width: 600px) {
+                margin-left: 2em;
+            }
+        }
+
+        :nth-child(2) {
+            @media (max-width: 600px) {
+                margin-left: 2em;
+            }
         }
     }
 `

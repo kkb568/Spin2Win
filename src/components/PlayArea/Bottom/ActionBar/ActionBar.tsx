@@ -19,4 +19,12 @@ const ActionBarStyle = css`
     width: 100%;
     background-color: #192348;
     padding: 1em 0;
+    
+    @media (max-width: 900px) {
+        align-items: center;
+    }
+
+    @media (max-width: 600px) {
+        display: block;
+    }
 `

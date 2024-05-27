@@ -78,7 +78,8 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
     `
 
     return (
-        <PlayButton onClick={() => showSelectedChip(chipValue)}
+        <PlayButton className={smallDiamondStyle}
+        onClick={() => showSelectedChip(chipValue)}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}
         style={{
@@ -113,10 +114,22 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
     )
 }
 
+
+const smallDiamondStyle = css`
+    @media (max-width: 600px) {
+        width: 12.15em;
+        height: 3.5em;
+    }
+`
+
 const hoverElementDiamondStyle = css`
     position: absolute;
     margin-left: 5.5em;
     margin-top: 1em;
+
+    @media (max-width: 600px) {
+        margin-left: 1.5em;
+    }
 `
 
 const foregroundDiamondStyle = css`
@@ -127,6 +140,10 @@ const foregroundDiamondStyle = css`
     margin-left: -6.7em;
     margin-top: -1.5em;
     z-index: 3;
+
+    @media (max-width: 600px) {
+        width: 12em;
+    }
 `
 
 const chipDiamondStyle = css`
@@ -137,6 +154,10 @@ const chipDiamondStyle = css`
     z-index: 4;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
     border-radius: 50%;
+
+    @media (max-width: 600px) {
+        margin-left: 4.2em;
+    }
 `
 
 const selectedChipStyle = css`

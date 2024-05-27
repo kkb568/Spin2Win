@@ -26,10 +26,19 @@ const wheelHeadStyle = css`
     display: table;
     border: 3px solid transparent;
 
+    @media (max-width: 600px) {
+        width: 6em;
+        height: 6em;
+    }
+
     span {
         display: table-cell;
         vertical-align: middle;
         font-size: 3em;
+
+        @media (max-width: 600px) {
+            font-size: 2em;
+        }
     }
 `
 
@@ -40,6 +49,11 @@ const wheelHeadBorderStyle = css`
     height: 9.5em;
     border-radius: 50%;
     background: radial-gradient(#B59410, #FFD700);
+
+    @media (max-width: 600px) {
+        width: 7.5em;
+        height: 7.5em;
+    }
 `
 
 const wheelHeadPointerStyle = css`
@@ -49,4 +63,8 @@ const wheelHeadPointerStyle = css`
     border-right: 15px solid transparent;
     border-bottom: 25px solid #FFD700;
     margin-bottom: 10.5em;
+
+    @media (max-width: 600px) {
+        margin-bottom: 8.5em;
+    }
 `

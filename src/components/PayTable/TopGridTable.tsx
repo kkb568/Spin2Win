@@ -19,4 +19,14 @@ const TopGridTableStyle = css`
     border: 3px solid white;
     border-radius: 3px;
     background-color: rgba(25,103,255,.5);
+
+    @media (max-width: 600px) {
+        margin-right: 4.2em;
+        width: 7.8em;
+        height: 4.2em;
+
+        p {
+            text-align: center;
+        }
+    }
 `

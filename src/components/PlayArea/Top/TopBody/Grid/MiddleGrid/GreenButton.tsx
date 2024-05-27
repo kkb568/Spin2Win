@@ -161,6 +161,15 @@ const greenButtonStyle = css`
     margin-left: -3.9em;
     height: 13.55em;
     width: 4em;
+
+    @media (max-width: 900px) {
+        margin-top: -37.3em;
+    }
+
+    @media (max-width: 600px) {
+        margin-top: -64.35em;
+        margin-left: -8.7em;
+    }
 `
 
 const hoverElementStyle = css`

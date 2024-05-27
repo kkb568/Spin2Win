@@ -67,14 +67,13 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     }
 
     return (
-        <PlayButton
+        <PlayButton className={dozenButtonStyle}
         onClick={() => showSelectedChip(chipValue)}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}
         style={{
             cursor: disableButtonEvents ? "context-menu" : "pointer",
-            pointerEvents: disableButtonEvents ? "none" : "all",
-            fontSize: '18px'
+            pointerEvents: disableButtonEvents ? "none" : "all"
         }}>
             {/* The below div is shown when the user hovers over the button
             (Check the PlayButton component from styles.tsx). */}
@@ -104,11 +103,30 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     )
 }
 
+const dozenButtonStyle = css`
+    font-size: 18px;
+
+    @media (max-width: 900px) {
+        width: 18em;
+    }
+
+    @media (max-width: 600px) {
+        width: 9em;
+    }
+`
 
 const hoverElementStyle = css`
     position: absolute;
     margin-left: 7.6em;
     margin-top: 1em;
+
+    @media (max-width: 900px) {
+        margin-left: 1.5em;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 10.5em;
+    }
 `
 
 const foregroundStyle = css`
@@ -119,6 +137,14 @@ const foregroundStyle = css`
     margin-left: -9.7em;
     margin-top: -1.5em;
     z-index: 3;
+
+    @media (max-width: 900px) {
+        width: 18em;
+    }
+
+    @media (max-width: 600px) {
+        width: 9em;
+    }
 `
 
 const chipStyle = css`
@@ -128,6 +154,14 @@ const chipStyle = css`
     z-index: 4;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
     border-radius: 50%;
+
+    @media (max-width: 900px) {
+        margin-left: 7.5em;
+    }
+
+    @media (max-width: 900px) {
+        margin-left: -1.5em;
+    }
 `
 
 const selectedChipStyle = css`

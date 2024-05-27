@@ -67,13 +67,13 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     }
 
     return (
-        <PlayButton onClick={() => showSelectedChip(chipValue)}
+        <PlayButton className={descButtonStyle}
+        onClick={() => showSelectedChip(chipValue)}
         onMouseEnter={() => updateButtonState("showTotal", true)} 
         onMouseLeave={() => updateButtonState("showTotal", false)}
         style={{
             cursor: disableButtonEvents ? "context-menu" : "pointer",
             pointerEvents: disableButtonEvents ? "none" : "all",
-            fontSize: '18px'
         }} >
             
             {description}
@@ -104,10 +104,22 @@ export default function DescButton({ description, correctValueDesc }: Props) {
 }
 
 
+const descButtonStyle = css`
+    font-size: 18px;
+
+    @media (max-width: 600px) {
+        width: 9em;
+    }
+`
+
 const hoverElementStyle = css`
     position: absolute;
     margin-left: 7.6em;
     margin-top: 1em;
+
+    @media (max-width: 600px) {
+        margin-left: 4.5em;
+    }
 `
 
 const foregroundStyle = css`
@@ -117,6 +129,10 @@ const foregroundStyle = css`
     height: 2.5em;
     margin-left: -6.7em;
     margin-top: -1.5em;
+
+    @media (max-width: 600px) {
+        width: 9em;
+    }
 `
 
 const chipStyle = css`
@@ -126,6 +142,10 @@ const chipStyle = css`
     z-index: 4;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
     border-radius: 50%;
+
+    @media (max-width: 600px) {
+        margin-left: 1.5em;
+    }
 `
 
 const selectedChipStyle = css`

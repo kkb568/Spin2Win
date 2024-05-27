@@ -47,9 +47,26 @@ export default function MiddleGrid() {
 const MiddleGridNumStyle = css`
     display: grid;
     grid-template-columns: repeat(12, 54px);
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(6, 54px);
+    }
+
+    @media (max-width: 600px) {
+        margin-left: -4em;
+        grid-template-columns: repeat(3, 54px);
+    }
 `
 
 const MiddleGridDozenStyle = css`
     display: grid;
     grid-template-columns: repeat(3, 216px);
+
+    @media (max-width: 900px) {
+        display: block;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: -4em;
+    }
 `

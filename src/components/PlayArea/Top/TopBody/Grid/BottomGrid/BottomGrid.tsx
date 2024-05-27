@@ -31,5 +31,14 @@ export default function BottomGrid() {
 
 const BottomGridStyle = css`
     display: grid;
-    grid-template-columns: repeat(6, 6.75em);  
+    grid-template-columns: repeat(6, 6.75em);
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(3, 6.75em);
+    }
+
+    @media (max-width: 600px) {
+        display: block;
+        margin-left: -4em;
+    }
 `

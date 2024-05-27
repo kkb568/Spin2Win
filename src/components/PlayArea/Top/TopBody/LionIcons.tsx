@@ -22,9 +22,21 @@ const LionIconStyle = css`
 
 const LeftLionIconStyle = css`
     margin-left: -4.5em;
+
+    @media (max-width: 600px) {
+        margin-left: -8.5em;
+    }
 `
 
 const RightLionIconStyle = css`
     margin-left: 41em;
     transform: scaleX(-1);
+
+    @media (max-width: 900px) {
+        margin-left: 21em;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 6.5em;
+    }
 `

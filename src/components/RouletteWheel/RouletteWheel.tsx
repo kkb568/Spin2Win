@@ -1,4 +1,4 @@
-import { css } from "@emotion/css"
+import { css, cx } from "@emotion/css"
 import WheelHead from "./WheelHead";
 import { useContext, useEffect, useState } from "react";
 import { MainContext } from "../../App";
@@ -29,6 +29,8 @@ export default function RouletteWheel() {
 
     // Make the heightValue match up to the height of the PlayArea component.
     const heightValue: number = prevChosenNums.length === 0 ? 79.5 : 80.1;
+    const tabletHeightValue: number = prevChosenNums.length === 0 ? 110.5 : 111.1;
+    const phoneHeightValue: number = prevChosenNums.length === 0 ? 195.3 : 195.9;
 
     function setWheelState(key:string, value: boolean | number) {
         setRouletteWheelState(prevState => {
@@ -67,18 +69,21 @@ export default function RouletteWheel() {
         visibility: ${mainData.displayWheel};
     `
 
-    const wheelContentStyle = css`
-        width: 960px;
+    const wheelHeightStyle = css`
         height: ${`${heightValue}vh`};
-        background: radial-gradient(circle,rgba(0,0,0,0) 0,rgba(0,0,0,0) 52.6%,rgba(0,0,0,.8) 100%) rgba(0,0,0,.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+        @media (max-width: 900px) {
+            height: ${`${tabletHeightValue}vh`};
+        }
+
+        @media (max-width: 600px) {
+            height: ${`${phoneHeightValue}vh`};
+        }
     `
 
     return (
         <div className={rouletteWheelStyle}>
-            <div className={wheelContentStyle}>
+            <div className={cx(wheelContentStyle, wheelHeightStyle)}>
                 <Wheel spinWheel={rouletteWheelState.spinWheelState}
                 setWheelState={setWheelState}/>
                 <WheelHead />
@@ -93,3 +98,19 @@ export default function RouletteWheel() {
         </div>
     )
 }
+
+const wheelContentStyle = css`
+    width: 960px;
+    background: radial-gradient(circle,rgba(0,0,0,0) 0,rgba(0,0,0,0) 52.6%,rgba(0,0,0,.8) 100%) rgba(0,0,0,.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 900px) {
+        width: 600px;
+    }
+
+    @media (max-width: 600px) {
+        width: 350px;
+    }
+`

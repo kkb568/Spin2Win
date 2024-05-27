@@ -27,6 +27,11 @@ const prizeStyle = css`
     justify-content: center;
     align-items: center;
     font-family: 'Roboto';
+
+    @media (max-width: 600px) {
+        width: 18em;
+        height: 18em;
+    }
 `
 
 const whiteBorderStyle = css`
@@ -36,14 +41,28 @@ const whiteBorderStyle = css`
     border: 10px solid white;
     text-align: center;
 
+    @media (max-width: 600px) {
+        width: 14em;
+        height: 14em;
+    }
+
     p:first-child {
         color: white;
         margin-top: 2.5em;
         font-size: 2.5em;
+
+        @media (max-width: 600px) {
+            margin-top: 2em;
+            font-size: 1.5em;
+        }
     }
 
     p:last-child {
         font-size: 4em;
         color: yellow;
+
+        @media (max-width: 600px) {
+            font-size: 3em;
+        }
     }
 `

@@ -52,4 +52,13 @@ const ChipItemsStyle = css`
     grid-template-columns: repeat(6, 60px);
     position: relative;
     top: .5em;
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(3, 60px);
+    }
+
+    @media (max-width: 600px) {
+        margin-left: 2em;
+        margin-bottom: 1em;
+    }
 `

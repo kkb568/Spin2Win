@@ -42,6 +42,25 @@ export const PlayButton = styled.button`
     }
 `
 
+export const ActionButton = styled.button`
+    border: none;
+    width: 2.1em;
+    height: 2.1em;
+    border-radius: 20em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.1),0 5px 5px 0 rgba(0,0,0,.2);
+    font-size: 1em;
+    font-family: 'Roboto';
+    font-weight: 700;
+    transition: 50ms ease-in;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+`
+
 export const Diamond = styled.div`
     position: absolute;
     clip-path: polygon(50% 5%,100% 50%,50% 95%,0 50%);
