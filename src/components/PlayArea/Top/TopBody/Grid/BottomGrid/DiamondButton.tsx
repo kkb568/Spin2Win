@@ -194,6 +194,10 @@ const correctHoverStyle = css`
     margin-top: -.5em;
     animation: blink 1s linear 5;
 
+    @media (max-width: 600px) {
+        width: 12em;
+    }
+
     @keyframes blink {
         50% {
             opacity: 0;

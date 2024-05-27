@@ -42,8 +42,9 @@ const whiteBorderStyle = css`
     text-align: center;
 
     @media (max-width: 600px) {
-        width: 14em;
-        height: 14em;
+        width: 15em;
+        height: 15em;
+        border: 7px solid white;
     }
 
     p:first-child {
