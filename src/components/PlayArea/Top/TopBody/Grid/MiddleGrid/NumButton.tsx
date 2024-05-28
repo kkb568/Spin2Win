@@ -115,18 +115,21 @@ export default function NumButton({ num, chosenNum }: Props) {
         opacity: ${buttonState.showTotal ? 0 : 1};
     `
 
+    const numButtonStyle = css`
+        position: relative;
+        font-size: 24px;
+        cursor: ${disableButtonEvents ? "context-menu" : "pointer"};
+        pointer-events: ${disableButtonEvents ? "none" : "all"};
+    `
+
     return (
-        <PlayButton
+        <PlayButton className={numButtonStyle}
             onClick={() => showSelectedChip(chipValue)}
             onMouseEnter={() => updateButtonState("showTotal", true)} 
             onMouseLeave={() => updateButtonState("showTotal", false)}
             style={{
-                position: 'relative', 
-                backgroundColor: buttonColor,
-                fontSize: '24px',
-                cursor: disableButtonEvents ? "context-menu" : "pointer",
-                pointerEvents: disableButtonEvents ? "none" : "all"
-                }}>
+                backgroundColor: buttonColor
+            }}>
                     {/* The below div is shown when the user hovers over the button
                     (Check the PlayButton component from styles.tsx). */}
                     <div className={hoverElementStyle}>

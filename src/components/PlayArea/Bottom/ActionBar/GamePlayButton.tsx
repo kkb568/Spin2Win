@@ -5,7 +5,7 @@ import { MainContext } from "../../../../App";
 import { addLastBetData, clearLastBets } from "../../../../utils/betUtils";
 import { clearUserActions } from "../../../../utils/actionUtils";
 
-export default function PlayButton() {
+export default function GamePlayButton() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { enableButton } = playDataStore;
     const { setDisplay } = useContext(MainContext);

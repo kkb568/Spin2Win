@@ -1,14 +1,14 @@
 import { css } from "@emotion/css";
 import BetBalance from "./BetBalance";
 import Chips from "./Chips/Chips";
-import PlayButton from "./PlayButton";
+import GamePlayButton from "./GamePlayButton";
 
 export default function ActionBar() {
     return (
         <div className={ActionBarStyle}>
             <BetBalance />
             <Chips />
-            <PlayButton />
+            <GamePlayButton />
         </div>
     )
 }
