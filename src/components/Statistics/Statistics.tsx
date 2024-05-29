@@ -32,7 +32,9 @@ export default function Statistics() {
         <div className={cx(statistics_style, StatisticsDisplayStyle)}>
             <div className={statisticsHeadingStyle}>
                 <p>Statistics</p>
-                <p>Based on the last {prevChosenNums.length} draws</p>
+                <p>Based on the last 
+                    {prevChosenNums.length === 1 ? " draw" : ` ${prevChosenNums.length} draws`}
+                </p>
             </div>
             <i className="fa-solid fa-xmark"
             onClick={() => setDisplay("displayStatistics", "none")}></i>
