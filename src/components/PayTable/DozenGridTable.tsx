@@ -16,18 +16,18 @@ const DozenGridTableStyle = css`
     width: 31em;
     height: 2em;
     margin-left: 7.6em;
-    margin-top: 3.1em;
+    margin-top: 3.05em;
     background-color: rgba(25,103,255,.5);
 
     @media (max-width: 900px) {
         width: 15.5em;
         height: 6.5em;
-        margin-top: 11.6em;
+        margin-top: 11.65em;
     }
 
     @media (max-width: 600px) {
         width: 7.5em;
-        margin-top: 29em;
+        margin-top: 28.95em;
         margin-left: 4.6em;
     }
 `
