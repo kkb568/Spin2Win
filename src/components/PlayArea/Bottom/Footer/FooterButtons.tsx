@@ -5,11 +5,14 @@ import { useContext } from "react"
 import { MainContext } from "../../../../App"
 import { ChipContext } from "../../PlayArea"
 import DisabledFooterButton from "./DisabledFooterButton"
+import { prevNumDataType } from "../../../../data/dataTypes"
 
 export default function FooterButtons() {
     const { setDisplay } = useContext(MainContext);
     const { playDataStore } = useContext(ChipContext);
     const { disableFooterButtons } = playDataStore;
+
+    const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
 
     return (
         <div className={buttonDivStyle}>
@@ -32,9 +35,10 @@ export default function FooterButtons() {
             }
             
             {
-                disableFooterButtons ?
+                disableFooterButtons || prevChosenNums.length === 0 ?
                 <DisabledFooterButton iconValue="bar_chart"/> :
-                <FooterButton className={enabledButtonStyle}>
+                <FooterButton onClick={() => setDisplay("displayStatistics", "block")}
+                className={enabledButtonStyle}>
                     <span className="material-symbols-outlined">
                         bar_chart
                     </span>

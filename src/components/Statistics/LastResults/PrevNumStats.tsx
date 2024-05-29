@@ -1,5 +1,5 @@
 import { css, cx } from "@emotion/css"
-import { Diamond } from "../../../../styles/styles"
+import { Diamond } from "../../../styles/styles"
 
 interface previousNumProps {
     keyValue: number
@@ -8,7 +8,7 @@ interface previousNumProps {
     recentKeyValue: number
 }
 
-export default function PreviousNum({ keyValue,
+export default function PrevNumStats({ keyValue,
     value, 
     color, 
     recentKeyValue 
@@ -28,20 +28,20 @@ export default function PreviousNum({ keyValue,
     ? css`
         width: 1.4em;
         height: 1.7em;
-        font-size: 1.2em;
+        font-size: 2em;
     ` : css`
         width: 1.2em;
-        height: 1.4em;
-        font-size: 1em;
+        height: 1.5em;
+        font-size: 1.6em;
     `
 
     const diamondSizeStyle: string = keyValue === recentKeyValue 
     ? css`
-        width: .8em;
-        height: 1.4em;
+        width: 1em;
+        height: 1.6em;
     ` : css`
-        width: .6em;
-        height: 1.1em;
+        width: .8em;
+        height: 1.3em;
     `
 
     // Show green diamond shape if the value is equal to zero, otherwise, show only the value.
@@ -60,7 +60,7 @@ const prevNumStyle = css`
     padding: 0 3px;
     margin: .3em 0 .3em .3em;
     border-radius: 5px;
-    box-shadow: 0 1px 8px 0 rgba(0,0,0,.5);
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2);
     font-family: 'Adamina';
     display: flex;
     align-items: center;

@@ -5,11 +5,13 @@ import PayTable from "./components/PayTable/PayTable"
 import { createContext, useState } from "react"
 import { MainContextType, MainDataStoreType } from "./data/dataTypes"
 import RouletteWheel from "./components/RouletteWheel/RouletteWheel"
+import Statistics from "./components/Statistics/Statistics"
 
 export const MainContext = createContext<MainContextType>({
   mainData: {
     displayPayTable: "none",
-    displayWheel: "hidden"
+    displayWheel: "hidden",
+    displayStatistics: "none"
   },
   setDisplay: null
 })
@@ -20,7 +22,8 @@ function App() {
   whereas the displayWheel does the same but for the RouletteWheel. */
   const [mainData, setMainData] = useState<MainDataStoreType>({
     displayPayTable: "none",
-    displayWheel: "hidden"
+    displayWheel: "hidden",
+    displayStatistics: "none"
   })
 
   function setMainState(key: string, value: string) {
@@ -48,6 +51,7 @@ function App() {
           <PlayArea />
           <PayTable />
           <RouletteWheel />
+          <Statistics />
         </MainContext.Provider>
       </div>
     </>

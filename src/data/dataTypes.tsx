@@ -9,6 +9,11 @@ export interface redColorsType {
     normalRed: string
 }
 
+export interface blackColorsType {
+    pureBlack: string,
+    normalBlack: string
+}
+
 export interface chipDataType {
     id: number,
     chipUrl: string,
@@ -50,7 +55,8 @@ export interface ChipContextType {
 
 export interface MainDataStoreType {
     displayPayTable: string,
-    displayWheel: string
+    displayWheel: string,
+    displayStatistics: string
 }
 
 export interface MainContextType {

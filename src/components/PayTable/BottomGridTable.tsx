@@ -12,7 +12,7 @@ export default function BottomGridTable() {
 const BottomGridTableStyle = css`
     border: 3px solid white;
     border-radius: 3px;
-    width: 30.5em;
+    width: 31em;
     height: 2em;
     margin-left: 7.6em;
     margin-top: 1em;

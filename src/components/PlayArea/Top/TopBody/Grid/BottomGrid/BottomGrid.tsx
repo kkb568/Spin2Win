@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 import DescButton from "./DescButton";
 import DiamondButton from "./DiamondButton";
-import { black, redColors } from "../../../../../../data/data";
+import { blackColors, redColors } from "../../../../../../data/data";
 import { useContext } from "react";
 import { GridContext } from "../../TopBody";
 
@@ -17,8 +17,8 @@ export default function BottomGrid() {
             <DiamondButton diamondColor={redColors.diamondRed}
                 representColor={redColors.normalRed}
                 chosenColor={numColor}/>
-            <DiamondButton diamondColor={black}
-                representColor={black}
+            <DiamondButton diamondColor={blackColors.normalBlack}
+                representColor={blackColors.normalBlack}
                 chosenColor={numColor}/>
             <DescButton description="odd" 
                 correctValueDesc={even_odd} />

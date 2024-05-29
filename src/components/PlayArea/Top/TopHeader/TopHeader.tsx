@@ -12,18 +12,22 @@ export default function TopHeader() {
         const prevNumsArr: prevNumDataType[] = prevChosenNums;
         // Get the most recent previous number's key.
         const recentPrevNumKey: number = prevNumsArr[0].key;
-         
+        
+        /* Show only the last 10 previous chosen numbers 
+        (to prevent the numbers overlapping over other elements). */
         prevNumsList = prevNumsArr.map((prev) => {
-            const color: string = prev.value !== 0 && 
-            assignBackgroundColor(prev.value);
+            if (prev.key > (prevChosenNums.length - 10)) {
+                const color: string = prev.value !== 0 && 
+                assignBackgroundColor(prev.value);
 
-            return (
-                <PreviousNum key={prev.key}
-                    keyValue={prev.key} 
-                    value={prev.value}
-                    color={color}
-                    recentKeyValue={recentPrevNumKey} />
-            )
+                return (
+                    <PreviousNum key={prev.key}
+                        keyValue={prev.key} 
+                        value={prev.value}
+                        color={color}
+                        recentKeyValue={recentPrevNumKey} />
+                )
+            }
         })
     }
 

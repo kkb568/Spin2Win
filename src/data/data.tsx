@@ -1,4 +1,4 @@
-import { Action, ActionData, arrayNum, betDataType, chipDataType, prevNumDataType, redColorsType } from "./dataTypes"
+import { Action, ActionData, arrayNum, betDataType, blackColorsType, chipDataType, prevNumDataType, redColorsType } from "./dataTypes"
 
 // Data exports
 export const firstRowNumbers: arrayNum  = [3,6,9,12,15,18,21,24,27,30,33,36]
@@ -16,7 +16,10 @@ export const redColors: redColorsType = {
     diamondRed: "#ff001f",
     normalRed: "#d0021b"
 }
-export const black: string = "#1f1f1f";
+export const blackColors: blackColorsType = {
+    pureBlack: "#000",
+    normalBlack: "#1f1f1f"
+}
 
 const chipData: chipDataType[] = [
     {
@@ -91,12 +94,12 @@ export const topGridButtons: {
     {
         key: 3,
         name: "low",
-        backgroundColor: black
+        backgroundColor: blackColors.normalBlack
     },
     {
         key: 4,
         name: "high",
-        backgroundColor: black
+        backgroundColor: blackColors.normalBlack
     },
 ]
 

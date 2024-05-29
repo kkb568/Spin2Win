@@ -1,4 +1,4 @@
-import { black, green, redColors, redNumbers, wheelSequence } from "../data/data";
+import { blackColors, green, redColors, redNumbers, wheelSequence } from "../data/data";
 import { betDataType, correctValueDataType, prevNumDataType } from "../data/dataTypes";
 
 /*The function is used to set the rotation of the roulette wheel 
@@ -109,7 +109,7 @@ function getPrizeByStringBetOn(betOn: string,
                 prize = betValue * 2;
             }
             break;
-        case black:
+        case blackColors.normalBlack:
             if (!checkRedColor(chosenNum)) {
                 prize = betValue * 2;
             }
@@ -124,12 +124,12 @@ function getPrizeByStringBetOn(betOn: string,
                 prize = betValue * 4;
             }
             break;
-        case `low ${black}`:
+        case `low ${blackColors.normalBlack}`:
             if (checkNumRange(1, 18, chosenNum) && !checkRedColor(chosenNum) ) {
                 prize = betValue * 4;
             }
             break;
-        case `high ${black}`:
+        case `high ${blackColors.normalBlack}`:
             if (checkNumRange(19, 36, chosenNum) && !checkRedColor(chosenNum) ) {
                 prize = betValue * 4;
             }
@@ -146,7 +146,7 @@ function getPrizeByStringBetOn(betOn: string,
 }
 
 // The function is used to check if the chosenNum is between the min and max values.
-function checkNumRange(min: number, 
+export function checkNumRange(min: number, 
     max: number,
     chosenNum: number
 ) {
@@ -159,7 +159,7 @@ function checkNumRange(min: number,
 
 /* The function is used to check if the chosenNum is a value in the redNumbers array 
 (indicating that the chosenNum was of a red color). */
-function checkRedColor(chosenNum: number) {
+export function checkRedColor(chosenNum: number) {
     let correct: boolean = false;
     for (let i = 0; i < redNumbers.length; i++) {
         if (redNumbers[i] === chosenNum) {
@@ -171,7 +171,7 @@ function checkRedColor(chosenNum: number) {
 }
 
 /* The function is used to check if the chosenNum is an even number or not. */
-function checkEven(chosenNum: number) {
+export function checkEven(chosenNum: number) {
     let correct: boolean = false;
     if (chosenNum % 2 === 0) {
         correct = true;
@@ -192,7 +192,7 @@ function addCorrectValue(value: number) {
         evenOdd = "";
         lowHigh = "";
     } else {
-        numColor = checkRedColor(value) ? redColors.normalRed : black;
+        numColor = checkRedColor(value) ? redColors.normalRed : blackColors.normalBlack;
         evenOdd = checkEven(value) ? "even" : "odd";
         lowHigh = checkNumRange(1, 18, value) ? "low" : "high";
     }
