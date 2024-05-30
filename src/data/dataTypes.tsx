@@ -3,6 +3,7 @@ export type arrayNum = number[];
 export type playDataStateType = number | boolean | string;
 export type betOnType = string | number;
 export type lastBetValueType = [boolean, number];
+export type updateButtonStateType = boolean | correctLastBets;
 
 export interface redColorsType {
     diamondRed: string,
@@ -67,6 +68,7 @@ export interface MainContextType {
 export interface buttonStateType {
     selectedChip: boolean,
     showTotal: boolean,
+    correctLastBets: correctLastBets
     correctHover?: boolean,
     showChessPiece?: boolean
 }
@@ -106,4 +108,9 @@ export interface correctValueDataType {
 export interface prevNumDataType {
     key: number,
     value: number
+}
+
+export interface correctLastBets {
+    chipUrl: string,
+    betOn: betOnType
 }

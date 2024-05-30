@@ -3,8 +3,8 @@ import { Diamond, PlayButton } from "../../../../../../styles/styles";
 import { useContext, useEffect, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
-import { buttonStateType } from "../../../../../../data/dataTypes";
-import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { buttonStateType, updateButtonStateType } from "../../../../../../data/dataTypes";
+import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorrectLastBetsDetails, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 import { green } from "../../../../../../data/data";
 import chessPiece from "../../../../../../assets/cbimage.svg";
@@ -15,7 +15,7 @@ interface Props {
 
 export default function GreenButton({ chosenNum }: Props) {
     const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, disableButtonEvents, reloadLastBets, ifNumClicked } = playDataStore;
+    const { chipUrl, disableButtonEvents, reloadLastBets, ifNumClicked, ifSpinned } = playDataStore;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -26,10 +26,13 @@ export default function GreenButton({ chosenNum }: Props) {
             on its value.
      * 4. showChessPiece: To show the chess piece image on the button whose
             num value is equal to the chosenNum from the wheel spin functionality.
+     * 5. correctLastBets: For showing the chip on the button in which the last bet
+            coincided correctly with the last previous chosen number from wheel spin.
      */
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
+        correctLastBets: getCorrectLastBetsDetails(green),
         correctHover: false,
         showChessPiece: false
     })
@@ -37,7 +40,20 @@ export default function GreenButton({ chosenNum }: Props) {
     const betChipUrl = getChipUrlByBet(green)
     const totalBetValue = getBetByBetOn(green)
 
-    function updateButtonState(key: string, value: boolean) {
+    // Get the correct last bet's betOn and chipUrl values.
+    const correctLastBetBetOn = buttonState.correctLastBets.betOn;
+    const correctLastBetChip = buttonState.correctLastBets.chipUrl;
+
+    /* If the ifSpinned is true (meaning the spin wheel functionality is completed),
+    call the getChipUrlByCorrectLastBets function and update the correctLatBets state 
+    to the function's return value. */
+    useEffect(() => {
+        if (ifSpinned) {
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(green))
+        }
+    }, [ifSpinned])
+
+    function updateButtonState(key: string, value: updateButtonStateType) {
         setButtonState(prevState => {
             return {
                 ...prevState,
@@ -131,9 +147,15 @@ export default function GreenButton({ chosenNum }: Props) {
 
             <Diamond className={diamondStyle} />
 
-            {/* The below div is shown when the correctHover is true. */}
+            {/* The below elements are shown when the correctHover is true. */}
             {buttonState.correctHover &&
+                <>
                 <div className={correctHoverStyle}></div>
+                {
+                    green === correctLastBetBetOn &&
+                    <img src={correctLastBetChip} className={correctChipStyle}/>
+                }
+            </>
             }
 
             {/* The chess piece image is shown when the showChessPiece is true. */}
@@ -269,4 +291,11 @@ const chessPieceStyle = css`
             margin-top: 5em;
         }
     }
+`
+
+const correctChipStyle = css`
+    position: absolute;
+    width: 2.4em;
+    height: 2.4em;
+    z-index: 3;
 `

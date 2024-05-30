@@ -4,8 +4,8 @@ import { assignBackgroundColor } from "../../../../../../utils/chipUtils";
 import { useContext, useEffect, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
-import { buttonStateType } from "../../../../../../data/dataTypes";
-import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { buttonStateType, updateButtonStateType } from "../../../../../../data/dataTypes";
+import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorrectLastBetsDetails, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 import chessPiece from "../../../../../../assets/cbimage.svg";
 
@@ -16,7 +16,7 @@ interface Props {
 
 export default function NumButton({ num, chosenNum }: Props) {
     const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, reloadLastBets, ifNumClicked, disableButtonEvents } = playDataStore;
+    const { chipUrl, reloadLastBets, ifNumClicked, disableButtonEvents, ifSpinned } = playDataStore;
 
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -27,10 +27,13 @@ export default function NumButton({ num, chosenNum }: Props) {
             on its value.
      * 4. showChessPiece: To show the chess piece image on the button whose
             num value is equal to the chosenNum from the wheel spin functionality.
-     */
+     * 5. correctLastBets: For showing the chip on the button in which the last bet
+            coincided correctly with the last previous chosen number from wheel spin.
+    */
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
+        correctLastBets: getCorrectLastBetsDetails(num),
         correctHover: false,
         showChessPiece: false
     });
@@ -39,7 +42,20 @@ export default function NumButton({ num, chosenNum }: Props) {
     const betChipUrl = getChipUrlByBet(num)
     const totalBetValue = getBetByBetOn(num)
 
-    function updateButtonState(key: string, value: boolean) {
+    // Get the correct last bet's betOn and chipUrl values.
+    const correctLastBetBetOn = buttonState.correctLastBets.betOn;
+    const correctLastBetChip = buttonState.correctLastBets.chipUrl;
+
+    /* If the ifSpinned is true (meaning the spin wheel functionality is completed),
+    call the getChipUrlByCorrectLastBets function and update the correctLatBets state 
+    to the function's return value. */
+    useEffect(() => {
+        if (ifSpinned) {
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(num))
+        }
+    }, [ifSpinned])
+
+    function updateButtonState(key: string, value: updateButtonStateType) {
         setButtonState(prevState => {
             return {
                 ...prevState,
@@ -139,9 +155,15 @@ export default function NumButton({ num, chosenNum }: Props) {
                     
                     {num}
 
-                    {/* The below div is shown when the correctHover is true. */}
+                    {/* The below elements are shown when the correctHover is true. */}
                     {buttonState.correctHover &&
-                        <div className={correctHoverStyle}></div>
+                        <>
+                            <div className={correctHoverStyle}></div>
+                            {
+                                num === correctLastBetBetOn &&
+                                <img src={correctLastBetChip} className={correctChipStyle}/>
+                            }
+                        </>
                     }
 
                     {/* The chess piece image is shown when the showChessPiece is true. */}
@@ -250,4 +272,11 @@ const chessPieceStyle = css`
             margin-top: -.5em;
         }
     }
+`
+
+const correctChipStyle = css`
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+    z-index: 3;
 `

@@ -59,3 +59,30 @@ export function getChipUrlByValue(value: number): string {
     }
     return url;
 }
+
+// The function is used to get the chip url based on the range in which the value lies on.
+export function getChipUrlByValueRange(value: number): string {
+    let url: string = "";
+    
+    switch (true) {
+        case (value < 50):
+            url = getChipUrlByValue(10)
+            break;
+        case (value < 100):
+            url = getChipUrlByValue(50)
+            break;
+        case (value < 200):
+            url = getChipUrlByValue(100)
+            break;
+        case (value < 400):
+            url = getChipUrlByValue(200)
+            break;
+        case (value < 500):
+            url = getChipUrlByValue(400)
+            break;
+        default:
+            url = getChipUrlByValue(500)
+    }
+
+    return url;
+}

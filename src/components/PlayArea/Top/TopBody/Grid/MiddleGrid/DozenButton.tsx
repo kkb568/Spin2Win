@@ -3,8 +3,8 @@ import { PlayButton } from "../../../../../../styles/styles";
 import { useContext, useEffect, useState } from "react";
 import { ChipContext } from "../../../../PlayArea";
 import ShownChip from "../ShownChip/ShownChip";
-import { buttonStateType } from "../../../../../../data/dataTypes";
-import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getTotalBet } from "../../../../../../utils/betUtils";
+import { buttonStateType, updateButtonStateType } from "../../../../../../data/dataTypes";
+import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorrectLastBetsDetails, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 
 interface Props {
@@ -14,22 +14,38 @@ interface Props {
 
 export default function DozenButton({ name, chosenDozenRange }: Props) {
     const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext)
-    const { chipUrl, reloadLastBets, disableButtonEvents } = playDataStore;
+    const { chipUrl, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
      * 2. showTotal: For showing the total bet for the specified button 
             when user hover over the button and the shown chip is present.
+     * 3. correctLastBets: For showing the chip on the button in which the last bet
+            coincided correctly with the last previous chosen number from wheel spin.
      */
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
-        showTotal: false
+        showTotal: false,
+        correctLastBets: getCorrectLastBetsDetails(name)
     })
 
     const betChipUrl = getChipUrlByBet(name)
     const totalBetValue = getBetByBetOn(name)
 
-    function updateButtonState(key: string, value: boolean) {
+     // Get the correct last bet's betOn and chipUrl values.
+     const correctLastBetBetOn = buttonState.correctLastBets.betOn;
+     const correctLastBetChip = buttonState.correctLastBets.chipUrl;
+ 
+     /* If the ifSpinned is true (meaning the spin wheel functionality is completed),
+     call the getChipUrlByCorrectLastBets function and update the correctLatBets state 
+     to the function's return value. */
+     useEffect(() => {
+         if (ifSpinned) {
+             updateButtonState("correctLastBets", getCorrectLastBetsDetails(name))
+         }
+     }, [ifSpinned])
+
+    function updateButtonState(key: string, value: updateButtonStateType) {
         setButtonState(prevState => {
             return {
                 ...prevState,
@@ -84,11 +100,17 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
             
             {name}
 
-            {/* The below div is shown when the correct value 
+            {/* The below elements are shown when the correct value 
             (from the chosen value from the wheel spin functionality)
             is equal to the name value. */}
             {chosenDozenRange === name &&
-                <div className={correctHoverStyle}></div>
+                <>
+                    <div className={correctHoverStyle}></div>
+                    {
+                        name === correctLastBetBetOn &&
+                        <img src={correctLastBetChip} className={correctChipStyle}/>
+                    }
+                </>
             }
 
              {/* The chip is shown when the selectedChip is false. */}
@@ -212,4 +234,11 @@ const correctHoverStyle = css`
             opacity: 0;
         }
     }
+`
+
+const correctChipStyle = css`
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+    z-index: 3;
 `

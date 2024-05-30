@@ -1,5 +1,7 @@
-import { betDataType, betOnType, lastBetValueType } from "../data/dataTypes";
-import { getChipUrlByValue } from "./chipUtils";
+import { blackColors, green, redColors } from "../data/data";
+import { betDataType, betOnType, correctLastBets, lastBetValueType, prevNumDataType } from "../data/dataTypes";
+import { getChipUrlByValueRange } from "./chipUtils";
+import { checkEven, checkNumRange, checkRedColor } from "./wheelUtils";
 
 // The function is used to add bet to the betsData session storage.
 export function addBet(betOnParam: betOnType, betValueParam: number, prevBet?: boolean) {
@@ -56,7 +58,7 @@ export function getTotalBet(): number {
 }
 
 /* The function is used to get the chip image based on 
-the range in which the total bet for the specific betOn value lies on. 
+the range in which the total bet for the specified betOn value lies on. 
 This is useful for showing the chip when user clicks on the button 
 to represent the total bet for the specified button. */
 export function getChipUrlByBet(betOn: betOnType): string {
@@ -68,25 +70,8 @@ export function getChipUrlByBet(betOn: betOnType): string {
         return url;
     }
 
-    switch (true) {
-        case (totalBet < 50):
-            url = getChipUrlByValue(10)
-            break;
-        case (totalBet < 100):
-            url = getChipUrlByValue(50)
-            break;
-        case (totalBet < 200):
-            url = getChipUrlByValue(100)
-            break;
-        case (totalBet < 400):
-            url = getChipUrlByValue(200)
-            break;
-        case (totalBet < 500):
-            url = getChipUrlByValue(400)
-            break;
-        default:
-            url = getChipUrlByValue(500)
-    }
+    // Get the url from the getChipUrlByValueRange function.
+    url = getChipUrlByValueRange(totalBet);
     return url;
 }
 
@@ -221,4 +206,175 @@ export function clearLastBets() {
         }
     }
     sessionStorage.setItem("lastBetData", JSON.stringify(lastBetDataArray));
+}
+
+/* The function is used to get the details of the correct last bets, useful for 
+showing the chip which the user put as last bet and was correct in relation to 
+the last chosen number from wheel spin functionality. */
+export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
+    const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
+
+    let correctLastBets: correctLastBets;
+    let correctLastBetsArr: correctLastBets[] = [];
+
+    // If either of the arrays are empty, return as empty strings.
+    if (previousChosenNums.length === 0 || lastBetDataArray.length === 0) {
+        correctLastBets = {
+            chipUrl: "",
+            betOn: ""
+        };
+        return correctLastBets;
+    }
+
+    // Loop through all bets from the lastBetsDataArray.
+    lastBetDataArray.forEach((bet: betDataType) => {
+        // Get the last chosen previous number.
+        const lastPrevChosenNum = previousChosenNums[0].value;
+        
+        // Update the correctLastBets based on the betOn value and if the respective function returns true.
+        switch (bet.betOn) {
+            case "1~12":
+                if (checkNumRange(1, 12, lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case "13~24":
+                if (checkNumRange(13, 24, lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case "25~36":
+                if (checkNumRange(25, 36, lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case "low":
+                if (checkNumRange(1, 18, lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case "high":
+                if (checkNumRange(19, 36, lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case "even":
+                if (checkEven(lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case "odd":
+                if (!checkEven(lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case redColors.diamondRed:
+                if (checkRedColor(lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case blackColors.normalBlack:
+                if (!checkRedColor(lastPrevChosenNum)) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case `low ${redColors.normalRed}`:
+                if (checkNumRange(1, 18, lastPrevChosenNum) && checkRedColor(lastPrevChosenNum) ) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case `high ${redColors.normalRed}`:
+                if (checkNumRange(19, 36, lastPrevChosenNum) && checkRedColor(lastPrevChosenNum) ) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case `low ${blackColors.normalBlack}`:
+                if (checkNumRange(1, 18, lastPrevChosenNum) && !checkRedColor(lastPrevChosenNum) ) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case `high ${blackColors.normalBlack}`:
+                if (checkNumRange(19, 36, lastPrevChosenNum) && !checkRedColor(lastPrevChosenNum) ) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            case green:
+                if (lastPrevChosenNum === 0) {
+                    correctLastBets = {
+                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        betOn: bet.betOn
+                    };
+                    correctLastBetsArr.push(correctLastBets);
+                }
+                break;
+            default:
+                correctLastBets = {
+                    chipUrl: "",
+                    betOn: ""
+                }
+                break;
+        }
+    });
+
+    correctLastBetsArr.forEach((correctBet) => {
+        if (correctBet.betOn === betOn) {
+            correctLastBets = correctBet;
+            return correctLastBets;
+        }
+    })
+
+    return correctLastBets;
 }
