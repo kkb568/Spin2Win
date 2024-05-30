@@ -2,6 +2,7 @@ import { css } from "@emotion/css";
 import { useContext } from "react";
 import { ChipContext } from "../../PlayArea";
 
+// The component shows the total bet value that the user has put for play.
 export default function BetBalance() {
     const { playDataStore } = useContext(ChipContext)
     const totalBetValue: number = playDataStore.totalBet

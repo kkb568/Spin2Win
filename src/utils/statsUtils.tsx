@@ -82,6 +82,7 @@ export function countPrevNumsByType( type: string ): number {
     return count;
 }
 
+// The function counts the number previous chosen nums whose value is equal to zero.
 export function countZeroNums(): number {
     const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
     let count: number = 0;
@@ -99,7 +100,7 @@ export function countInPercentage(count: number): number {
     // Get the total number of prevNums elements.
     const totalPrevNums = previousChosenNums.length;
 
-    // Get the percentage of the dozenCount and use it as the width of the orange bar.
+    // Get the percentage of the count over totalPrevNums and use it as the width of the stats bars.
     const countPercentage = Math.round((count / totalPrevNums) * 100);
     return countPercentage;
 }

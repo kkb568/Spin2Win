@@ -5,6 +5,7 @@ import { blackColors, redColors } from "../../../../../../data/data";
 import { useContext } from "react";
 import { GridContext } from "../../TopBody";
 
+// The components renders the buttons from the last grid section.
 export default function BottomGrid() {
     const { even_odd, low_high, numColor } = useContext(GridContext)
 

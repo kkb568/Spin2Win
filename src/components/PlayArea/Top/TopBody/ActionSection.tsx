@@ -6,6 +6,7 @@ import { clearBetsData, doubleBetValue, getTotalBet } from "../../../../utils/be
 import { addAction, clearUserActions, undoBetAction } from "../../../../utils/actionUtils"
 import { ActionButton } from "../../../../styles/styles"
 
+// The component displays the four action buttons on the right side of the PlayArea.
 export default function ActionSection() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
     const { enableButton, countReload, disableButtonEvents } = playDataStore;

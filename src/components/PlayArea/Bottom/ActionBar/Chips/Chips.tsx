@@ -5,6 +5,7 @@ import { useContext, useState } from "react"
 import { ChipContext } from "../../../PlayArea"
 import { getSelectedChipUrl } from "../../../../../utils/chipUtils"
 
+// The component renders the respective chip and details from chipsData storage.
 export default function Chips() {
     const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
     const [chipsData, setChipsData] = useState<chipDataType[]>(chipsArray)

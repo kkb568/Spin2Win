@@ -5,6 +5,7 @@ import { MainContext } from "../../../../App";
 import { addLastBetData, clearLastBets } from "../../../../utils/betUtils";
 import { clearUserActions } from "../../../../utils/actionUtils";
 
+// The component renders the button the user clicks to start the wheel spin.
 export default function GamePlayButton() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { enableButton } = playDataStore;

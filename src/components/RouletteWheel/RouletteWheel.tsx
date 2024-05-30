@@ -16,6 +16,7 @@ interface mainWheelState {
     showPrize: boolean
 }
 
+// The component shows the spin wheel and its various parts.
 export default function RouletteWheel() {
     const { mainData, setDisplay } = useContext(MainContext);
 

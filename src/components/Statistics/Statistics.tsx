@@ -5,6 +5,7 @@ import MainStatistics from "./MainStats.tsx/MainStats";
 import { useContext } from "react";
 import { MainContext } from "../../App";
 
+// The component shows the statistics modal.
 export default function Statistics() {
     const { mainData, setDisplay } = useContext(MainContext);
 

@@ -7,7 +7,7 @@ import { arrayNum } from "../../../../../../data/dataTypes";
 import { useContext } from "react";
 import { GridContext } from "../../TopBody";
 
-// The component renders the number buttons and the buttons showing a group of dozen.
+// The component renders the number buttons, the green button and the buttons showing a group of dozen.
 export default function MiddleGrid() {
     const { value, dozenRange } = useContext(GridContext)
     
