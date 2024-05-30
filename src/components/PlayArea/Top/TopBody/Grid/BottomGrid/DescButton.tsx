@@ -221,4 +221,6 @@ const correctChipStyle = css`
     width: 1.6em;
     height: 1.6em;
     z-index: 3;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
+    border-radius: 50%;
 `
