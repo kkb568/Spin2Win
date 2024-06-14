@@ -179,13 +179,13 @@ export default function GreenButton({ chosenNum }: Props) {
 
 const greenButtonStyle = css`
     position: absolute;
-    margin-top: -16.9em;
+    margin-top: -16.95em;
     margin-left: -3.9em;
     height: 13.55em;
     width: 4em;
 
     @media (max-width: 900px) {
-        margin-top: -37.3em;
+        margin-top: -37.35em;
     }
 
     @media (max-width: 600px) {
