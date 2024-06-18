@@ -11,21 +11,16 @@ export default function Statistics() {
 
     const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
 
-    // Make the heightValue match up to the height of the PlayArea component.
-    const heightValue: number = prevChosenNums.length === 0 ? 84.5 : 85.1;
-    const tabletHeightValue: number = prevChosenNums.length === 0 ? 141.5 : 142.1;
-    const phoneHeightValue: number = prevChosenNums.length === 0 ? 260.8 : 261.5;
-
     const StatisticsDisplayStyle = css`
         display: ${mainData.displayStatistics};
-        height: ${`${heightValue}vh`};
+        height: 598.5px;
 
         @media (max-width: 900px) {
-            height: ${`${tabletHeightValue}vh`};
+            height: 996.5px;
         }
 
         @media (max-width: 600px) {
-            height: ${`${phoneHeightValue}vh`};
+            height: 1835.8px;
         }
     `
 

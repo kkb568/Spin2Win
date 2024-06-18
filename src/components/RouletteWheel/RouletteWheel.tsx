@@ -29,9 +29,9 @@ export default function RouletteWheel() {
     const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
 
     // Make the heightValue match up to the height of the PlayArea component.
-    const heightValue: number = prevChosenNums.length === 0 ? 79.5 : 80.1;
-    const tabletHeightValue: number = prevChosenNums.length === 0 ? 110.5 : 111.1;
-    const phoneHeightValue: number = prevChosenNums.length === 0 ? 195.3 : 195.9;
+    const heightValue: number = prevChosenNums.length === 0 ? 559.5 : 563.5;
+    const tabletHeightValue: number = prevChosenNums.length === 0 ? 932.5 : 936.5;
+    const phoneHeightValue: number = prevChosenNums.length === 0 ? 1710.8 : 1714.8;
 
     function setWheelState(key:string, value: boolean | number) {
         setRouletteWheelState(prevState => {
@@ -71,14 +71,14 @@ export default function RouletteWheel() {
     `
 
     const wheelHeightStyle = css`
-        height: ${`${heightValue}vh`};
+        height: ${`${heightValue}px`};
 
         @media (max-width: 900px) {
-            height: ${`${tabletHeightValue}vh`};
+            height: ${`${tabletHeightValue}px`};
         }
 
         @media (max-width: 600px) {
-            height: ${`${phoneHeightValue}vh`};
+            height: ${`${phoneHeightValue}px`};
         }
     `
 

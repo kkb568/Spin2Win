@@ -14,20 +14,20 @@ export default function PayTable() {
     const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
 
     // Make the heightValue match up to the height of the PlayArea component.
-    const heightValue: number = prevChosenNums.length === 0 ? 84.5 : 85.1;
-    const tabletHeightValue: number = prevChosenNums.length === 0 ? 141.5 : 142.1;
-    const phoneHeightValue: number = prevChosenNums.length === 0 ? 260.8 : 261.5;
+    const heightValue: number = prevChosenNums.length === 0 ? 594.5 : 598.5;
+    const tabletHeightValue: number = prevChosenNums.length === 0 ? 992.5 : 996.5;
+    const phoneHeightValue: number = prevChosenNums.length === 0 ? 1830.8 : 1835.8;
 
     const PayTableDisplayStyle = css`
         display: ${mainData.displayPayTable};
-        height: ${`${heightValue}vh`};
+        height: ${`${heightValue}px`};
 
         @media (max-width: 900px) {
-            height: ${`${tabletHeightValue}vh`};
+            height: ${`${tabletHeightValue}px`};
         }
 
         @media (max-width: 600px) {
-            height: ${`${phoneHeightValue}vh`};
+            height: ${`${phoneHeightValue}px`};
         }
     `
 

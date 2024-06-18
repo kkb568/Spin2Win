@@ -34,6 +34,8 @@ export default function FooterButtons() {
                 </FooterButton>
             }
             
+            {/* Enable the button if there is any previous chosen number(s) from the wheel spin functionality
+            or if the disableFooterButtons is true. */}
             {
                 disableFooterButtons || prevChosenNums.length === 0 ?
                 <DisabledFooterButton iconValue="bar_chart"/> :
