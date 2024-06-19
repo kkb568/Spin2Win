@@ -3,7 +3,7 @@ import { chipDataType } from "../../../../../data/dataTypes"
 import ChipItem from "./ChipItem"
 import { useContext, useEffect } from "react"
 import { ChipContext } from "../../../PlayArea"
-import { getSelectedChipUrl } from "../../../../../utils/chipUtils"
+import { getSelectedChipUrl, getSelectedChipValue } from "../../../../../utils/chipUtils"
 
 // The component renders the respective chip and details from chipsData storage.
 export default function Chips() {
@@ -24,11 +24,12 @@ export default function Chips() {
         updatePlayAreaState("chipsData", newChipsArray)
     }
 
-    // Change the chipUrl value if the chipsData changes after the showSelected function is called.
+    // Change the chipUrl and the chipValue values if the chipsData changes after the showSelected function is called.
     useEffect(() => {
         chipsData.forEach((chip) => {
             if (chip.isSelected) {
-                updatePlayAreaState("chipUrl", getSelectedChipUrl(chipsData))
+                updatePlayAreaState("chipUrl", getSelectedChipUrl(chipsData));
+                updatePlayAreaState("chipValue", getSelectedChipValue(chipsData));
             }
         });
     }, [chipsData])
