@@ -4,6 +4,7 @@ import TopComponent from "./Top/TopComponent";
 import { createContext, useState } from "react";
 import { getSelectedChipUrl, getSelectedChipValue } from "../../utils/chipUtils";
 import { ChipContextType, playDataStoreType, playDataStateType } from "../../data/dataTypes";
+import { chipsData } from "../../data/data";
 
 
 // The context is used for all components inside the PlayArea component.
@@ -29,7 +30,8 @@ import { ChipContextType, playDataStoreType, playDataStateType } from "../../dat
 export const ChipContext = createContext<ChipContextType>({
     chipValue: 0,
     playDataStore: {
-        chipUrl: "",
+        chipUrl: getSelectedChipUrl(chipsData),
+        chipsData: chipsData,
         enableButton: false,
         totalBet: 0,
         ifSpinned: false,
@@ -45,7 +47,8 @@ export const ChipContext = createContext<ChipContextType>({
 // The component is the playing area that contains all the buttons and chips.
 export default function PlayArea() {
     const [playData, setPlayData] = useState<playDataStoreType>({
-        chipUrl: getSelectedChipUrl(),
+        chipUrl: getSelectedChipUrl(chipsData),
+        chipsData: chipsData,
         enableButton: false,
         totalBet: 0,
         ifSpinned: false,

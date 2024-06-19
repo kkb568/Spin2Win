@@ -19,9 +19,8 @@ export function assignBackgroundColor(num: number): string {
 /* The function is used to get the chip url which its isSelected value is true. 
 Useful for showing which chip is selected by the user on the 
 TopComponent buttons when hovered. */
-export function getSelectedChipUrl(): string {
+export function getSelectedChipUrl(chipsArray: chipDataType[]): string {
     let url: string = "";
-    const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
     
     for (let i = 0; i < chipsArray.length; i++) {
         if (chipsArray[i].isSelected === true) {

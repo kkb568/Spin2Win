@@ -21,7 +21,7 @@ export const blackColors: blackColorsType = {
     normalBlack: "#1f1f1f"
 }
 
-const chipData: chipDataType[] = [
+export const chipsData: chipDataType[] = [
     {
         id: 1,
         chipUrl: "https://virtual-games.virtustec.com/desktop-v4/default/assets/images/spin2win/chips/spin2win-chip-purple.svg",
@@ -71,7 +71,7 @@ const chipData: chipDataType[] = [
         isSelected: true
     }
 ]
-sessionStorage.setItem("chipsData", JSON.stringify(chipData))
+// sessionStorage.setItem("chipsData", JSON.stringify(chipData))
 
 const betData: betDataType[] | [] = []
 sessionStorage.setItem("betsData", JSON.stringify(betData))

@@ -1,16 +1,14 @@
 import { css } from "@emotion/css"
 import { chipDataType } from "../../../../../data/dataTypes"
 import ChipItem from "./ChipItem"
-import { useContext, useState } from "react"
+import { useContext, useEffect } from "react"
 import { ChipContext } from "../../../PlayArea"
 import { getSelectedChipUrl } from "../../../../../utils/chipUtils"
 
 // The component renders the respective chip and details from chipsData storage.
 export default function Chips() {
-    const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
-    const [chipsData, setChipsData] = useState<chipDataType[]>(chipsArray)
-    
-    const { updatePlayAreaState } = useContext(ChipContext)
+    const { updatePlayAreaState, playDataStore } = useContext(ChipContext)
+    const { chipsData } = playDataStore;
 
     /* The function changes the selected value of the chip object 
     whose keyValue is equal to the key parameter 
@@ -23,10 +21,18 @@ export default function Chips() {
             {...chip, isSelected: true} : 
             {...chip, isSelected: false}
         )
-        setChipsData(newChipsArray)
-        sessionStorage.setItem("chipsData", JSON.stringify(newChipsArray))
-        updatePlayAreaState("chipUrl", getSelectedChipUrl())
+        updatePlayAreaState("chipsData", newChipsArray)
     }
+
+    // Change the chipUrl value if the chipsData changes after the showSelected function is called.
+    useEffect(() => {
+        chipsData.forEach((chip) => {
+            if (chip.isSelected) {
+                updatePlayAreaState("chipUrl", getSelectedChipUrl(chipsData))
+            }
+        });
+    }, [chipsData])
+    
 
     const chipItems: JSX.Element[] = chipsData.map((chip) => {
         return (

@@ -1,9 +1,9 @@
 // Data types exports.
 export type arrayNum = number[];
-export type playDataStateType = number | boolean | string;
+export type playDataStateType = number | boolean | string | object;
 export type betOnType = string | number;
 export type lastBetValueType = [boolean, number];
-export type updateButtonStateType = boolean | correctLastBets;
+export type updateButtonStateType = boolean | correctLastBets | string;
 
 export interface redColorsType {
     diamondRed: string,
@@ -38,6 +38,7 @@ export interface actionDataType {
 
 export interface playDataStoreType {
     chipUrl: string,
+    chipsData: chipDataType[],
     enableButton: boolean,
     totalBet: number,
     ifSpinned: boolean,
@@ -68,9 +69,9 @@ export interface MainContextType {
 export interface buttonStateType {
     selectedChip: boolean,
     showTotal: boolean,
-    correctLastBets: correctLastBets
+    correctLastBets: correctLastBets,
     correctHover?: boolean,
-    showChessPiece?: boolean
+    showChessPiece?: boolean,
 }
 
 export interface actionChangeType {

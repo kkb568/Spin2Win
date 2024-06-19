@@ -106,7 +106,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
         }}>
 
             {/* The below div is shown when the user hovers over the button
-                    (Check the PlayButton component from styles.tsx). */}
+            (Check the PlayButton component from styles.tsx). */}
             <div className={hoverElementStyle}>
                 <div className={foregroundStyle}></div>
                 <img className={chipStyle} src={chipUrl} />
