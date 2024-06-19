@@ -215,15 +215,14 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
     const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
     const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
 
-    let correctLastBets: correctLastBets;
+    let correctLastBets: correctLastBets = {
+        chipUrl: "",
+        betOn: ""
+    };
     let correctLastBetsArr: correctLastBets[] = [];
 
-    // If either of the arrays are empty, return as empty strings.
+    // If either of the arrays are empty, return the expected values as empty strings.
     if (previousChosenNums.length === 0 || lastBetDataArray.length === 0) {
-        correctLastBets = {
-            chipUrl: "",
-            betOn: ""
-        };
         return correctLastBets;
     }
 

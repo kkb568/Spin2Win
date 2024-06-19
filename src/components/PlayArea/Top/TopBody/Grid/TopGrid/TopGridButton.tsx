@@ -41,7 +41,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     const correctLastBetChip = buttonState.correctLastBets.chipUrl;
 
     /* If the ifSpinned is true (meaning the spin wheel functionality is completed),
-    call the getChipUrlByCorrectLastBets function and update the correctLatBets state 
+    call the getCorrectLastBetsDetails function and update the correctLatBets state 
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {

@@ -7,7 +7,7 @@ import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType, updateButtonStateType } from "../../../../../../data/dataTypes";
 import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorrectLastBetsDetails, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
-import chessPiece from "../../../../../../assets/cbimage.svg";
+import chessPiece from "../../../../../../assets/chessPiece.svg";
 
 interface Props {
     num: number,

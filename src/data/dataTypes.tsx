@@ -114,3 +114,8 @@ export interface correctLastBets {
     chipUrl: string,
     betOn: betOnType
 }
+
+export interface rowNumFreqDataType {
+    number: number,
+    frequency: number
+}

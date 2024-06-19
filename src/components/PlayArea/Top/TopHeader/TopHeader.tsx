@@ -1,11 +1,16 @@
-import { css } from "@emotion/css";
+import { css, cx } from "@emotion/css";
 import { prevNumDataType } from "../../../../data/dataTypes";
 import PreviousNum from "./PreviousNum";
 import { assignBackgroundColor } from "../../../../utils/chipUtils";
+import HotAndCold from "./HotAndCold/HotAndCold";
 
 // This is the dark red heading that would contain game's statistics.
 export default function TopHeader() {
     const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+
+    const TopHeaderGap = css`
+        gap: ${`${prevChosenNums.length === 0 ? 25.5 : 16.5}em`};
+    `
 
     let prevNumsList: JSX.Element[];
     if (prevChosenNums.length > 0) {
@@ -38,10 +43,11 @@ export default function TopHeader() {
         prevNumsList
 
     return (
-        <div className={TopHeaderStyle}>
+        <div className={cx(TopHeaderStyle, TopHeaderGap)}>
             <div className={prevNumListStyle}>
                 {prevNumsData}
             </div>
+            <HotAndCold />
         </div>
     )
 }
@@ -52,6 +58,7 @@ const TopHeaderStyle = css`
     box-shadow:  0 1px 0 0 rgba(0,0,0,.5);
     padding: .1em;
     display: flex;
+    align-items: center;
 
     p {
         margin-left: 1.5em;
@@ -62,4 +69,5 @@ const TopHeaderStyle = css`
 const prevNumListStyle = css`
     display: flex;
     align-items: center;
+    width: 21.5em;
 `

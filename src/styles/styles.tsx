@@ -102,3 +102,15 @@ export const PayTableGridSection = styled.div`
     justify-content: center;
     font-size: 1.3em;
 `
+
+export const HotColdNumDiv = styled.div`
+    width: .85em;
+    height: .85em;
+    border-radius: .7em;
+    padding: .3em;
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Adamina';
+`
