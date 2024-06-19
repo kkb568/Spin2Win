@@ -1,4 +1,5 @@
-import { Action, ActionData, arrayNum, betDataType, blackColorsType, chipDataType, prevNumDataType, redColorsType } from "./dataTypes"
+import { getSelectedChipUrl, getSelectedChipValue } from "../utils/chipUtils"
+import { Action, ActionData, ChipContextType, arrayNum, betDataType, blackColorsType, chipDataType, prevNumDataType, redColorsType } from "./dataTypes"
 
 // Data exports
 export const firstRowNumbers: arrayNum  = [3,6,9,12,15,18,21,24,27,30,33,36]
@@ -21,7 +22,7 @@ export const blackColors: blackColorsType = {
     normalBlack: "#1f1f1f"
 }
 
-export const chipsData: chipDataType[] = [
+export const chipsStore: chipDataType[] = [
     {
         id: 1,
         chipUrl: "https://virtual-games.virtustec.com/desktop-v4/default/assets/images/spin2win/chips/spin2win-chip-purple.svg",
@@ -139,5 +140,19 @@ sessionStorage.setItem("previousChosenNums", JSON.stringify(previousChosenNums))
 const lastBetData: betDataType[] | [] = [];
 sessionStorage.setItem("lastBetData", JSON.stringify(lastBetData));
 
-// Data for confetti.
-export const confettiColors: string[] = ["#ffd300", "#17d3ff", "#ff4e91", "#90EE90", "#FFA500"];
+export const playAreaContext: ChipContextType = {
+    playDataStore: {
+        chipValue: getSelectedChipValue(chipsStore),
+        chipUrl: getSelectedChipUrl(chipsStore),
+        chipsData: chipsStore,
+        enableButton: false,
+        totalBet: 0,
+        ifSpinned: false,
+        reloadLastBets: false,
+        countReload: 0,
+        ifNumClicked: false,
+        disableButtonEvents: false,
+        disableFooterButtons: false
+    },
+    updatePlayAreaState: null
+}

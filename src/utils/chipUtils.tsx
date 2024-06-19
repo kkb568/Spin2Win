@@ -33,9 +33,8 @@ export function getSelectedChipUrl(chipsArray: chipDataType[]): string {
 
 /* The function is used to get the chip value 
 of the chip which its 'isSelected' value is true. */
-export function getSelectedChipValue(): number {
+export function getSelectedChipValue(chipsArray: chipDataType[]): number {
     let value: number = 0;
-    const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
     
     for (let i = 0; i < chipsArray.length; i++) {
         if (chipsArray[i].isSelected === true) {
@@ -47,9 +46,8 @@ export function getSelectedChipValue(): number {
 }
 
 // The function is used to get the chip url based on the chip value.
-export function getChipUrlByValue(value: number): string {
+export function getChipUrlByValue(value: number, chipsArray: chipDataType[]): string {
     let url: string = "";
-    const chipsArray: chipDataType[] = JSON.parse(sessionStorage.getItem("chipsData") || '{}')
     
     for (let i = 0; i < chipsArray.length; i++) {
         if (chipsArray[i].chipValue === value) {
@@ -60,27 +58,27 @@ export function getChipUrlByValue(value: number): string {
 }
 
 // The function is used to get the chip url based on the range in which the value lies on.
-export function getChipUrlByValueRange(value: number): string {
+export function getChipUrlByValueRange(value: number, chipsArray: chipDataType[]): string {
     let url: string = "";
     
     switch (true) {
         case (value < 50):
-            url = getChipUrlByValue(10)
+            url = getChipUrlByValue(10, chipsArray)
             break;
         case (value < 100):
-            url = getChipUrlByValue(50)
+            url = getChipUrlByValue(50, chipsArray)
             break;
         case (value < 200):
-            url = getChipUrlByValue(100)
+            url = getChipUrlByValue(100, chipsArray)
             break;
         case (value < 400):
-            url = getChipUrlByValue(200)
+            url = getChipUrlByValue(200, chipsArray)
             break;
         case (value < 500):
-            url = getChipUrlByValue(400)
+            url = getChipUrlByValue(400, chipsArray)
             break;
         default:
-            url = getChipUrlByValue(500)
+            url = getChipUrlByValue(500, chipsArray)
     }
 
     return url;

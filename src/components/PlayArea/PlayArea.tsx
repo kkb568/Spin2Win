@@ -2,9 +2,8 @@ import { css } from "@emotion/css";
 import BottomComponent from "./Bottom/BottomComponent";
 import TopComponent from "./Top/TopComponent";
 import { createContext, useState } from "react";
-import { getSelectedChipUrl, getSelectedChipValue } from "../../utils/chipUtils";
 import { ChipContextType, playDataStoreType, playDataStateType } from "../../data/dataTypes";
-import { chipsData } from "../../data/data";
+import { playAreaContext } from "../../data/data";
 
 
 // The context is used for all components inside the PlayArea component.
@@ -27,38 +26,11 @@ import { chipsData } from "../../data/data";
  * 10. disableFooterButtons: Used to disable the second and third footer buttons
  *      when the wheel spin implementation is occurring.
  */
-export const ChipContext = createContext<ChipContextType>({
-    chipValue: 0,
-    playDataStore: {
-        chipUrl: getSelectedChipUrl(chipsData),
-        chipsData: chipsData,
-        enableButton: false,
-        totalBet: 0,
-        ifSpinned: false,
-        reloadLastBets: false,
-        countReload: 0,
-        ifNumClicked: false,
-        disableButtonEvents: false,
-        disableFooterButtons: false
-    },
-    updatePlayAreaState: null
-});
+export const ChipContext = createContext<ChipContextType>(playAreaContext);
 
 // The component is the playing area that contains all the buttons and chips.
 export default function PlayArea() {
-    const [playData, setPlayData] = useState<playDataStoreType>({
-        chipUrl: getSelectedChipUrl(chipsData),
-        chipsData: chipsData,
-        enableButton: false,
-        totalBet: 0,
-        ifSpinned: false,
-        reloadLastBets: false,
-        countReload: 0,
-        ifNumClicked: false,
-        disableButtonEvents: false,
-        disableFooterButtons: false
-    })
-    const selectedChipValue = getSelectedChipValue();
+    const [playData, setPlayData] = useState<playDataStoreType>(playAreaContext.playDataStore)
 
     /* The function is used to update the playData state,
     based on the key and the value parameter values. */
@@ -73,7 +45,6 @@ export default function PlayArea() {
 
 
     const chipContextValue: ChipContextType = {
-        chipValue: selectedChipValue,
         playDataStore: playData,
         updatePlayAreaState: updatePlayAreaState
     }

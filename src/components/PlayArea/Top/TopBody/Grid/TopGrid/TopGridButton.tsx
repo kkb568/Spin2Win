@@ -14,8 +14,8 @@ interface Props {
 }
 
 export default function TopGridButton({ name, diamondColor, chosenNumDetails }: Props) {
-    const { chipValue, playDataStore, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+    const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
+    const { chipUrl, chipValue, reloadLastBets, disableButtonEvents, ifSpinned, chipsData } = playDataStore;
     
     // The betOnValue is a combination of name and button color.
     const betOnValue = name.concat(` ${diamondColor}`);
@@ -30,11 +30,11 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(betOnValue)
+        correctLastBets: getCorrectLastBetsDetails(betOnValue, chipsData)
     })
     
     const totalBetValue = getBetByBetOn(betOnValue);
-    const betChipUrl = getChipUrlByBet(betOnValue);
+    const betChipUrl = getChipUrlByBet(betOnValue, chipsData);
     
     // Get the correct last bet's betOn and chipUrl values.
     const correctLastBetBetOn = buttonState.correctLastBets.betOn;
@@ -45,7 +45,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(betOnValue));
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(betOnValue, chipsData));
         }
     }, [ifSpinned])
     

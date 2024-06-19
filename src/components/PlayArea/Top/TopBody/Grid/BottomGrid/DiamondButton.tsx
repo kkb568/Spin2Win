@@ -17,8 +17,8 @@ interface Props {
 }
 
 export default function DiamondButton({ diamondColor, chosenColor, representColor }: Props) {
-    const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext)
-    const { chipUrl, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+    const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
+    const { chipUrl, chipValue, chipsData, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
      
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -30,10 +30,10 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(diamondColor)
+        correctLastBets: getCorrectLastBetsDetails(diamondColor, chipsData)
     })
 
-    const betChipUrl = getChipUrlByBet(diamondColor)
+    const betChipUrl = getChipUrlByBet(diamondColor, chipsData)
     const totalBetValue = getBetByBetOn(diamondColor)
 
      // Get the correct last bet's betOn and chipUrl values.
@@ -45,7 +45,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
      to the function's return value. */
      useEffect(() => {
          if (ifSpinned) {
-             updateButtonState("correctLastBets", getCorrectLastBetsDetails(diamondColor))
+             updateButtonState("correctLastBets", getCorrectLastBetsDetails(diamondColor, chipsData))
          }
      }, [ifSpinned])
 

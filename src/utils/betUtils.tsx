@@ -1,5 +1,5 @@
 import { blackColors, green, redColors } from "../data/data";
-import { betDataType, betOnType, correctLastBets, lastBetValueType, prevNumDataType } from "../data/dataTypes";
+import { betDataType, betOnType, chipDataType, correctLastBets, lastBetValueType, prevNumDataType } from "../data/dataTypes";
 import { getChipUrlByValueRange } from "./chipUtils";
 import { checkEven, checkNumRange, checkRedColor } from "./wheelUtils";
 
@@ -61,7 +61,7 @@ export function getTotalBet(): number {
 the range in which the total bet for the specified betOn value lies on. 
 This is useful for showing the chip when user clicks on the button 
 to represent the total bet for the specified button. */
-export function getChipUrlByBet(betOn: betOnType): string {
+export function getChipUrlByBet(betOn: betOnType, chipsArray: chipDataType[]): string {
     let url: string = "";
     const totalBet: number = getBetByBetOn(betOn);
     
@@ -71,7 +71,7 @@ export function getChipUrlByBet(betOn: betOnType): string {
     }
 
     // Get the url from the getChipUrlByValueRange function.
-    url = getChipUrlByValueRange(totalBet);
+    url = getChipUrlByValueRange(totalBet, chipsArray);
     return url;
 }
 
@@ -211,7 +211,7 @@ export function clearLastBets() {
 /* The function is used to get the details of the correct last bets, useful for 
 showing the chip which the user put as last bet and was correct in relation to 
 the last chosen number from wheel spin functionality. */
-export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
+export function getCorrectLastBetsDetails(betOn: betOnType, chipsData: chipDataType[]): correctLastBets {
     const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
     const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
 
@@ -236,7 +236,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case "1~12":
                 if (checkNumRange(1, 12, lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -245,7 +245,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case "13~24":
                 if (checkNumRange(13, 24, lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -254,7 +254,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case "25~36":
                 if (checkNumRange(25, 36, lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -263,7 +263,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case "low":
                 if (checkNumRange(1, 18, lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -272,7 +272,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case "high":
                 if (checkNumRange(19, 36, lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -281,7 +281,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case "even":
                 if (checkEven(lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -290,7 +290,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case "odd":
                 if (!checkEven(lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -299,7 +299,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case redColors.diamondRed:
                 if (checkRedColor(lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -308,7 +308,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case blackColors.normalBlack:
                 if (!checkRedColor(lastPrevChosenNum)) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -317,7 +317,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case `low ${redColors.normalRed}`:
                 if (checkNumRange(1, 18, lastPrevChosenNum) && checkRedColor(lastPrevChosenNum) ) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -326,7 +326,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case `high ${redColors.normalRed}`:
                 if (checkNumRange(19, 36, lastPrevChosenNum) && checkRedColor(lastPrevChosenNum) ) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -335,7 +335,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case `low ${blackColors.normalBlack}`:
                 if (checkNumRange(1, 18, lastPrevChosenNum) && !checkRedColor(lastPrevChosenNum) ) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -344,7 +344,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case `high ${blackColors.normalBlack}`:
                 if (checkNumRange(19, 36, lastPrevChosenNum) && !checkRedColor(lastPrevChosenNum) ) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);
@@ -353,7 +353,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType): correctLastBets {
             case green:
                 if (lastPrevChosenNum === 0) {
                     correctLastBets = {
-                        chipUrl: getChipUrlByValueRange(bet.betValue),
+                        chipUrl: getChipUrlByValueRange(bet.betValue, chipsData),
                         betOn: bet.betOn
                     };
                     correctLastBetsArr.push(correctLastBets);

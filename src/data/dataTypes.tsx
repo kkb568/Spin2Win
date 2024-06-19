@@ -37,6 +37,7 @@ export interface actionDataType {
 }
 
 export interface playDataStoreType {
+    chipValue: number,
     chipUrl: string,
     chipsData: chipDataType[],
     enableButton: boolean,
@@ -50,7 +51,6 @@ export interface playDataStoreType {
 }
 
 export interface ChipContextType {
-    chipValue: number,
     playDataStore: playDataStoreType,
     updatePlayAreaState: ((key: string, value: playDataStateType) => void) | null
 }

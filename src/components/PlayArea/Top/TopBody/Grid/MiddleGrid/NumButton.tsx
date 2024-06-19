@@ -15,8 +15,8 @@ interface Props {
 }
 
 export default function NumButton({ num, chosenNum }: Props) {
-    const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, reloadLastBets, ifNumClicked, disableButtonEvents, ifSpinned } = playDataStore;
+    const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
+    const { chipUrl, chipValue, reloadLastBets, ifNumClicked, disableButtonEvents, ifSpinned, chipsData } = playDataStore;
 
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -33,13 +33,13 @@ export default function NumButton({ num, chosenNum }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(num),
+        correctLastBets: getCorrectLastBetsDetails(num, chipsData),
         correctHover: false,
         showChessPiece: false
     });
 
     const buttonColor = assignBackgroundColor(num);
-    const betChipUrl = getChipUrlByBet(num)
+    const betChipUrl = getChipUrlByBet(num, chipsData)
     const totalBetValue = getBetByBetOn(num)
 
     // Get the correct last bet's betOn and chipUrl values.
@@ -51,7 +51,7 @@ export default function NumButton({ num, chosenNum }: Props) {
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(num))
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(num, chipsData))
         }
     }, [ifSpinned])
 

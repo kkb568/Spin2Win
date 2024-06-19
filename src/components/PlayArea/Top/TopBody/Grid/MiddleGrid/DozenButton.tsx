@@ -13,8 +13,8 @@ interface Props {
 }
 
 export default function DozenButton({ name, chosenDozenRange }: Props) {
-    const { playDataStore, chipValue, updatePlayAreaState } = useContext(ChipContext)
-    const { chipUrl, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+    const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
+    const { chipUrl, chipValue, chipsData, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -26,10 +26,10 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(name)
+        correctLastBets: getCorrectLastBetsDetails(name, chipsData)
     })
 
-    const betChipUrl = getChipUrlByBet(name)
+    const betChipUrl = getChipUrlByBet(name, chipsData)
     const totalBetValue = getBetByBetOn(name)
 
      // Get the correct last bet's betOn and chipUrl values.
@@ -41,7 +41,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
      to the function's return value. */
      useEffect(() => {
          if (ifSpinned) {
-             updateButtonState("correctLastBets", getCorrectLastBetsDetails(name))
+             updateButtonState("correctLastBets", getCorrectLastBetsDetails(name, chipsData))
          }
      }, [ifSpinned])
 
