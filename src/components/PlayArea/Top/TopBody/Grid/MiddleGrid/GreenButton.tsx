@@ -18,7 +18,7 @@ export default function GreenButton({ chosenNum }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { chipUrl, chipValue, disableButtonEvents, 
         reloadLastBets, ifNumClicked, ifSpinned, 
-        chipsData, actionsData } = playDataStore;
+        chipsData, actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -38,7 +38,7 @@ export default function GreenButton({ chosenNum }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(green, chipsData),
+        correctLastBets: getCorrectLastBetsDetails(green, chipsData, lastBetData),
         correctHover: false,
         showChessPiece: false
     })
@@ -55,7 +55,7 @@ export default function GreenButton({ chosenNum }: Props) {
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(green, chipsData))
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(green, chipsData, lastBetData))
         }
     }, [ifSpinned])
 
@@ -115,7 +115,7 @@ export default function GreenButton({ chosenNum }: Props) {
         if (reloadLastBets) {
             updateButtonState("showChessPiece", false);
             
-            const [ found, lastBetValue ] = checkValueFromLastBet(green);
+            const [ found, lastBetValue ] = checkValueFromLastBet(green, lastBetData);
             if (found) {
                 showSelectedChip(lastBetValue, true);
                 updatePlayAreaState("reloadLastBets", false);

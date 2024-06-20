@@ -17,7 +17,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
     const { chipUrl, chipValue, chipsData, 
         reloadLastBets, disableButtonEvents, ifSpinned,
-        actionsData } = playDataStore;
+        actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -32,7 +32,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(name, chipsData)
+        correctLastBets: getCorrectLastBetsDetails(name, chipsData, lastBetData)
     })
 
     const betChipUrl = getChipUrlByBet(name, chipsData, betsData)
@@ -47,7 +47,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
      to the function's return value. */
      useEffect(() => {
          if (ifSpinned) {
-             updateButtonState("correctLastBets", getCorrectLastBetsDetails(name, chipsData))
+             updateButtonState("correctLastBets", getCorrectLastBetsDetails(name, chipsData, lastBetData))
          }
      }, [ifSpinned])
 
@@ -65,7 +65,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     call the showSelectedChip function and update the reloadLastBets to false. */
     useEffect(() => {
         if (reloadLastBets) {
-            const [ found, lastBetValue ] = checkValueFromLastBet(name);
+            const [ found, lastBetValue ] = checkValueFromLastBet(name, lastBetData);
             if (found) {
                 showSelectedChip(lastBetValue, true);
                 updatePlayAreaState("reloadLastBets", false);

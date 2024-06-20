@@ -1,5 +1,5 @@
 import { getSelectedChipUrl, getSelectedChipValue } from "../utils/chipUtils"
-import { Action, ActionData, ChipContextType, arrayNum, betDataType, blackColorsType, chipDataType, prevNumDataType, redColorsType } from "./dataTypes"
+import { Action, ActionData, ChipContextType, arrayNum, blackColorsType, chipDataType, prevNumDataType, redColorsType } from "./dataTypes"
 
 // Data exports
 export const firstRowNumbers: arrayNum  = [3,6,9,12,15,18,21,24,27,30,33,36]
@@ -73,9 +73,6 @@ export const chipsStore: chipDataType[] = [
     }
 ]
 
-// const betData: betDataType[] | [] = []
-// sessionStorage.setItem("betsData", JSON.stringify(betData))
-
 export const topGridButtons: {
     key: number,
     name: string,
@@ -135,15 +132,13 @@ const actionArray: ActionData[] = [
 const previousChosenNums: prevNumDataType | [] = [];
 sessionStorage.setItem("previousChosenNums", JSON.stringify(previousChosenNums));
 
-const lastBetData: betDataType[] | [] = [];
-sessionStorage.setItem("lastBetData", JSON.stringify(lastBetData));
-
 export const playAreaContext: ChipContextType = {
     playDataStore: {
         chipValue: getSelectedChipValue(chipsStore),
         chipUrl: getSelectedChipUrl(chipsStore),
         chipsData: chipsStore,
         actionsData: actionArray,
+        lastBetData: [],
         enableButton: false,
         totalBet: 0,
         ifSpinned: false,

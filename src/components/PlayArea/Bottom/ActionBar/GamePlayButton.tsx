@@ -8,7 +8,7 @@ import { clearUserActions } from "../../../../utils/actionUtils";
 // The component renders the button the user clicks to start the wheel spin.
 export default function GamePlayButton() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
-    const { enableButton, actionsData } = playDataStore;
+    const { enableButton, actionsData, lastBetData } = playDataStore;
     
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData
@@ -31,8 +31,8 @@ export default function GamePlayButton() {
         setTimeout(() => {
             updatePlayAreaState("disableFooterButtons", true);
             updatePlayAreaState("actionsData", clearUserActions(actionsData));
-            clearLastBets();
-            addLastBetData(betsData);
+            updatePlayAreaState("lastBetData", clearLastBets(lastBetData));
+            updatePlayAreaState("lastBetData", addLastBetData(betsData, lastBetData));
             updatePlayAreaState("ifNumClicked", false);
             setMainState("displayWheel", "visible");
         }, 1000);

@@ -21,7 +21,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
     const { chipUrl, chipValue, chipsData, 
         reloadLastBets, disableButtonEvents, ifSpinned,
-        actionsData } = playDataStore;
+        actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -36,7 +36,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(diamondColor, chipsData)
+        correctLastBets: getCorrectLastBetsDetails(diamondColor, chipsData, lastBetData)
     })
 
     const betChipUrl = getChipUrlByBet(diamondColor, chipsData, betsData)
@@ -51,7 +51,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
      to the function's return value. */
      useEffect(() => {
          if (ifSpinned) {
-             updateButtonState("correctLastBets", getCorrectLastBetsDetails(diamondColor, chipsData))
+             updateButtonState("correctLastBets", getCorrectLastBetsDetails(diamondColor, chipsData, lastBetData))
          }
      }, [ifSpinned])
 
@@ -69,7 +69,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
     call the showSelectedChip function and update the reloadLastBets to false. */
     useEffect(() => {
         if (reloadLastBets) {
-            const [ found, lastBetValue ] = checkValueFromLastBet(diamondColor);
+            const [ found, lastBetValue ] = checkValueFromLastBet(diamondColor, lastBetData);
             if (found) {
                 showSelectedChip(lastBetValue, true);
                 updatePlayAreaState("reloadLastBets", false);

@@ -18,7 +18,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { chipUrl, chipValue, reloadLastBets, 
         disableButtonEvents, ifSpinned, chipsData,
-        actionsData } = playDataStore;
+        actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -36,7 +36,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(betOnValue, chipsData)
+        correctLastBets: getCorrectLastBetsDetails(betOnValue, chipsData, lastBetData)
     })
     
     const totalBetValue = getBetByBetOn(betOnValue, betsData);
@@ -51,7 +51,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(betOnValue, chipsData));
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(betOnValue, chipsData, lastBetData));
         }
     }, [ifSpinned])
     
@@ -77,7 +77,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     call the showSelectedChip function and update the reloadLastBets to false. */
     useEffect(() => {
         if (reloadLastBets) {
-            const [ found, lastBetValue ] = checkValueFromLastBet(betOnValue);
+            const [ found, lastBetValue ] = checkValueFromLastBet(betOnValue, lastBetData);
             if (found) {
                 showSelectedChip(lastBetValue, true);
                 updatePlayAreaState("reloadLastBets", false);

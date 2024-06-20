@@ -1,7 +1,7 @@
 import { css } from "@emotion/css"
 import { useContext } from "react"
 import { ChipContext } from "../../PlayArea"
-import { Action, betDataType } from "../../../../data/dataTypes"
+import { Action } from "../../../../data/dataTypes"
 import { clearBetsData, doubleBetValue, getTotalBet } from "../../../../utils/betUtils"
 import { addAction, clearUserActions, undoBetAction } from "../../../../utils/actionUtils"
 import { ActionButton } from "../../../../styles/styles"
@@ -11,13 +11,11 @@ import { MainContext } from "../../../../App"
 export default function ActionSection() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
     const { enableButton, countReload, disableButtonEvents,
-        actionsData
+        actionsData, lastBetData
      } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
-
-    const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
 
     /* The functions clear all user actions and bets, disables the action buttons,
     updates the total bet to the original state and update the countReload to zero. */
@@ -68,7 +66,7 @@ export default function ActionSection() {
             {/* The below button is enabled if there is data in the lastBetData storage
             and the disableButtonEvents is false. */}
             <ActionButton className={
-                lastBetDataArray.length === 0 || disableButtonEvents ? disabledButtonStyle : enabledButtonStyle
+                lastBetData.length === 0 || disableButtonEvents ? disabledButtonStyle : enabledButtonStyle
             } onClick={() => reloadPrevBets()}>
                 <i className="fa-solid fa-rotate-right"></i>
             </ActionButton>

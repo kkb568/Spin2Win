@@ -19,7 +19,7 @@ export default function NumButton({ num, chosenNum }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { chipUrl, chipValue, reloadLastBets, 
         ifNumClicked, disableButtonEvents, ifSpinned, 
-        chipsData, actionsData } = playDataStore;
+        chipsData, actionsData , lastBetData} = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -39,7 +39,7 @@ export default function NumButton({ num, chosenNum }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(num, chipsData),
+        correctLastBets: getCorrectLastBetsDetails(num, chipsData, lastBetData),
         correctHover: false,
         showChessPiece: false
     });
@@ -57,7 +57,7 @@ export default function NumButton({ num, chosenNum }: Props) {
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(num, chipsData))
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(num, chipsData, lastBetData))
         }
     }, [ifSpinned])
 
@@ -117,7 +117,7 @@ export default function NumButton({ num, chosenNum }: Props) {
         if (reloadLastBets) {
             updateButtonState("showChessPiece", false);
             
-            const [ found, lastBetValue ] = checkValueFromLastBet(num);
+            const [ found, lastBetValue ] = checkValueFromLastBet(num, lastBetData);
             if (found) {
                 showSelectedChip(lastBetValue, true);
                 updatePlayAreaState("reloadLastBets", false);

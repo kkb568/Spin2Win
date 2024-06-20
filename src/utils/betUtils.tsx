@@ -156,9 +156,7 @@ export function countPrevBets(betArray: betDataType[]): number {
 
 /*The function is used to push all the bets in the betsData storage
 to the lastBetData storage. The function is called when the PlayButton is clicked. */
-export function addLastBetData(betDataArray: betDataType[]) {
-    const lastBetDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("lastBetData"));
-
+export function addLastBetData(betDataArray: betDataType[], lastBetDataArray: betDataType[]): betDataType[] {
     betDataArray.forEach((bet) => {
         const lastBet: betDataType = {
             betOn: bet.betOn,
@@ -166,13 +164,12 @@ export function addLastBetData(betDataArray: betDataType[]) {
         }
         lastBetDataArray.push(lastBet);
     });
-    sessionStorage.setItem("lastBetData", JSON.stringify(lastBetDataArray));
+    return lastBetDataArray;
 }
 
 /* The function is used to check if the betOn value is in any 
 of the data in the lastBetData storage. */
-export function checkValueFromLastBet(betOnValue: betOnType) {
-    const lastBetDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("lastBetData"));
+export function checkValueFromLastBet(betOnValue: betOnType, lastBetDataArray: betDataType[]) {
     let returnValue: lastBetValueType = [false, null]
 
     lastBetDataArray.forEach((bet) => {
@@ -186,23 +183,22 @@ export function checkValueFromLastBet(betOnValue: betOnType) {
 
 /* The function is used to clear all the last bets, if any. 
 It's called when the PlayButton is clicked. */
-export function clearLastBets() {
-    const lastBetDataArray: betDataType[] | [] = JSON.parse(sessionStorage.getItem("lastBetData"));
-    
+export function clearLastBets(lastBetDataArray: betDataType[]): betDataType[] {
     if (lastBetDataArray.length > 0) {
         while (lastBetDataArray.length > 0) {
             lastBetDataArray.pop();
         }
     }
-    sessionStorage.setItem("lastBetData", JSON.stringify(lastBetDataArray));
+    return lastBetDataArray;
 }
 
 /* The function is used to get the details of the correct last bets, useful for 
 showing the chip which the user put as last bet and was correct in relation to 
 the last chosen number from wheel spin functionality. */
-export function getCorrectLastBetsDetails(betOn: betOnType, chipsData: chipDataType[]): correctLastBets {
+export function getCorrectLastBetsDetails(betOn: betOnType, chipsData: chipDataType[],
+    lastBetDataArray: betDataType[]
+): correctLastBets {
     const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
-    const lastBetDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("lastBetData"));
 
     let correctLastBets: correctLastBets = {
         chipUrl: "",

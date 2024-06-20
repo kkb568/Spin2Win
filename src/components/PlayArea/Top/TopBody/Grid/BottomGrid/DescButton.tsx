@@ -17,7 +17,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     const { playDataStore,updatePlayAreaState } = useContext(ChipContext)
     const { chipUrl, chipValue, chipsData, 
         reloadLastBets, disableButtonEvents, ifSpinned,
-        actionsData } = playDataStore;
+        actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -32,7 +32,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(description, chipsData)
+        correctLastBets: getCorrectLastBetsDetails(description, chipsData, lastBetData)
     })
 
     const betChipUrl = getChipUrlByBet(description, chipsData, betsData)
@@ -47,7 +47,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(description, chipsData))
+            updateButtonState("correctLastBets", getCorrectLastBetsDetails(description, chipsData, lastBetData))
         }
     }, [ifSpinned])
 
@@ -65,7 +65,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     call the showSelectedChip function and update the reloadLastBets to false. */
     useEffect(() => {
         if (reloadLastBets) {
-            const [ found, lastBetValue ] = checkValueFromLastBet(description);
+            const [ found, lastBetValue ] = checkValueFromLastBet(description, lastBetData);
             if (found) {
                 showSelectedChip(lastBetValue, true);
                 updatePlayAreaState("reloadLastBets", false);
