@@ -72,10 +72,9 @@ export const chipsStore: chipDataType[] = [
         isSelected: true
     }
 ]
-// sessionStorage.setItem("chipsData", JSON.stringify(chipData))
 
-const betData: betDataType[] | [] = []
-sessionStorage.setItem("betsData", JSON.stringify(betData))
+// const betData: betDataType[] | [] = []
+// sessionStorage.setItem("betsData", JSON.stringify(betData))
 
 export const topGridButtons: {
     key: number,

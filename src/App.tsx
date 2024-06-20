@@ -11,9 +11,10 @@ export const MainContext = createContext<MainContextType>({
   mainData: {
     displayPayTable: "none",
     displayWheel: "hidden",
-    displayStatistics: "none"
+    displayStatistics: "none",
+    betsData: []
   },
-  setDisplay: null
+  setMainState: null
 })
 
 
@@ -23,10 +24,11 @@ function App() {
   const [mainData, setMainData] = useState<MainDataStoreType>({
     displayPayTable: "none",
     displayWheel: "hidden",
-    displayStatistics: "none"
+    displayStatistics: "none",
+    betsData: [],
   })
 
-  function setMainState(key: string, value: string) {
+  function setMainState(key: string, value: string | object) {
     setMainData(prevState => {
       return {
         ...prevState,
@@ -37,7 +39,7 @@ function App() {
 
   const mainContextValue: MainContextType = {
     mainData: mainData,
-    setDisplay: setMainState
+    setMainState: setMainState
   }
 
   return (

@@ -3,10 +3,9 @@ import { betDataType, betOnType, chipDataType, correctLastBets, lastBetValueType
 import { getChipUrlByValueRange } from "./chipUtils";
 import { checkEven, checkNumRange, checkRedColor } from "./wheelUtils";
 
-// The function is used to add bet to the betsData session storage.
-export function addBet(betOnParam: betOnType, betValueParam: number, prevBet?: boolean) {
-    // Get the bets array from the betsData storage.
-    const betDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
+// The function is used to add bet to the betDataArray array.
+export function addBet(betOnParam: betOnType, betValueParam: number,
+    betDataArray: betDataType[], prevBet?: boolean): betDataType[] {
     
     // The new bet data.
     let newBetData: betDataType = {
@@ -15,35 +14,29 @@ export function addBet(betOnParam: betOnType, betValueParam: number, prevBet?: b
         ifPrevBet: prevBet
     }
 
-    /* If the betsData is empty, push the new bet data to bets array 
-    and store the array to betsData storage. */
+    /* If the betsData is empty, push the new bet data to betDataArray. */
     if (betDataArray.length === 0) {
-        betDataArray.push(newBetData)
-        sessionStorage.setItem("betsData", JSON.stringify(betDataArray));
-        return;
+        betDataArray.push(newBetData);
+        return betDataArray;
     }
 
     /* If the betsData is not empty and the betOn value exists in the betsData storage,
-    update the betValue from the found bet and to the betsData storage. */
+    update the betValue from the found bet and to the betDataArray. */
     for (let i = 0; i < betDataArray.length; i++) {
         if (betDataArray[i].betOn === betOnParam) {
             betDataArray[i].betValue += betValueParam;
-            sessionStorage.setItem("betsData", JSON.stringify(betDataArray));
-            return;
+            return betDataArray;
         }
     }
 
     /* If the betOn value does not exists but the betsData is not empty, 
     push the new bet to the bets array and update the betsData storage. */
     betDataArray.push(newBetData);
-    sessionStorage.setItem("betsData", JSON.stringify(betDataArray));
+    return betDataArray;
 }
 
 // The function is used to get the total bet that the user has put for play.
-export function getTotalBet(): number {
-    // Get the bets array from the betsData storage.
-    const betDataArray: betDataType[] | any[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
-
+export function getTotalBet(betDataArray: betDataType[]): number {
     // If the array length is 0, return the totalBet as 0
     let totalBet: number = 0;
     if (betDataArray.length === 0) {
@@ -61,9 +54,11 @@ export function getTotalBet(): number {
 the range in which the total bet for the specified betOn value lies on. 
 This is useful for showing the chip when user clicks on the button 
 to represent the total bet for the specified button. */
-export function getChipUrlByBet(betOn: betOnType, chipsArray: chipDataType[]): string {
+export function getChipUrlByBet(betOn: betOnType, 
+    chipsArray: chipDataType[],
+    betDataArray: betDataType[]): string {
     let url: string = "";
-    const totalBet: number = getBetByBetOn(betOn);
+    const totalBet: number = getBetByBetOn(betOn, betDataArray);
     
     // If the totalBet is equal to zero, return the url as an empty string.
     if (totalBet === 0) {
@@ -76,9 +71,7 @@ export function getChipUrlByBet(betOn: betOnType, chipsArray: chipDataType[]): s
 }
 
 // This function is used to get the total bet for the specified betOn value.
-export function getBetByBetOn(betOn: betOnType): number {
-    // Get the bets array from the betsData storage.
-    const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
+export function getBetByBetOn(betOn: betOnType, betDataArray: betDataType[]): number {
     let totalBet: number = 0;
     
     for (let i = 0; i < betDataArray.length; i++) {
@@ -90,27 +83,23 @@ export function getBetByBetOn(betOn: betOnType): number {
     return totalBet;
 }
 
-/* The function is used to clear all bet elements in the betsData storage. 
+/* The function is used to clear all bet elements in the betsDataArray. 
 It's called when the delete button is clicked. */
-export function clearBetsData() {
-    const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
-
+export function clearBetsData(betDataArray: betDataType[]): betDataType[] {
     // Pop every element as long as the array length is not equal to zero.
     while (betDataArray.length > 0) {
         betDataArray.pop()
     }
-    sessionStorage.setItem("betsData", JSON.stringify(betDataArray));
+    return betDataArray;
 }
 
 /* The function is used to double all the betValues for all of the betDataArray elements. 
 It's called when the 'x2' button is clicked. */
-export function doubleBetValue() {
-    const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
-
+export function doubleBetValue(betDataArray: betDataType[]): betDataType[] {
     for (let i = 0; i < betDataArray.length; i++) {
         betDataArray[i].betValue *= 2;
     }
-    sessionStorage.setItem("betsData", JSON.stringify(betDataArray));
+    return betDataArray;
 }
 
 // The function is used to remove the last bet from the betArray and update it to betsData storage.
@@ -166,8 +155,7 @@ export function countPrevBets(betArray: betDataType[]): number {
 
 /*The function is used to push all the bets in the betsData storage
 to the lastBetData storage. The function is called when the PlayButton is clicked. */
-export function addLastBetData() {
-    const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData"));
+export function addLastBetData(betDataArray: betDataType[]) {
     const lastBetDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("lastBetData"));
 
     betDataArray.forEach((bet) => {

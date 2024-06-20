@@ -3,7 +3,9 @@ import { betDataType, correctValueDataType, prevNumDataType } from "../data/data
 
 /*The function is used to set the rotation of the roulette wheel 
 and returns the winning prize.*/
-export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>) {
+export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>,
+    betsDataArray: betDataType[]
+) {
     let winningPrize: number = 0;
     // This is the angle degrees for each slice in the rotate wheel.
     const sliceDeg = 360/wheelSequence.length;
@@ -31,7 +33,7 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>) {
             addPreviousNum(chosenNum);
     
             // Get the winning prize based on the chosenNum value.
-            winningPrize = getWinningPrize(chosenNum);
+            winningPrize = getWinningPrize(chosenNum, betsDataArray);
             resolve(winningPrize);
         }, 10000);
      })
@@ -39,13 +41,11 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>) {
 
 /* The function is used to get the winning prize based on the chosen number 
 from the wheel and the bets the user put into. */
-function getWinningPrize(chosenNum: number): number {
-    // Get the bets that the user put into.
-    const betArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData"));
+function getWinningPrize(chosenNum: number, betsArray: betDataType[]): number {
     let winningPrize = 0;
 
     // Loop through each bet data.
-    betArray.forEach(bet => {
+    betsArray.forEach(bet => {
         if (typeof bet.betOn === "number") {
             // If the betOn type is number and is equal to the chosenNum, multiply the betValue by 36 and add to the winningPrize.
             if (bet.betOn === chosenNum) {

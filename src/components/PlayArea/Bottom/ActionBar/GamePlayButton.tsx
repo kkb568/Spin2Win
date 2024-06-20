@@ -9,7 +9,9 @@ import { clearUserActions } from "../../../../utils/actionUtils";
 export default function GamePlayButton() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { enableButton } = playDataStore;
-    const { setDisplay } = useContext(MainContext);
+    
+    const { setMainState, mainData } = useContext(MainContext);
+    const { betsData } = mainData
 
     // The style is for ensuring the button is not clicked if there's no chip in the playing area.
     const visibleButtonStyle: string = enableButton ? css`
@@ -30,9 +32,9 @@ export default function GamePlayButton() {
             updatePlayAreaState("disableFooterButtons", true);
             clearUserActions();
             clearLastBets();
-            addLastBetData();
+            addLastBetData(betsData);
             updatePlayAreaState("ifNumClicked", false);
-            setDisplay("displayWheel", "visible");
+            setMainState("displayWheel", "visible");
         }, 1000);
         /* Wait for 21 seconds (for the wheel to implement fully) 
         then set the disableFooterButtons and the enableButton to false, 

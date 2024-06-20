@@ -6,6 +6,7 @@ import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType, updateButtonStateType } from "../../../../../../data/dataTypes";
 import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorrectLastBetsDetails, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
+import { MainContext } from "../../../../../../App";
 
 interface Props {
     description: string,
@@ -14,7 +15,11 @@ interface Props {
 
 export default function DescButton({ description, correctValueDesc }: Props) {
     const { playDataStore,updatePlayAreaState } = useContext(ChipContext)
-    const { chipUrl, chipValue, chipsData, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+    const { chipUrl, chipValue, chipsData, 
+        reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+
+    const { setMainState, mainData } = useContext(MainContext);
+    const { betsData } = mainData;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -29,8 +34,8 @@ export default function DescButton({ description, correctValueDesc }: Props) {
         correctLastBets: getCorrectLastBetsDetails(description, chipsData)
     })
 
-    const betChipUrl = getChipUrlByBet(description, chipsData)
-    const totalBetValue = getBetByBetOn(description)
+    const betChipUrl = getChipUrlByBet(description, chipsData, betsData)
+    const totalBetValue = getBetByBetOn(description, betsData)
 
     // Get the correct last bet's betOn and chipUrl values.
     const correctLastBetBetOn = buttonState.correctLastBets.betOn;
@@ -75,11 +80,11 @@ export default function DescButton({ description, correctValueDesc }: Props) {
             value,
             description
         );
-        addBet(description, value, ifPrevBet);
+        setMainState("betsData", addBet(description, value, betsData, ifPrevBet));
         updateButtonState("selectedChip", true);
         updatePlayAreaState("ifNumClicked", true);
         updatePlayAreaState("enableButton", true);
-        updatePlayAreaState("totalBet", getTotalBet());
+        updatePlayAreaState("totalBet", getTotalBet(betsData));
     }
 
     return (

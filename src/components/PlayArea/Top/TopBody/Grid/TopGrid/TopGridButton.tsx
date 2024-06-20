@@ -6,6 +6,7 @@ import ShownChip from "../ShownChip/ShownChip";
 import { buttonStateType, updateButtonStateType } from "../../../../../../data/dataTypes";
 import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorrectLastBetsDetails, getTotalBet } from "../../../../../../utils/betUtils";
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
+import { MainContext } from "../../../../../../App";
 
 interface Props {
     name: string,
@@ -15,7 +16,11 @@ interface Props {
 
 export default function TopGridButton({ name, diamondColor, chosenNumDetails }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, chipValue, reloadLastBets, disableButtonEvents, ifSpinned, chipsData } = playDataStore;
+    const { chipUrl, chipValue, reloadLastBets, 
+        disableButtonEvents, ifSpinned, chipsData } = playDataStore;
+
+    const { setMainState, mainData } = useContext(MainContext);
+    const { betsData } = mainData;
     
     // The betOnValue is a combination of name and button color.
     const betOnValue = name.concat(` ${diamondColor}`);
@@ -33,8 +38,8 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
         correctLastBets: getCorrectLastBetsDetails(betOnValue, chipsData)
     })
     
-    const totalBetValue = getBetByBetOn(betOnValue);
-    const betChipUrl = getChipUrlByBet(betOnValue, chipsData);
+    const totalBetValue = getBetByBetOn(betOnValue, betsData);
+    const betChipUrl = getChipUrlByBet(betOnValue, chipsData, betsData);
     
     // Get the correct last bet's betOn and chipUrl values.
     const correctLastBetBetOn = buttonState.correctLastBets.betOn;
@@ -87,11 +92,11 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
             value,
             betOnValue
         );
-        addBet(betOnValue, value, ifPrevBet);
+        setMainState("betsData", addBet(betOnValue, value, betsData, ifPrevBet));
         updateButtonState("selectedChip", true);
         updatePlayAreaState("ifNumClicked", true);
         updatePlayAreaState("enableButton", true);
-        updatePlayAreaState("totalBet", getTotalBet());
+        updatePlayAreaState("totalBet", getTotalBet(betsData));
     }
     
 
@@ -131,7 +136,7 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
             
             {/* The chip is shown when the selectedChip is false 
             and the betChipUrl is not an empty string. */}
-            {buttonState.selectedChip && betChipUrl !== "" &&
+            {buttonState.selectedChip &&
                 <div className={selectedChipStyle}>
                     <ShownChip url={betChipUrl} 
                     betTotal={totalBetValue}

@@ -7,7 +7,7 @@ import { MainContext } from "../../App";
 
 // The component shows the statistics modal.
 export default function Statistics() {
-    const { mainData, setDisplay } = useContext(MainContext);
+    const { mainData, setMainState } = useContext(MainContext);
 
     const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
 
@@ -33,7 +33,7 @@ export default function Statistics() {
                 </p>
             </div>
             <i className="fa-solid fa-xmark"
-            onClick={() => setDisplay("displayStatistics", "none")}></i>
+            onClick={() => setMainState("displayStatistics", "none")}></i>
             <MainStatistics />
             <LastResults />
         </div>

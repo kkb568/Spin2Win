@@ -8,6 +8,7 @@ import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorre
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils";
 import { green } from "../../../../../../data/data";
 import chessPiece from "../../../../../../assets/chessPiece.svg";
+import { MainContext } from "../../../../../../App";
 
 interface Props {
     chosenNum: number
@@ -15,7 +16,12 @@ interface Props {
 
 export default function GreenButton({ chosenNum }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
-    const { chipUrl, chipValue, disableButtonEvents, reloadLastBets, ifNumClicked, ifSpinned, chipsData } = playDataStore;
+    const { chipUrl, chipValue, disableButtonEvents, 
+        reloadLastBets, ifNumClicked, ifSpinned, 
+        chipsData } = playDataStore;
+
+    const { setMainState, mainData } = useContext(MainContext);
+    const { betsData } = mainData;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -37,8 +43,8 @@ export default function GreenButton({ chosenNum }: Props) {
         showChessPiece: false
     })
 
-    const betChipUrl = getChipUrlByBet(green, chipsData)
-    const totalBetValue = getBetByBetOn(green)
+    const betChipUrl = getChipUrlByBet(green, chipsData, betsData)
+    const totalBetValue = getBetByBetOn(green, betsData)
 
     // Get the correct last bet's betOn and chipUrl values.
     const correctLastBetBetOn = buttonState.correctLastBets.betOn;
@@ -70,11 +76,11 @@ export default function GreenButton({ chosenNum }: Props) {
             value,
             green
         );
-        addBet(green, value, ifPrevBet);
+        setMainState("betsData", addBet(green, value, betsData, ifPrevBet));
         updateButtonState("selectedChip", true);
         updatePlayAreaState("ifNumClicked", true);
         updatePlayAreaState("enableButton", true);
-        updatePlayAreaState("totalBet", getTotalBet());
+        updatePlayAreaState("totalBet", getTotalBet(betsData));
     }
 
     /* In case the chosenNum changes, set the disableButtonEvents to true 

@@ -10,7 +10,7 @@ import { prevNumDataType } from "../../data/dataTypes"
 
 // The component shows the blue PayTable modal page shown on top of the PlayArea component
 export default function PayTable() {
-    const { mainData, setDisplay } = useContext(MainContext);
+    const { mainData, setMainState } = useContext(MainContext);
     const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
 
     // Make the heightValue match up to the height of the PlayArea component.
@@ -35,7 +35,7 @@ export default function PayTable() {
         <div className={cx(PayTableStyle, PayTableDisplayStyle)}>
             <p className={PayTableHeadingStyle}>Paytable</p>
             <i className="fa-solid fa-xmark"
-            onClick={() => setDisplay("displayPayTable", "none")}></i>
+            onClick={() => setMainState("displayPayTable", "none")}></i>
             <TopGridTable />
             <NumGridTable />
             <GreenButtonTable />

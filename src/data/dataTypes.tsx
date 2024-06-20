@@ -58,12 +58,13 @@ export interface ChipContextType {
 export interface MainDataStoreType {
     displayPayTable: string,
     displayWheel: string,
-    displayStatistics: string
+    displayStatistics: string,
+    betsData: betDataType[]
 }
 
 export interface MainContextType {
     mainData: MainDataStoreType,
-    setDisplay: ((key: string, value: string) => void) | null
+    setMainState: ((key: string, value: string | object) => void) | null
 }
 
 export interface buttonStateType {

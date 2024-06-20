@@ -8,7 +8,7 @@ import DisabledFooterButton from "./DisabledFooterButton"
 import { prevNumDataType } from "../../../../data/dataTypes"
 
 export default function FooterButtons() {
-    const { setDisplay } = useContext(MainContext);
+    const { setMainState } = useContext(MainContext);
     const { playDataStore } = useContext(ChipContext);
     const { disableFooterButtons } = playDataStore;
 
@@ -26,7 +26,7 @@ export default function FooterButtons() {
             {
                 disableFooterButtons ?
                 <DisabledFooterButton iconValue="attach_money" /> : 
-                <FooterButton onClick={() => setDisplay("displayPayTable", "block")}
+                <FooterButton onClick={() => setMainState("displayPayTable", "block")}
                 className={enabledButtonStyle}>
                     <span className="material-symbols-outlined">
                         attach_money
@@ -39,7 +39,7 @@ export default function FooterButtons() {
             {
                 disableFooterButtons || prevChosenNums.length === 0 ?
                 <DisabledFooterButton iconValue="bar_chart"/> :
-                <FooterButton onClick={() => setDisplay("displayStatistics", "block")}
+                <FooterButton onClick={() => setMainState("displayStatistics", "block")}
                 className={enabledButtonStyle}>
                     <span className="material-symbols-outlined">
                         bar_chart

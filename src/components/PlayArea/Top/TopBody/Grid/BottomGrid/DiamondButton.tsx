@@ -6,6 +6,7 @@ import ShownChip from "../ShownChip/ShownChip"
 import { buttonStateType, updateButtonStateType } from "../../../../../../data/dataTypes"
 import { addBet, checkValueFromLastBet, getBetByBetOn, getChipUrlByBet, getCorrectLastBetsDetails, getTotalBet } from "../../../../../../utils/betUtils"
 import { addAction, getGridButtonAction } from "../../../../../../utils/actionUtils"
+import { MainContext } from "../../../../../../App"
 
 /*The diamondColor is the color of the diamond, the represent color is the color the diamond represents
 (since the red diamond's color is different in hex value from the buttons' color which are red in color) 
@@ -18,7 +19,11 @@ interface Props {
 
 export default function DiamondButton({ diamondColor, chosenColor, representColor }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
-    const { chipUrl, chipValue, chipsData, reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+    const { chipUrl, chipValue, chipsData, 
+        reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+
+    const { setMainState, mainData } = useContext(MainContext);
+    const { betsData } = mainData;
      
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -33,8 +38,8 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
         correctLastBets: getCorrectLastBetsDetails(diamondColor, chipsData)
     })
 
-    const betChipUrl = getChipUrlByBet(diamondColor, chipsData)
-    const totalBetValue = getBetByBetOn(diamondColor)
+    const betChipUrl = getChipUrlByBet(diamondColor, chipsData, betsData)
+    const totalBetValue = getBetByBetOn(diamondColor, betsData)
 
      // Get the correct last bet's betOn and chipUrl values.
      const correctLastBetBetOn = buttonState.correctLastBets.betOn;
@@ -79,11 +84,11 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
             value,
             diamondColor
         );
-        addBet(diamondColor, value, ifPrevBet);
+        setMainState("betsData", addBet(diamondColor, value, betsData, ifPrevBet));
         updateButtonState("selectedChip", true);
         updatePlayAreaState("ifNumClicked", true);
         updatePlayAreaState("enableButton", true);
-        updatePlayAreaState("totalBet", getTotalBet());
+        updatePlayAreaState("totalBet", getTotalBet(betsData));
     }
 
     const diamondStyle = css`

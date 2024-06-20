@@ -18,7 +18,8 @@ interface mainWheelState {
 
 // The component shows the spin wheel and its various parts.
 export default function RouletteWheel() {
-    const { mainData, setDisplay } = useContext(MainContext);
+    const { mainData, setMainState } = useContext(MainContext);
+    const { betsData } = mainData;
 
     const [rouletteWheelState, setRouletteWheelState] = useState<mainWheelState>({
         spinWheelState: false,
@@ -57,8 +58,8 @@ export default function RouletteWheel() {
             setTimeout(() => {
                 setWheelState("showPrize", false);
                 setWheelState("spinWheelState", false);
-                setDisplay("displayWheel", "hidden");
-                clearBetsData();
+                setMainState("displayWheel", "hidden");
+                clearBetsData(betsData);
             }, 20000);
         }
     }, [mainData.displayWheel])
