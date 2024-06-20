@@ -103,41 +103,42 @@ export function doubleBetValue(betDataArray: betDataType[]): betDataType[] {
 }
 
 // The function is used to remove the last bet from the betArray and update it to betsData storage.
-export function removeBet(betArray: betDataType[]) {
+export function removeBet(betArray: betDataType[]): betDataType[] {
     betArray.pop();
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
+    return betArray;
 }
 
 // The function is used to divide each betValue by 2.
-export function divideBetByTwo(betArray: betDataType[]) {
+export function divideBetByTwo(betArray: betDataType[]): betDataType[] {
     for (let i = 0; i < betArray.length; i++) {
         betArray[i].betValue /= 2;
     }
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
+    return betArray;
 }
 
 /* The function is used to subtract the betValue
 of the element which its betOn value is equal to the betOn parameter 
 (so as to get which bet was added last) by the value parameter. */
-export function removeBetValue(betArray: betDataType[], value: number, betOn: betOnType) {
+export function removeBetValue(betArray: betDataType[], value: number, betOn: betOnType)
+: betDataType[] {
     for (let i = 0; i < betArray.length; i++) {
         if (betArray[i].betOn === betOn) {
             betArray[i].betValue -= value;
             break;
         }
     }
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
+    return betArray;
 }
 
 /* The function is used to remove all bets in which its ifPrevBet value
 is true (indicating that it was a bet from previous play). */
-export function removePrevBets(betArray: betDataType[], betsNum: number) {
+export function removePrevBets(betArray: betDataType[], betsNum: number): betDataType[] {
     for (let i = 0; i < betArray.length; i++) {
         if (betArray[i].ifPrevBet) {
             betArray.splice(i, betsNum);
         }
     }
-    sessionStorage.setItem("betsData", JSON.stringify(betArray));
+    return betArray;
 }
 
 /*The function is used to count the number of bets in which its ifPrevBet

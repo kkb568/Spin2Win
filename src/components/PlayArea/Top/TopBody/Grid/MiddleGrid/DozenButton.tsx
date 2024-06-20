@@ -16,7 +16,8 @@ interface Props {
 export default function DozenButton({ name, chosenDozenRange }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
     const { chipUrl, chipValue, chipsData, 
-        reloadLastBets, disableButtonEvents, ifSpinned } = playDataStore;
+        reloadLastBets, disableButtonEvents, ifSpinned,
+        actionsData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -75,11 +76,12 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     /* The function adds the add action, adds the bet to the betsData storage,
     updates the selectedChip and ifNumClicked to true, enable the action buttons and updates the total bet. */
     function showSelectedChip(value: number, ifPrevBet?: boolean) {
-        addAction(
-            getGridButtonAction(name, ifPrevBet),
+        updatePlayAreaState("actionsData", addAction(
+            getGridButtonAction(name, betsData, ifPrevBet),
             value,
+            actionsData,
             name
-        );
+        ));
         setMainState("betsData", addBet(name, value, betsData, ifPrevBet));
         updateButtonState("selectedChip", true);
         updatePlayAreaState("ifNumClicked", true);

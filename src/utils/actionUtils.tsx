@@ -4,12 +4,12 @@ import { countPrevBets, divideBetByTwo, removeBet, removeBetValue, removePrevBet
 /* The function is used to set the action for the clicked button in the any of the grid buttons. 
 If the button was clicked more than once, the action is "Add_BetValue", 
 otherwise, the action is "Add_Bet" or "Add_PrevBets", depending on the redoBets value. */
-export function getGridButtonAction(betOnValue: betOnType, redoBets?: boolean) {
-    const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
+export function getGridButtonAction(betOnValue: betOnType,
+    betsDataArray: betDataType[], redoBets?: boolean) {
     let action: Action;
 
-    for (let i = 0; i < betDataArray.length; i++) {
-        if (betDataArray[i].betOn === betOnValue) {
+    for (let i = 0; i < betsDataArray.length; i++) {
+        if (betsDataArray[i].betOn === betOnValue) {
             action = Action.Add_BetValue;
             return action;
         }
@@ -30,27 +30,24 @@ export function getGridButtonAction(betOnValue: betOnType, redoBets?: boolean) {
 export function addAction(
     action: Action,
     lastBetValueAdded: number | null,
+    actionArray: actionDataType[],
     betOn?: betOnType
-){
+): actionDataType[] {
         const newActionData: actionDataType = {
             action: action,
             lastBetValueAdded: lastBetValueAdded,
             betOn:betOn
         }
-        const actionArray: actionDataType[] = JSON.parse(sessionStorage.getItem("actionData") || '{}');
         actionArray.push(newActionData)
-        sessionStorage.setItem("actionData", JSON.stringify(actionArray));
+        return actionArray;
 }
 
 /* The function is used to undo the bets done by the user 
 when the back action is clicked. */
-export function undoBetAction() {
-    const actionArray: actionDataType[] = JSON.parse(sessionStorage.getItem("actionData") || '{}');
-    const betDataArray: betDataType[] = JSON.parse(sessionStorage.getItem("betsData") || '{}');
-
-    const actionArrayLength = actionArray.length;
+export function undoBetAction(actionsArray: actionDataType[], betsDataArray: betDataType[]) {
+    const actionArrayLength = actionsArray.length;
     // Count the number of bets from the previous play.
-    const prevBetsCount: number = countPrevBets(betDataArray);
+    const prevBetsCount: number = countPrevBets(betsDataArray);
 
     // If the array length is equal to one, stop the functionality.
     if (actionArrayLength === 1) {
@@ -62,22 +59,22 @@ export function undoBetAction() {
         action, 
         lastBetValueAdded, 
         betOn 
-    } = actionArray[actionArrayLength - 1];
+    } = actionsArray[actionArrayLength - 1];
 
     // Call the respective reverse function based on the action value.
     switch (action) {
         case Action.Add_Bet:
-            removeBet(betDataArray);
+            betsDataArray = removeBet(betsDataArray);
             break;
         case Action.Double_Bets:
-            divideBetByTwo(betDataArray);
+            betsDataArray = divideBetByTwo(betsDataArray);
             break;
         case Action.Add_BetValue:
-            removeBetValue(betDataArray, lastBetValueAdded, betOn)
+            betsDataArray = removeBetValue(betsDataArray, lastBetValueAdded, betOn)
             break;
         case Action.Add_PrevBets:
-            removePrevBets(betDataArray, prevBetsCount);
-            removePrevActions(actionArray, prevBetsCount);
+            betsDataArray = removePrevBets(betsDataArray, prevBetsCount);
+            actionsArray = removePrevActions(actionsArray, prevBetsCount);
             break;
     }
 
@@ -85,28 +82,27 @@ export function undoBetAction() {
     removal of actions from the actionData after all the actions with "Add_PrevBets" are removed),
     remove only the last element from the actionArray and update the array to the actionData storage. */
     if (action !== Action.Add_PrevBets) {
-        actionArray.pop();
-        sessionStorage.setItem("actionData", JSON.stringify(actionArray));
+        actionsArray.pop();
     }
+
+    return { actionsArray, betsDataArray };
 }
 
 /* The function is used to remove all the actions data which its action value
 is equal to "Add_PrevBets" and then store the array to the actionData storage */
-function removePrevActions(actionArray: actionDataType[], actionsNum: number) {
+function removePrevActions(actionArray: actionDataType[], actionsNum: number): actionDataType[] {
     for (let i = 0; i < actionArray.length; i++) {
         if (actionArray[i].action === Action.Add_PrevBets) {
             actionArray.splice(i, actionsNum);
-            sessionStorage.setItem("actionData", JSON.stringify(actionArray));
-            return;
+            return actionArray;
         }
     }
 }
 
 // The function clears all the actions that the user did on the playing area.
-export function clearUserActions() {
-    const actionArray: actionDataType[] = JSON.parse(sessionStorage.getItem("actionData") || '{}');
-    while (actionArray.length > 1) {
-        actionArray.pop();
+export function clearUserActions(actionsArray: actionDataType[]): actionDataType[] {
+    while (actionsArray.length > 1) {
+        actionsArray.pop();
     }
-    sessionStorage.setItem("actionData", JSON.stringify(actionArray));
+    return actionsArray;
 }

@@ -17,7 +17,8 @@ interface Props {
 export default function TopGridButton({ name, diamondColor, chosenNumDetails }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { chipUrl, chipValue, reloadLastBets, 
-        disableButtonEvents, ifSpinned, chipsData } = playDataStore;
+        disableButtonEvents, ifSpinned, chipsData,
+        actionsData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -87,11 +88,12 @@ export default function TopGridButton({ name, diamondColor, chosenNumDetails }: 
     /* The function adds the add action, adds the bet to the betsData storage,
     updates the selectedChip and ifNumClicked to true, enable the action buttons and updates the total bet. */
     function showSelectedChip(value: number, ifPrevBet?: boolean) {
-        addAction(
-            getGridButtonAction(betOnValue, ifPrevBet),
+        updatePlayAreaState("actionsData", addAction(
+            getGridButtonAction(betOnValue, betsData, ifPrevBet),
             value,
-            betOnValue
-        );
+            actionsData,
+            betOnValue,
+        ));
         setMainState("betsData", addBet(betOnValue, value, betsData, ifPrevBet));
         updateButtonState("selectedChip", true);
         updatePlayAreaState("ifNumClicked", true);

@@ -130,7 +130,6 @@ const actionArray: ActionData[] = [
         betOn: "",
     }
 ]
-sessionStorage.setItem("actionData", JSON.stringify(actionArray));
 
 // This is used to store the previous chosen numbers from the past spin wheel rotations.
 const previousChosenNums: prevNumDataType | [] = [];
@@ -144,6 +143,7 @@ export const playAreaContext: ChipContextType = {
         chipValue: getSelectedChipValue(chipsStore),
         chipUrl: getSelectedChipUrl(chipsStore),
         chipsData: chipsStore,
+        actionsData: actionArray,
         enableButton: false,
         totalBet: 0,
         ifSpinned: false,

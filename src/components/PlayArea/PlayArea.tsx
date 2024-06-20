@@ -10,7 +10,7 @@ import { playAreaContext } from "../../data/data";
 /**
  * 1. chipValue: The value of the selected chip.
  * 2. chipUrl: Url of chip shown when user hovers over any of the buttons in the TopComponent component.
- * 3. enableButton: Enable the action buttons (if set is true),
+ * 3. enableActionButtons: Enable the action buttons (if set is true),
         when the one of the grid buttons is clicked, or disable the action buttons (if set is false) 
         when the delete button is clicked or when the wheel spin functionality is called.
  * 4. totalBet: The total of all the bet values and is updated when the user clicks on any of the grid or the action

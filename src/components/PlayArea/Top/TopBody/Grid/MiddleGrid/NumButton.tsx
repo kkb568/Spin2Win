@@ -19,7 +19,7 @@ export default function NumButton({ num, chosenNum }: Props) {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { chipUrl, chipValue, reloadLastBets, 
         ifNumClicked, disableButtonEvents, ifSpinned, 
-        chipsData } = playDataStore;
+        chipsData, actionsData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -73,11 +73,12 @@ export default function NumButton({ num, chosenNum }: Props) {
     /* The function adds the add action, adds the bet to the betsData storage,
     updates the selectedChip and ifNumClicked to true, enable the action buttons and updates the total bet. */
     function showSelectedChip(value: number, ifPrevBet?: boolean) {
-        addAction(
-            getGridButtonAction(num, ifPrevBet),
+        updatePlayAreaState("actionsData", addAction(
+            getGridButtonAction(num, betsData, ifPrevBet),
             value,
+            actionsData,
             num
-        );
+        ));
         setMainState("betsData", addBet(num, value, betsData, ifPrevBet));
         updateButtonState("selectedChip", true);
         updatePlayAreaState("ifNumClicked", true);

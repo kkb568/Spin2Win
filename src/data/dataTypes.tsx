@@ -40,6 +40,7 @@ export interface playDataStoreType {
     chipValue: number,
     chipUrl: string,
     chipsData: chipDataType[],
+    actionsData: actionDataType[],
     enableButton: boolean,
     totalBet: number,
     ifSpinned: boolean,

@@ -10,7 +10,9 @@ import { MainContext } from "../../../../App"
 // The component displays the four action buttons on the right side of the PlayArea.
 export default function ActionSection() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext)
-    const { enableButton, countReload, disableButtonEvents } = playDataStore;
+    const { enableButton, countReload, disableButtonEvents,
+        actionsData
+     } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
     const { betsData } = mainData;
@@ -20,7 +22,7 @@ export default function ActionSection() {
     /* The functions clear all user actions and bets, disables the action buttons,
     updates the total bet to the original state and update the countReload to zero. */
     function deleteBets() {
-        clearUserActions();
+        updatePlayAreaState("actionsData", clearUserActions(actionsData));
         setMainState("betsData", clearBetsData(betsData));
         updatePlayAreaState("enableButton", false);
         updatePlayAreaState("totalBet", 0);
@@ -32,15 +34,16 @@ export default function ActionSection() {
     adds the double_bets action to actionData storage and updates the total bet. */
     function doubleBets() {
         setMainState("betsData", doubleBetValue(betsData));
-        addAction(Action.Double_Bets, null);
+        updatePlayAreaState("actionsData", addAction(Action.Double_Bets, null, actionsData));
         updatePlayAreaState("totalBet", getTotalBet(betsData));
     }
 
-    /* The function is undo the bets done by the user, updates the total bets 
-    and if the total bets is equal to zero, disable the action buttons
-    and update the countReload to zero. */
+    /* The function is undo the bets done by the user, update the respective actions and bets, and the total bets 
+    and if the total bets is equal to zero, disable the action buttons and update the countReload to zero. */
     function undoBets() {
-        undoBetAction();
+        const returnedArrays = undoBetAction(actionsData, betsData);
+        updatePlayAreaState("actionsData", returnedArrays.actionsArray);
+        setMainState("betsData", returnedArrays.betsDataArray);
         updatePlayAreaState("totalBet", getTotalBet(betsData));
         
         if(getTotalBet(betsData) === 0) {
