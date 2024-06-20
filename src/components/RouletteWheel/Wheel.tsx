@@ -1,7 +1,8 @@
 import { css } from "@emotion/css"
-import { useEffect, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { wheelDraw } from "../../utils/wheelCanvasUtils";
 import { setRotation } from "../../utils/wheelUtils";
+import { MainContext } from "../../App";
 
 interface wheelProps {
     spinWheel: boolean,
@@ -10,6 +11,8 @@ interface wheelProps {
 
 export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
     const wheelCanvasRef = useRef<HTMLCanvasElement>();
+
+    const { mainData } = useContext(MainContext);
 
     useEffect(() => {
         const canvas = wheelCanvasRef.current;
@@ -20,7 +23,7 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
     useEffect(() => {
         if (spinWheel) {
             const getWinValue = async () => {
-                const winValue: number = await setRotation(wheelCanvasRef);
+                const winValue: number = await setRotation(wheelCanvasRef, mainData.betsData);
                 setWheelState("winningPrize", winValue);
                 
                 /* If the winValue is not equal to zero 
