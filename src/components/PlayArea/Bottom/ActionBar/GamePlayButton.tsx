@@ -36,6 +36,7 @@ export default function GamePlayButton() {
             updatePlayAreaState("ifNumClicked", false);
             setMainState("displayWheel", "visible");
         }, 1000);
+        
         /* Wait for 21 seconds (for the wheel to implement fully) 
         then set the disableFooterButtons and the enableButton to false, 
         update the total bet to zero and update the ifSpinned value from ChipContext to true. */

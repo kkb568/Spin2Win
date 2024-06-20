@@ -1,5 +1,5 @@
 import { getSelectedChipUrl, getSelectedChipValue } from "../utils/chipUtils"
-import { Action, ActionData, ChipContextType, arrayNum, blackColorsType, chipDataType, prevNumDataType, redColorsType } from "./dataTypes"
+import { Action, ActionData, ChipContextType, arrayNum, blackColorsType, chipDataType, redColorsType } from "./dataTypes"
 
 // Data exports
 export const firstRowNumbers: arrayNum  = [3,6,9,12,15,18,21,24,27,30,33,36]
@@ -127,10 +127,6 @@ const actionArray: ActionData[] = [
         betOn: "",
     }
 ]
-
-// This is used to store the previous chosen numbers from the past spin wheel rotations.
-const previousChosenNums: prevNumDataType | [] = [];
-sessionStorage.setItem("previousChosenNums", JSON.stringify(previousChosenNums));
 
 export const playAreaContext: ChipContextType = {
     playDataStore: {

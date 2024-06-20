@@ -12,7 +12,8 @@ export const MainContext = createContext<MainContextType>({
     displayPayTable: "none",
     displayWheel: "hidden",
     displayStatistics: "none",
-    betsData: []
+    betsData: [],
+    previousChosenNums: []
   },
   setMainState: null
 })
@@ -26,6 +27,7 @@ function App() {
     displayWheel: "hidden",
     displayStatistics: "none",
     betsData: [],
+    previousChosenNums: []
   })
 
   function setMainState(key: string, value: string | object) {

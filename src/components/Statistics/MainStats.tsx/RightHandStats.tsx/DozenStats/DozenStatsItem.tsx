@@ -1,14 +1,19 @@
 import { css } from "@emotion/css"
 import { countInPercentage, countPrevNumsByType } from "../../../../../utils/statsUtils"
+import { MainContext } from "../../../../../App";
+import { useContext } from "react";
 
 interface Props {
     desc: string
 }
 
 export default function DozenStatsItem({ desc }: Props) {
+    const { mainData } = useContext(MainContext);
+    const { previousChosenNums } = mainData;
+
     // Get the number of prevNums's values (in percentage) that meet the desc value's attribute.
-    const dozenCount = countPrevNumsByType(desc);
-    const dozenCountPercent = countInPercentage(dozenCount);
+    const dozenCount = countPrevNumsByType(desc, previousChosenNums);
+    const dozenCountPercent = countInPercentage(dozenCount, previousChosenNums);
 
     const orangeBarStyle = css`
         width: ${`${dozenCountPercent}%`};

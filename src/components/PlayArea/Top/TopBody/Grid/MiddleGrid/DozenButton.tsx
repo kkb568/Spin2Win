@@ -20,7 +20,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
         actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
-    const { betsData } = mainData;
+    const { betsData, previousChosenNums } = mainData;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -32,7 +32,7 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(name, chipsData, lastBetData)
+        correctLastBets: getCorrectLastBetsDetails(name, chipsData, lastBetData, previousChosenNums)
     })
 
     const betChipUrl = getChipUrlByBet(name, chipsData, betsData)
@@ -47,7 +47,9 @@ export default function DozenButton({ name, chosenDozenRange }: Props) {
      to the function's return value. */
      useEffect(() => {
          if (ifSpinned) {
-             updateButtonState("correctLastBets", getCorrectLastBetsDetails(name, chipsData, lastBetData))
+             updateButtonState("correctLastBets", 
+                getCorrectLastBetsDetails(name, chipsData, lastBetData, previousChosenNums)
+            )
          }
      }, [ifSpinned])
 

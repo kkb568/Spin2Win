@@ -1,5 +1,7 @@
 import { css } from "@emotion/css"
 import { countPrevNumsByType } from "../../../../../utils/statsUtils"
+import { useContext } from "react";
+import { MainContext } from "../../../../../App";
 
 interface Props {
     desc: string,
@@ -8,8 +10,11 @@ interface Props {
 }
 
 export default function LowHighColorItem({ desc, color, repColor }: Props) {
+    const { mainData } = useContext(MainContext);
+    const { previousChosenNums } = mainData;
+
     const statsType = desc.concat(` ${repColor}`);
-    const countStats = countPrevNumsByType(statsType);
+    const countStats = countPrevNumsByType(statsType, previousChosenNums);
 
     const descStyle = css`
         padding: .5em;

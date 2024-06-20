@@ -12,7 +12,8 @@ interface wheelProps {
 export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
     const wheelCanvasRef = useRef<HTMLCanvasElement>();
 
-    const { mainData } = useContext(MainContext);
+    const { mainData, setMainState } = useContext(MainContext);
+    const { betsData, previousChosenNums } = mainData;
 
     useEffect(() => {
         const canvas = wheelCanvasRef.current;
@@ -23,13 +24,15 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
     useEffect(() => {
         if (spinWheel) {
             const getWinValue = async () => {
-                const winValue: number = await setRotation(wheelCanvasRef, mainData.betsData);
-                setWheelState("winningPrize", winValue);
+                // Get the prize and previousChosenNums array and set to respective states.
+                const { prize, prevChosenNums} = await setRotation(wheelCanvasRef, betsData, previousChosenNums);
+                setWheelState("winningPrize", prize);
+                setMainState("previousChosenNums", prevChosenNums);
                 
                 /* If the winValue is not equal to zero 
                 (zero meaning the user has lost the game), show the Prize component. */
                 setTimeout(() => {
-                    if (winValue !== 0) {
+                    if (prize !== 0) {
                         setWheelState("showPrize", true);
                     }
                 }, 2000);

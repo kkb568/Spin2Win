@@ -3,10 +3,13 @@ import { prevNumDataType } from "../../../../data/dataTypes";
 import PreviousNum from "./PreviousNum";
 import { assignBackgroundColor } from "../../../../utils/chipUtils";
 import HotAndCold from "./HotAndCold/HotAndCold";
+import { useContext } from "react";
+import { MainContext } from "../../../../App";
 
 // This is the dark red heading that would contain game's statistics.
 export default function TopHeader() {
-    const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const { mainData } = useContext(MainContext);
+    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
 
     const TopHeaderGap = css`
         gap: ${`${prevChosenNums.length === 0 ? 25.5 : 16.5}em`};

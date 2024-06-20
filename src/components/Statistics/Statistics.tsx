@@ -8,8 +8,7 @@ import { MainContext } from "../../App";
 // The component shows the statistics modal.
 export default function Statistics() {
     const { mainData, setMainState } = useContext(MainContext);
-
-    const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const prevChosenNums: prevNumDataType[] | any[] = mainData.previousChosenNums;
 
     const StatisticsDisplayStyle = css`
         display: ${mainData.displayStatistics};

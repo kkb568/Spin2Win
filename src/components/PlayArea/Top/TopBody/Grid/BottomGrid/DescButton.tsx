@@ -20,7 +20,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
         actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
-    const { betsData } = mainData;
+    const { betsData, previousChosenNums } = mainData;
     
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -32,7 +32,7 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(description, chipsData, lastBetData)
+        correctLastBets: getCorrectLastBetsDetails(description, chipsData, lastBetData, previousChosenNums)
     })
 
     const betChipUrl = getChipUrlByBet(description, chipsData, betsData)
@@ -47,7 +47,9 @@ export default function DescButton({ description, correctValueDesc }: Props) {
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(description, chipsData, lastBetData))
+            updateButtonState("correctLastBets", 
+                getCorrectLastBetsDetails(description, chipsData, lastBetData, previousChosenNums)
+            )
         }
     }, [ifSpinned])
 

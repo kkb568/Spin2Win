@@ -2,9 +2,12 @@ import { css } from "@emotion/css"
 import { prevNumDataType } from "../../../data/dataTypes";
 import { assignBackgroundColor } from "../../../utils/chipUtils";
 import PrevNumStats from "./PrevNumStats";
+import { useContext } from "react";
+import { MainContext } from "../../../App";
 
 export default function LastResults() {
-    const prevChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const { mainData } = useContext(MainContext);
+    const prevChosenNums = mainData.previousChosenNums;
 
     let prevNumsList: JSX.Element[];
     if (prevChosenNums.length > 0) {

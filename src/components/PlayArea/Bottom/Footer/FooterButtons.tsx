@@ -8,11 +8,11 @@ import DisabledFooterButton from "./DisabledFooterButton"
 import { prevNumDataType } from "../../../../data/dataTypes"
 
 export default function FooterButtons() {
-    const { setMainState } = useContext(MainContext);
+    const { setMainState, mainData } = useContext(MainContext);
     const { playDataStore } = useContext(ChipContext);
     const { disableFooterButtons } = playDataStore;
 
-    const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
 
     return (
         <div className={buttonDivStyle}>

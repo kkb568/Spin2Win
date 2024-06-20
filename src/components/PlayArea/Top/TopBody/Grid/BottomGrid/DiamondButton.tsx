@@ -24,7 +24,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
         actionsData, lastBetData } = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
-    const { betsData } = mainData;
+    const { betsData, previousChosenNums } = mainData;
      
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -36,7 +36,7 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(diamondColor, chipsData, lastBetData)
+        correctLastBets: getCorrectLastBetsDetails(diamondColor, chipsData, lastBetData, previousChosenNums)
     })
 
     const betChipUrl = getChipUrlByBet(diamondColor, chipsData, betsData)
@@ -51,7 +51,9 @@ export default function DiamondButton({ diamondColor, chosenColor, representColo
      to the function's return value. */
      useEffect(() => {
          if (ifSpinned) {
-             updateButtonState("correctLastBets", getCorrectLastBetsDetails(diamondColor, chipsData, lastBetData))
+             updateButtonState("correctLastBets", 
+                getCorrectLastBetsDetails(diamondColor, chipsData, lastBetData, previousChosenNums)
+            )
          }
      }, [ifSpinned])
 

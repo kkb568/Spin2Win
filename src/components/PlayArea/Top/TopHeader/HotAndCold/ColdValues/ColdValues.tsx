@@ -5,11 +5,15 @@ import { prevNumDataType, rowNumFreqDataType } from "../../../../../../data/data
 import { getPrevNumFrequency } from "../../../../../../utils/prevNumUtils";
 import ColdValueNum from "./ColdValueNum";
 import ZeroNum from "../ZeroNum";
+import { useContext } from "react";
+import { MainContext } from "../../../../../../App";
 
 export default function ColdValues() {
-    const prevNumsArr: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const { mainData } = useContext(MainContext);
+    const prevNumsArr: prevNumDataType[] = mainData.previousChosenNums;
+
     // Get the frequencies for each number (0 to 36).
-    const numFreqArr: rowNumFreqDataType[] = getPrevNumFrequency();
+    const numFreqArr: rowNumFreqDataType[] = getPrevNumFrequency(prevNumsArr);
     // Get the bottom five elements from the array.
     const topFiveNumFreqArr = numFreqArr.slice(-5);
     // Render the hot values from the topFiveNumFreqArr elements.

@@ -4,8 +4,7 @@ import { checkEven, checkNumRange, checkRedColor } from "./wheelUtils";
 
 /* The function is used to count the number of previous chosen nums' values 
 (except for zero) that have the specified type parameter value's attribute. */
-export function countPrevNumsByType( type: string ): number {
-    const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+export function countPrevNumsByType( type: string, previousChosenNums: prevNumDataType[] ): number {
     let count: number = 0;
 
     previousChosenNums.forEach((num) => {
@@ -83,8 +82,7 @@ export function countPrevNumsByType( type: string ): number {
 }
 
 // The function counts the number previous chosen nums whose value is equal to zero.
-export function countZeroNums(): number {
-    const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+export function countZeroNums(previousChosenNums: prevNumDataType[]): number {
     let count: number = 0;
     previousChosenNums.forEach((num) => {
         if (num.value === 0) {
@@ -95,8 +93,7 @@ export function countZeroNums(): number {
 }
 
 // The function converts the count to percentage in relation to the total previous chosen numbers.
-export function countInPercentage(count: number): number {
-    const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+export function countInPercentage(count: number, previousChosenNums: prevNumDataType[]): number {
     // Get the total number of prevNums elements.
     const totalPrevNums = previousChosenNums.length;
 

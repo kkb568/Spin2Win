@@ -27,7 +27,7 @@ export default function RouletteWheel() {
         showPrize: false
     })
 
-    const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const prevChosenNums: prevNumDataType[] | any[] = mainData.previousChosenNums;
 
     // Make the heightValue match up to the height of the PlayArea component.
     const heightValue: number = prevChosenNums.length === 0 ? 559.5 : 563.5;

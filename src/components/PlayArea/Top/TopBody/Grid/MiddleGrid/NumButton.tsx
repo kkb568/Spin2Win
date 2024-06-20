@@ -22,7 +22,7 @@ export default function NumButton({ num, chosenNum }: Props) {
         chipsData, actionsData , lastBetData} = playDataStore;
 
     const { setMainState, mainData } = useContext(MainContext);
-    const { betsData } = mainData;
+    const { betsData, previousChosenNums } = mainData;
 
     /**
      * 1. selectedChip: For showing the shown chip when user clicks the button.
@@ -39,7 +39,7 @@ export default function NumButton({ num, chosenNum }: Props) {
     const [buttonState, setButtonState] = useState<buttonStateType>({
         selectedChip: false,
         showTotal: false,
-        correctLastBets: getCorrectLastBetsDetails(num, chipsData, lastBetData),
+        correctLastBets: getCorrectLastBetsDetails(num, chipsData, lastBetData, previousChosenNums),
         correctHover: false,
         showChessPiece: false
     });
@@ -57,7 +57,9 @@ export default function NumButton({ num, chosenNum }: Props) {
     to the function's return value. */
     useEffect(() => {
         if (ifSpinned) {
-            updateButtonState("correctLastBets", getCorrectLastBetsDetails(num, chipsData, lastBetData))
+            updateButtonState("correctLastBets", 
+                getCorrectLastBetsDetails(num, chipsData, lastBetData, previousChosenNums)
+            )
         }
     }, [ifSpinned])
 

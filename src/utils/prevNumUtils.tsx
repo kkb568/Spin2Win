@@ -3,10 +3,7 @@ import { arrayNum, prevNumDataType, rowNumFreqDataType } from "../data/dataTypes
 
 /* The function is used to get the number of times each number from 0 to 36
 is selected from the previous chosen numbers from previous wheel spins. */
-export function getPrevNumFrequency(): rowNumFreqDataType[] {
-    // Get all the previous chosen numbers.
-    const prevNumsArr: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
-
+export function getPrevNumFrequency(prevNumsArr: prevNumDataType[]): rowNumFreqDataType[] {
     // Put all the row numbers into one array (including zero).
     const rowNumbers: arrayNum = [...firstRowNumbers, ...secondRowNumbers, ...thirdRowNumbers];
     rowNumbers.push(0);

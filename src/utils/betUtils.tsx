@@ -196,10 +196,8 @@ export function clearLastBets(lastBetDataArray: betDataType[]): betDataType[] {
 showing the chip which the user put as last bet and was correct in relation to 
 the last chosen number from wheel spin functionality. */
 export function getCorrectLastBetsDetails(betOn: betOnType, chipsData: chipDataType[],
-    lastBetDataArray: betDataType[]
+    lastBetDataArray: betDataType[], previousChosenNums: prevNumDataType[]
 ): correctLastBets {
-    const previousChosenNums: prevNumDataType[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
-
     let correctLastBets: correctLastBets = {
         chipUrl: "",
         betOn: ""

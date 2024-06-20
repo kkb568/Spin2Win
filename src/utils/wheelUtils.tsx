@@ -1,10 +1,16 @@
 import { blackColors, green, redColors, redNumbers, wheelSequence } from "../data/data";
 import { betDataType, correctValueDataType, prevNumDataType } from "../data/dataTypes";
 
+interface rotateReturnValues {
+    prize: number,
+    prevChosenNums: prevNumDataType[]
+}
+
 /*The function is used to set the rotation of the roulette wheel 
 and returns the winning prize.*/
 export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>,
-    betsDataArray: betDataType[]
+    betsDataArray: betDataType[],
+    previousChosenNums: prevNumDataType[]
 ) {
     let winningPrize: number = 0;
     // This is the angle degrees for each slice in the rotate wheel.
@@ -16,7 +22,7 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>,
     ref.current.style.transition = 'all 10s ease-in-out';
     ref.current.style.transform = `rotate(${deg}deg)`;
 
-    return new Promise<number>((resolve) => { 
+    return new Promise<rotateReturnValues>((resolve) => { 
         setTimeout(() => {
             // Get the actual degrees that the ref element will rotated by.
             const actualDeg = (deg % 360);
@@ -30,11 +36,14 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>,
 
             // Store the chosenNum value and its details to the session storage.
             addCorrectValue(chosenNum);
-            addPreviousNum(chosenNum);
+            previousChosenNums = addPreviousNum(chosenNum, previousChosenNums);
     
             // Get the winning prize based on the chosenNum value.
             winningPrize = getWinningPrize(chosenNum, betsDataArray);
-            resolve(winningPrize);
+            resolve({ 
+                prize: winningPrize, 
+                prevChosenNums: previousChosenNums
+            });
         }, 10000);
      })
 }
@@ -218,13 +227,14 @@ function addCorrectValue(value: number) {
     sessionStorage.setItem("correctValueData", JSON.stringify(winValue));
 }
 
-// The function is used to add the chosen value to the previousChosenNums session storage.
-function addPreviousNum(value: number) {
-    const previousChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+// The function is used to add the chosen value to the previousChosenNums array.
+function addPreviousNum(value: number, 
+    previousChosenNums: prevNumDataType[]
+): prevNumDataType[] {
     const newPrevChosenNum: prevNumDataType = {
         key: previousChosenNums.length + 1,
         value: value
     }
     previousChosenNums.unshift(newPrevChosenNum);
-    sessionStorage.setItem("previousChosenNums", JSON.stringify(previousChosenNums));
+    return previousChosenNums;
 }

@@ -1,9 +1,12 @@
 import { css, cx } from "@emotion/css";
 import { PayTableGridSection } from "../../styles/styles";
 import { prevNumDataType } from "../../data/dataTypes";
+import { useContext } from "react";
+import { MainContext } from "../../App";
 
 export default function NumGridTable() {
-    const prevChosenNums: prevNumDataType[] | any[] = JSON.parse(sessionStorage.getItem("previousChosenNums"));
+    const { mainData } = useContext(MainContext);
+    const prevChosenNums: prevNumDataType[] | any[] = mainData.previousChosenNums;
 
     // Make the heightValue match up to the height of of the respective grid in the PlayArea component.
     const heightValue: number = prevChosenNums.length === 0 ? 8.5 : 8.6;

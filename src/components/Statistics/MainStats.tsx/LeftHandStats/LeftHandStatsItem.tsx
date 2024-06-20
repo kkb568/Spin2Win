@@ -1,5 +1,7 @@
 import { css, cx } from "@emotion/css"
 import { countInPercentage, countPrevNumsByType, countZeroNums } from "../../../../utils/statsUtils";
+import { useContext } from "react";
+import { MainContext } from "../../../../App";
 
 interface Props {
     leftPieceDesc: string,
@@ -14,15 +16,18 @@ export default function LeftHandStatsItem({
     leftPieceColor,
     rightPieceColor
 }: Props) {
+    const { mainData } = useContext(MainContext);
+    const { previousChosenNums } = mainData;
+
     // Get the number of prevNums's values (in percentage) that meet the desc value's attribute.
-    const leftPieceCount = countPrevNumsByType(leftPieceDesc);
-    const leftPieceCountPercent = countInPercentage(leftPieceCount);
-    const rightPieceCount = countPrevNumsByType(rightPieceDesc);
-    const rightPieceCountPercent = countInPercentage(rightPieceCount);
+    const leftPieceCount = countPrevNumsByType(leftPieceDesc, previousChosenNums);
+    const leftPieceCountPercent = countInPercentage(leftPieceCount, previousChosenNums);
+    const rightPieceCount = countPrevNumsByType(rightPieceDesc, previousChosenNums);
+    const rightPieceCountPercent = countInPercentage(rightPieceCount, previousChosenNums);
     
     // Get the number of previous nums whose value is equal to zero.
-    const countZeros = countZeroNums();
-    const countZerosPercent = countInPercentage(countZeros);
+    const countZeros = countZeroNums(previousChosenNums);
+    const countZerosPercent = countInPercentage(countZeros, previousChosenNums);
 
     const leftBarVarStyle = css`
         width: ${`${leftPieceCountPercent}%`};
