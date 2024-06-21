@@ -47,7 +47,7 @@ export default function LastResults() {
 
 const lastResultsStyle = css`
     position: absolute;
-    top: 85%;
+    top: 88%;
     width: 53em;
     height: 3em;
     background-color: #86000f;

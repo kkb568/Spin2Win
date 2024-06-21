@@ -4,6 +4,7 @@ import LastResults from "./LastResults/LastResults";
 import MainStatistics from "./MainStats.tsx/MainStats";
 import { useContext } from "react";
 import { MainContext } from "../../App";
+import HotAndColdStats from "./HotAndColdStats/HotAndColdStats";
 
 // The component shows the statistics modal.
 export default function Statistics() {
@@ -34,6 +35,7 @@ export default function Statistics() {
             <i className="fa-solid fa-xmark"
             onClick={() => setMainState("displayStatistics", "none")}></i>
             <MainStatistics />
+            <HotAndColdStats />
             <LastResults />
         </div>
     )
@@ -78,7 +80,6 @@ const statisticsHeadingStyle = css`
     align-items: baseline;
     gap: 1em;
     margin-left: 2.5em;
-    margin-top: 1.2em;
 
     @media (max-width: 600px) {
         display: block;

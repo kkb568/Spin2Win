@@ -114,3 +114,24 @@ export const HotColdNumDiv = styled.div`
     justify-content: center;
     font-family: 'Adamina';
 `
+
+export const HotColdStatsDiv = styled.div`
+    width: 20em;
+    height: 7em;
+
+    p {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    img {
+        width: 80px;
+        height: 80px;
+        margin-top: -2em;
+    }
+    
+    span {
+        display: flex;
+        gap: 1em;
+    }
+`
