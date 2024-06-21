@@ -128,6 +128,30 @@ const actionArray: ActionData[] = [
     }
 ]
 
+/**
+ * 1. chipValue: The value of the selected chip.
+ * 2. chipUrl: Url of chip shown when user hovers over any of the buttons in the TopComponent component.
+ * 3. chipsData: Storage for all the chips and their respective data.
+ * 4. actionsData: Storage for all the actions done during the user's interaction with the app.
+ *      Actions are added when the user is clicking on any of the buttons in the TopComponent
+ *      and they are used when the undo button is clicked.
+ * 5. lastBetData: Storage for all the bets that the user put from the previous game play.
+ * 6. enableButton: Enable the action buttons (if set is true),
+        when the one of the grid buttons is clicked, or disable the action buttons (if set is false) 
+        when the delete button is clicked or when the wheel spin functionality is called.
+ * 7. totalBet: The total of all the bet values and is updated when the user clicks on any of the grid or the action
+        buttons or when the wheel rotation commences.
+ * 8. ifSpinned: To show if the wheel spin rotation is already completed.
+ * 9. reloadLastBets: Changes when the reload button (the first button) from the ActionSection component is clicked
+ *      so as to show the bets from the previous play.
+ * 10. countReload: Count the number of times the reload button is clicked.
+ * 11. ifNumClicked: Check if any of the NumButton buttons has been clicked. Useful for removing 
+ *      the chess piece if it is present on the playing area.
+ * 12. disableButtonEvents: Used for disabling the grid buttons' and the redo button's events when the ifNumClicked is true 
+ *      so as to prevent the grid button's event listeners when the correctHoverStyle div is shown for 5 seconds.  
+ * 13. disableFooterButtons: Used to disable the second and third footer buttons
+ *      when the wheel spin implementation is occurring.
+ */
 export const playAreaContext: ChipContextType = {
     playDataStore: {
         chipValue: getSelectedChipValue(chipsStore),
@@ -147,7 +171,6 @@ export const playAreaContext: ChipContextType = {
     updatePlayAreaState: null
 }
 
-// This is used to store the details of the chosen value from the wheel spin.
 /**
  * 1. value: The chosen value from the spin wheel functionality.
  * 2. even_odd: If the value is even or odd number.
@@ -164,6 +187,14 @@ const initialCorrectValueData: correctValueDataType = {
     dozenRange: ""
 }
 
+/**
+ * 1. displayPayTable: For displaying the PayTable component.
+ * 2. displayWheel: For displaying the RouletteWheel component.
+ * 3. displayStatistics: For displaying the Statistics component.
+ * 4. betsData: Storage for all the bets that the user has put in the current game play.
+ * 5. previousChosenNums: Storage for all the numbers chosen from all the previous wheel spins implementation.
+ * 6. correctValueData: For showing the details of the chosen value from the wheel spin implementation.
+ */
 export const AppContext: MainContextType = {
     mainData: {
         displayPayTable: "none",
