@@ -62,7 +62,8 @@ export interface MainDataStoreType {
     displayWheel: string,
     displayStatistics: string,
     betsData: betDataType[],
-    previousChosenNums: prevNumDataType[]
+    previousChosenNums: prevNumDataType[],
+    correctValueData: correctValueDataType
 }
 
 export interface MainContextType {

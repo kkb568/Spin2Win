@@ -1,5 +1,5 @@
 import { getSelectedChipUrl, getSelectedChipValue } from "../utils/chipUtils"
-import { Action, ActionData, ChipContextType, arrayNum, blackColorsType, chipDataType, redColorsType } from "./dataTypes"
+import { Action, ActionData, ChipContextType, MainContextType, arrayNum, blackColorsType, chipDataType, correctValueDataType, redColorsType } from "./dataTypes"
 
 // Data exports
 export const firstRowNumbers: arrayNum  = [3,6,9,12,15,18,21,24,27,30,33,36]
@@ -145,4 +145,33 @@ export const playAreaContext: ChipContextType = {
         disableFooterButtons: false
     },
     updatePlayAreaState: null
+}
+
+// This is used to store the details of the chosen value from the wheel spin.
+/**
+ * 1. value: The chosen value from the spin wheel functionality.
+ * 2. even_odd: If the value is even or odd number.
+ * 3. low_high: If the value is low (between 1 and 18) or high (between 19 and 36).
+ * 4. numColor: If the value is from redNumbers array (having red background color - "red") or not "black".
+ *      If the value is zero, the numColor will be the green hex value.
+ * 5. dozenRange: The dozen range in which the value lies.
+ */
+const initialCorrectValueData: correctValueDataType = {
+    value: null,
+    even_odd: "",
+    low_high: "",
+    numColor: "",
+    dozenRange: ""
+}
+
+export const AppContext: MainContextType = {
+    mainData: {
+        displayPayTable: "none",
+        displayWheel: "hidden",
+        displayStatistics: "none",
+        betsData: [],
+        previousChosenNums: [],
+        correctValueData: initialCorrectValueData
+    },
+    setMainState: null
 }

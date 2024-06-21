@@ -3,7 +3,8 @@ import { betDataType, correctValueDataType, prevNumDataType } from "../data/data
 
 interface rotateReturnValues {
     prize: number,
-    prevChosenNums: prevNumDataType[]
+    prevChosenNums: prevNumDataType[],
+    chosenNumDetails: correctValueDataType
 }
 
 /*The function is used to set the rotation of the roulette wheel 
@@ -34,15 +35,16 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>,
             index = (wheelSequence.length + index) % wheelSequence.length; // This is used to fix any negative index value.
             const chosenNum = wheelSequence[index];
 
-            // Store the chosenNum value and its details to the session storage.
-            addCorrectValue(chosenNum);
+            // Store the chosenNum value and its details to the respective arrays.
+            const chosenNumDetails =  addCorrectValue(chosenNum);
             previousChosenNums = addPreviousNum(chosenNum, previousChosenNums);
     
             // Get the winning prize based on the chosenNum value.
             winningPrize = getWinningPrize(chosenNum, betsDataArray);
             resolve({ 
                 prize: winningPrize, 
-                prevChosenNums: previousChosenNums
+                prevChosenNums: previousChosenNums,
+                chosenNumDetails: chosenNumDetails
             });
         }, 10000);
      })
@@ -188,9 +190,8 @@ export function checkEven(chosenNum: number) {
     return correct;
 }
 
-/* The function is used to get the details of the chosen value from the wheel spin rotation
-and store the details in the correctValueData session storage. */ 
-function addCorrectValue(value: number) {
+/* The function is used to get the details of the chosen value from the wheel spin rotation. */ 
+function addCorrectValue(value: number): correctValueDataType {
     /* If the value is 0, the numColor is green hex value and other values are empty strings, otherwise,
     the variables depend on their respective function's return value. */
     let numColor: string;
@@ -224,7 +225,7 @@ function addCorrectValue(value: number) {
         numColor: numColor,
         dozenRange: dozenRange
     }
-    sessionStorage.setItem("correctValueData", JSON.stringify(winValue));
+    return winValue;
 }
 
 // The function is used to add the chosen value to the previousChosenNums array.

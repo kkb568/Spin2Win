@@ -1,5 +1,5 @@
 import { css } from "@emotion/css"
-import { backgroundImageUrl } from "./data/data"
+import { AppContext, backgroundImageUrl } from "./data/data"
 import PlayArea from "./components/PlayArea/PlayArea"
 import PayTable from "./components/PayTable/PayTable"
 import { createContext, useState } from "react"
@@ -7,28 +7,13 @@ import { MainContextType, MainDataStoreType } from "./data/dataTypes"
 import RouletteWheel from "./components/RouletteWheel/RouletteWheel"
 import Statistics from "./components/Statistics/Statistics"
 
-export const MainContext = createContext<MainContextType>({
-  mainData: {
-    displayPayTable: "none",
-    displayWheel: "hidden",
-    displayStatistics: "none",
-    betsData: [],
-    previousChosenNums: []
-  },
-  setMainState: null
-})
+export const MainContext = createContext<MainContextType>(AppContext)
 
 
 function App() {
   /* The displayPayTable is used to determine if the blue modal PayTable is shown or not
   whereas the displayWheel does the same but for the RouletteWheel. */
-  const [mainData, setMainData] = useState<MainDataStoreType>({
-    displayPayTable: "none",
-    displayWheel: "hidden",
-    displayStatistics: "none",
-    betsData: [],
-    previousChosenNums: []
-  })
+  const [mainData, setMainData] = useState<MainDataStoreType>(AppContext.mainData)
 
   function setMainState(key: string, value: string | object) {
     setMainData(prevState => {

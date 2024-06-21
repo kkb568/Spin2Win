@@ -5,11 +5,12 @@ import DozenButton from "./DozenButton";
 import GreenButton from "./GreenButton";
 import { arrayNum } from "../../../../../../data/dataTypes";
 import { useContext } from "react";
-import { GridContext } from "../../TopBody";
+import { MainContext } from "../../../../../../App";
 
 // The component renders the number buttons, the green button and the buttons showing a group of dozen.
 export default function MiddleGrid() {
-    const { value, dozenRange } = useContext(GridContext)
+    const { mainData } = useContext(MainContext);
+    const { value, dozenRange } = mainData.correctValueData;
     
     function renderNumButtons(numArr: arrayNum) {
         const rowNum = numArr.map((num) => {

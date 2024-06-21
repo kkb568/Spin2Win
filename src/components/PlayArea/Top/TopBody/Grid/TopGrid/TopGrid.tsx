@@ -2,11 +2,13 @@ import { css } from "@emotion/css";
 import { topGridButtons } from "../../../../../../data/data";
 import TopGridButton from "./TopGridButton";
 import { useContext } from "react";
-import { GridContext } from "../../TopBody";
+import { MainContext } from "../../../../../../App";
 
 /* This component renders the buttons at the first grid */
 export default function TopGrid() {
-    const { low_high, numColor } = useContext(GridContext);
+    const { mainData } = useContext(MainContext);
+    const { low_high, numColor } = mainData.correctValueData;
+    
     const chosenNumDetails = low_high.concat(` ${numColor}`);
 
     const topGridButtonList = topGridButtons.map((button) => {

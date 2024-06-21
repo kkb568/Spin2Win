@@ -3,11 +3,12 @@ import DescButton from "./DescButton";
 import DiamondButton from "./DiamondButton";
 import { blackColors, redColors } from "../../../../../../data/data";
 import { useContext } from "react";
-import { GridContext } from "../../TopBody";
+import { MainContext } from "../../../../../../App";
 
 // The components renders the buttons from the last grid section.
 export default function BottomGrid() {
-    const { even_odd, low_high, numColor } = useContext(GridContext)
+    const { mainData } = useContext(MainContext);
+    const { even_odd, low_high, numColor } = mainData.correctValueData;
 
     return (
         <div className={BottomGridStyle}>
