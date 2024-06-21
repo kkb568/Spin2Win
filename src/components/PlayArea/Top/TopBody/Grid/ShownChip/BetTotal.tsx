@@ -6,6 +6,9 @@ interface BetTotalProps {
 }
 
 export default function BetTotal({ showTotal, betTotal }: BetTotalProps) {
+    const total: string = betTotal >= 1000 ? 
+    `${Math.floor(betTotal/1000)}k` : betTotal.toString();
+
     return (
         <>
             {showTotal && 
@@ -15,7 +18,7 @@ export default function BetTotal({ showTotal, betTotal }: BetTotalProps) {
                     </span>
                     <p className={css`
                         font-family: 'Roboto';
-                    `}>{betTotal}</p>
+                    `}>{total}</p>
                 </>
             }
         </>
