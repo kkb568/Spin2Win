@@ -106,22 +106,22 @@ function getPrizeByStringBetOn(betOn: string,
             }
             break;
         case "even":
-            if (checkEven(chosenNum)) {
+            if (checkEven(chosenNum) && chosenNum !== 0) {
                 prize = betValue * 2;
             }
             break;
         case "odd":
-            if (!checkEven(chosenNum)) {
+            if (!checkEven(chosenNum) && chosenNum !== 0) {
                 prize = betValue * 2;
             }
             break;
         case redColors.diamondRed:
-            if (checkRedColor(chosenNum)) {
+            if (checkRedColor(chosenNum) && chosenNum !== 0) {
                 prize = betValue * 2;
             }
             break;
         case blackColors.normalBlack:
-            if (!checkRedColor(chosenNum)) {
+            if (!checkRedColor(chosenNum) && chosenNum !== 0) {
                 prize = betValue * 2;
             }
             break;
@@ -184,6 +184,7 @@ export function checkRedColor(chosenNum: number) {
 /* The function is used to check if the chosenNum is an even number or not. */
 export function checkEven(chosenNum: number) {
     let correct: boolean = false;
+
     if (chosenNum % 2 === 0) {
         correct = true;
     }
