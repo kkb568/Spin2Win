@@ -31,8 +31,8 @@ export default function RouletteWheel() {
 
     // Make the heightValue match up to the height of the PlayArea component.
     const heightValue: number = prevChosenNums.length === 0 ? 559.5 : 563.5;
-    const tabletHeightValue: number = prevChosenNums.length === 0 ? 932.5 : 936.5;
-    const phoneHeightValue: number = prevChosenNums.length === 0 ? 1710.8 : 1714.8;
+    const tabletHeightValue: number = prevChosenNums.length === 0 ? 972.5 : 976.5;
+    const phoneHeightValue: number = prevChosenNums.length === 0 ? 1750.8 : 1754.8;
 
     function setWheelState(key:string, value: boolean | number) {
         setRouletteWheelState(prevState => {

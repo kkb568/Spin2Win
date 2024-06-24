@@ -14,4 +14,9 @@ export default function HotAndCold() {
 const hotColdValueStyle = css`
     display: flex;
     gap: .5em;
+
+    @media (max-width: 900px) {
+        margin-bottom: .3em;
+        margin-left: .3em;
+    }
 `

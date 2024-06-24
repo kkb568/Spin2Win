@@ -41,6 +41,7 @@ const TopGridTableStyle = css`
     @media (max-width: 900px) {
         width: 14em;
         margin-right: 7em;
+        margin-top: 1.6em;
     }
 
     @media (max-width: 600px) {

@@ -32,5 +32,6 @@ const BottomGridTableStyle = css`
         width: 7.5em;
         height: 13em;
         margin-left: 4.6em;
+        margin-top: .9em;
     }
 `

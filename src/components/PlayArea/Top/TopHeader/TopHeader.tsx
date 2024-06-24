@@ -63,6 +63,10 @@ const TopHeaderStyle = css`
     display: flex;
     align-items: center;
 
+    @media (max-width: 900px) {
+        display: block;
+    }
+
     p {
         margin-left: 1.5em;
         font-size: 13px;

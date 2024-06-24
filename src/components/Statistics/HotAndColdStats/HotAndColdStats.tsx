@@ -18,4 +18,12 @@ const HotAndColdStatsStyle = css`
     text-transform: uppercase;
     width: 53em;
     height: 10em;
+
+    @media (max-width: 900px) {
+        width: 33em;
+    }
+
+    @media (max-width: 600px) {
+        width: 18em;
+    }
 `

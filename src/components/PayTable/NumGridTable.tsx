@@ -43,11 +43,12 @@ const NumGridTableStyle = css`
 
     @media (max-width: 900px) {
         width: 15.5em;
+        margin-top: 5.7em;
     }
 
     @media (max-width: 600px) {
         margin-left: 4.6em;
-        margin-top: 6.2em;
+        margin-top: 8.2em;
         width: 7.5em;
         text-align: center;
     }

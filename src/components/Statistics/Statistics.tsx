@@ -16,11 +16,11 @@ export default function Statistics() {
         height: 598.5px;
 
         @media (max-width: 900px) {
-            height: 996.5px;
+            height: 1035.5px;
         }
 
         @media (max-width: 600px) {
-            height: 1835.8px;
+            height: 1875.8px;
         }
     `
 

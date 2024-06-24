@@ -56,4 +56,13 @@ const coldStatsStyle = css`
         float: right;
         margin-right: 1.5em;
     }
+
+    @media (max-width: 900px) {
+        margin-top: 1em;
+
+        > span {
+            margin-right: -4em;
+            margin-top: 3em;
+        }
+    }
 `
