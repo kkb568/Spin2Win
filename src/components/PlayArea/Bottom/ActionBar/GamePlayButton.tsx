@@ -26,7 +26,7 @@ export default function GamePlayButton() {
 
     /* Once called, disable the footer buttons, clear the user actions and the last bets data, 
     call the addLastBetData function, set the ifNumClicked to false 
-    and change the displayWheel value to block after 1 second. */
+    and change the displayWheel value to visible after 1 second. */
     function startPlay() {
         setTimeout(() => {
             updatePlayAreaState("disableFooterButtons", true);
