@@ -8,7 +8,7 @@ export function addBet(betOnParam: betOnType, betValueParam: number,
     betDataArray: betDataType[], prevBet?: boolean): betDataType[] {
     
     // The new bet data.
-    let newBetData: betDataType = {
+    const newBetData: betDataType = {
         betOn: betOnParam,
         betValue: betValueParam,
         ifPrevBet: prevBet
@@ -202,7 +202,7 @@ export function getCorrectLastBetsDetails(betOn: betOnType, chipsData: chipDataT
         chipUrl: "",
         betOn: ""
     };
-    let correctLastBetsArr: correctLastBets[] = [];
+    const correctLastBetsArr: correctLastBets[] = [];
 
     // If either of the arrays are empty, return the expected values as empty strings.
     if (previousChosenNums.length === 0 || lastBetDataArray.length === 0) {

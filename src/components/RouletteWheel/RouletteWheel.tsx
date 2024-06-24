@@ -27,7 +27,7 @@ export default function RouletteWheel() {
         showPrize: false
     })
 
-    const prevChosenNums: prevNumDataType[] | any[] = mainData.previousChosenNums;
+    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
 
     // Make the heightValue match up to the height of the PlayArea component.
     const heightValue: number = prevChosenNums.length === 0 ? 559.5 : 563.5;
@@ -47,7 +47,7 @@ export default function RouletteWheel() {
         /* If the displayWheel value is equal to visible, 
         the spinWheelState is set to true after 2 seconds. */
         if (mainData.displayWheel === "visible") {
-            setTimeout(() => {
+            const wheelSpinStartTimeout = setTimeout(() => {
                 setWheelState("spinWheelState", true);
             }, 2000);
 
@@ -55,12 +55,17 @@ export default function RouletteWheel() {
             hide the Prize component (to prevent being shown the previous win when the user plays again),
             set the spinWheelState to false, set the displayWheel to hidden 
             and clear the data in the betsData session storage. */
-            setTimeout(() => {
+            const wheelSpinEndTimeout = setTimeout(() => {
                 setWheelState("showPrize", false);
                 setWheelState("spinWheelState", false);
                 setMainState("displayWheel", "hidden");
                 clearBetsData(betsData);
             }, 20000);
+
+            return () => {
+                clearTimeout(wheelSpinStartTimeout);
+                clearTimeout(wheelSpinEndTimeout)
+            }
         }
     }, [mainData.displayWheel])
 

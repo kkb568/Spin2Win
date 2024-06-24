@@ -6,7 +6,7 @@ import { MainContext } from "../../App";
 
 export default function TopGridTable() {
     const { mainData } = useContext(MainContext);
-    const prevChosenNums: prevNumDataType[] | any[] = mainData.previousChosenNums;
+    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
 
     // Make the heightValue match up to the height of the respective grid in the PlayArea component.
     const heightValue: number = prevChosenNums.length === 0 ? 2 : 2.15;

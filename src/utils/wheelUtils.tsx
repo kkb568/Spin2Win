@@ -31,7 +31,7 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>,
             ref.current.style.transform = `rotate(${actualDeg}deg)`;
             
             // Get the chosen number from the wheel.
-            var index = Math.floor(((360 - actualDeg - 90) % 360) / sliceDeg);
+            let index = Math.floor(((360 - actualDeg - 90) % 360) / sliceDeg);
             index = (wheelSequence.length + index) % wheelSequence.length; // This is used to fix any negative index value.
             const chosenNum = wheelSequence[index];
 

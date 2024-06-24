@@ -9,7 +9,7 @@ import HotAndColdStats from "./HotAndColdStats/HotAndColdStats";
 // The component shows the statistics modal.
 export default function Statistics() {
     const { mainData, setMainState } = useContext(MainContext);
-    const prevChosenNums: prevNumDataType[] | any[] = mainData.previousChosenNums;
+    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
 
     const StatisticsDisplayStyle = css`
         display: ${mainData.displayStatistics};
