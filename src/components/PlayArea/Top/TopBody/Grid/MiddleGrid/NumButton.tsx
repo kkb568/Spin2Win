@@ -228,7 +228,7 @@ const selectedChipStyle = css`
         color: #1467ff;
         margin-top: -1em;
         margin-left: -.1em;
-        font-size: 1.8em;
+        font-size: 1.9em;
     }
 
     p {

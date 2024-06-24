@@ -7,7 +7,7 @@ interface BetTotalProps {
 
 export default function BetTotal({ showTotal, betTotal }: BetTotalProps) {
     const total: string = betTotal >= 1000 ? 
-    `${Math.floor(betTotal/1000)}k` : betTotal.toString();
+    `${(betTotal/1000).toFixed(1)}k` : betTotal.toString();
 
     return (
         <>
