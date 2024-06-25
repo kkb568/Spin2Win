@@ -1,5 +1,4 @@
 import { css, cx } from "@emotion/css"
-import { prevNumDataType } from "../../data/dataTypes";
 import LastResults from "./LastResults/LastResults";
 import MainStatistics from "./MainStats.tsx/MainStats";
 import { useContext } from "react";
@@ -9,10 +8,10 @@ import HotAndColdStats from "./HotAndColdStats/HotAndColdStats";
 // The component shows the statistics modal.
 export default function Statistics() {
     const { mainData, setMainState } = useContext(MainContext);
-    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
+    const { previousChosenNums, displayStatistics } = mainData;
 
     const StatisticsDisplayStyle = css`
-        display: ${mainData.displayStatistics};
+        display: ${displayStatistics};
         height: 598.5px;
 
         @media (max-width: 900px) {
@@ -29,7 +28,7 @@ export default function Statistics() {
             <div className={statisticsHeadingStyle}>
                 <p>Statistics</p>
                 <p>Based on the last 
-                    {prevChosenNums.length === 1 ? " draw" : ` ${prevChosenNums.length} draws`}
+                    {previousChosenNums.length === 1 ? " draw" : ` ${previousChosenNums.length} draws`}
                 </p>
             </div>
             <i className="fa-solid fa-xmark"

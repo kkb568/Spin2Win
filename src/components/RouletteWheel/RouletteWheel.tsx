@@ -5,7 +5,6 @@ import { MainContext } from "../../App";
 import { clearBetsData } from "../../utils/betUtils";
 import Prize from "./Prize";
 import Wheel from "./Wheel";
-import { prevNumDataType } from "../../data/dataTypes";
 
 /* The spinWheel is used to indicate if the wheel should spin or not,
 The winningPrize is used to store the prize amount that the user wins by 
@@ -19,7 +18,7 @@ interface mainWheelState {
 // The component shows the spin wheel and its various parts.
 export default function RouletteWheel() {
     const { mainData, setMainState } = useContext(MainContext);
-    const { betsData } = mainData;
+    const { betsData, displayWheel, previousChosenNums } = mainData;
 
     const [rouletteWheelState, setRouletteWheelState] = useState<mainWheelState>({
         spinWheelState: false,
@@ -27,12 +26,10 @@ export default function RouletteWheel() {
         showPrize: false
     })
 
-    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
-
     // Make the heightValue match up to the height of the PlayArea component.
-    const heightValue: number = prevChosenNums.length === 0 ? 559.5 : 563.5;
-    const tabletHeightValue: number = prevChosenNums.length === 0 ? 972.5 : 976.5;
-    const phoneHeightValue: number = prevChosenNums.length === 0 ? 1750.8 : 1754.8;
+    const heightValue: number = previousChosenNums.length === 0 ? 559.5 : 563.5;
+    const tabletHeightValue: number = previousChosenNums.length === 0 ? 972.5 : 976.5;
+    const phoneHeightValue: number = previousChosenNums.length === 0 ? 1750.8 : 1754.8;
 
     function setWheelState(key:string, value: boolean | number) {
         setRouletteWheelState(prevState => {
@@ -46,7 +43,7 @@ export default function RouletteWheel() {
     useEffect(() => {
         /* If the displayWheel value is equal to visible, 
         the spinWheelState is set to true after 2 seconds. */
-        if (mainData.displayWheel === "visible") {
+        if (displayWheel === "visible") {
             const wheelSpinStartTimeout = setTimeout(() => {
                 setWheelState("spinWheelState", true);
             }, 2000);
@@ -64,16 +61,16 @@ export default function RouletteWheel() {
 
             return () => {
                 clearTimeout(wheelSpinStartTimeout);
-                clearTimeout(wheelSpinEndTimeout)
+                clearTimeout(wheelSpinEndTimeout);
             }
         }
-    }, [mainData.displayWheel])
+    }, [displayWheel])
 
     
     const rouletteWheelStyle = css`
         position: absolute;
         z-index: 8;
-        visibility: ${mainData.displayWheel};
+        visibility: ${displayWheel};
     `
 
     const wheelHeightStyle = css`

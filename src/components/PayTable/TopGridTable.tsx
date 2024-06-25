@@ -1,16 +1,15 @@
 import { css, cx } from "@emotion/css";
 import { PayTableGridSection } from "../../styles/styles";
-import { prevNumDataType } from "../../data/dataTypes";
 import { useContext } from "react";
 import { MainContext } from "../../App";
 
 export default function TopGridTable() {
     const { mainData } = useContext(MainContext);
-    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
+    const { previousChosenNums } = mainData;
 
     // Make the heightValue match up to the height of the respective grid in the PlayArea component.
-    const heightValue: number = prevChosenNums.length === 0 ? 2 : 2.15;
-    const phoneHeightValue: number = prevChosenNums.length === 0 ? 4.2 : 4.3;
+    const heightValue: number = previousChosenNums.length === 0 ? 2 : 2.15;
+    const phoneHeightValue: number = previousChosenNums.length === 0 ? 4.2 : 4.3;
 
     const TopGridTableHeight = css`
         height: ${`${heightValue}em`};

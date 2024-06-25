@@ -6,20 +6,19 @@ import DozenGridTable from "./DozenGridTable"
 import BottomGridTable from "./BottomGridTable"
 import { useContext } from "react"
 import { MainContext } from "../../App"
-import { prevNumDataType } from "../../data/dataTypes"
 
 // The component shows the blue PayTable modal page shown on top of the PlayArea component
 export default function PayTable() {
     const { mainData, setMainState } = useContext(MainContext);
-    const prevChosenNums: prevNumDataType[] = mainData.previousChosenNums;
+    const { previousChosenNums, displayPayTable } = mainData;
 
     // Make the heightValue match up to the height of the PlayArea component.
-    const heightValue: number = prevChosenNums.length === 0 ? 594.5 : 598.5;
-    const tabletHeightValue: number = prevChosenNums.length === 0 ? 1032.5 : 1035.5;
-    const phoneHeightValue: number = prevChosenNums.length === 0 ? 1869.8 : 1875.8;
+    const heightValue: number = previousChosenNums.length === 0 ? 594.5 : 598.5;
+    const tabletHeightValue: number = previousChosenNums.length === 0 ? 1032.5 : 1035.5;
+    const phoneHeightValue: number = previousChosenNums.length === 0 ? 1869.8 : 1875.8;
 
     const PayTableDisplayStyle = css`
-        display: ${mainData.displayPayTable};
+        display: ${displayPayTable};
         height: ${`${heightValue}px`};
 
         @media (max-width: 900px) {
