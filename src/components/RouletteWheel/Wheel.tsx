@@ -13,13 +13,14 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
     const wheelCanvasRef = useRef<HTMLCanvasElement>();
 
     const { mainData, setMainState } = useContext(MainContext);
-    const { betsData, previousChosenNums } = mainData;
+    const { betsData, previousChosenNums, displayWheel } = mainData;
 
+    // Draw the spin wheel during the first component render and when the displayWheel value changes.
     useEffect(() => {
         const canvas = wheelCanvasRef.current;
         const context = canvas.getContext('2d');
         wheelDraw(context, wheelCanvasRef);
-    }, [])
+    }, [displayWheel])
 
     useEffect(() => {
         if (spinWheel) {
