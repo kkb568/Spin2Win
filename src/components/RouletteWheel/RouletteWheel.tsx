@@ -5,6 +5,7 @@ import { MainContext } from "../../App";
 import { clearBetsData } from "../../utils/betUtils";
 import Prize from "./Prize";
 import Wheel from "./Wheel";
+import WheelBorder from "./WheelBorder";
 
 /* The spinWheel is used to indicate if the wheel should spin or not,
 The winningPrize is used to store the prize amount that the user wins by 
@@ -71,6 +72,7 @@ export default function RouletteWheel() {
         position: absolute;
         z-index: 8;
         visibility: ${displayWheel};
+        // visibility: visible;
     `
 
     const wheelHeightStyle = css`
@@ -88,6 +90,7 @@ export default function RouletteWheel() {
     return (
         <div className={rouletteWheelStyle}>
             <div className={cx(wheelContentStyle, wheelHeightStyle)}>
+                <WheelBorder />
                 <Wheel spinWheel={rouletteWheelState.spinWheelState}
                 setWheelState={setWheelState}/>
                 <WheelHead />

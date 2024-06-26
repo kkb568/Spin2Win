@@ -58,6 +58,8 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
 
 
 const sequenceListStyle = css`
+    position: absolute;
+    z-index: 8;
     height: 30em;
     width: 30em;
 

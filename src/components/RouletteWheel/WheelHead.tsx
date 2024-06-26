@@ -3,15 +3,52 @@ import { css } from "@emotion/css"
 export default function WheelHead() {    
     return (
         <>
-            <div className={wheelHeadBorderStyle}></div>
+            <div className={wheelHeadBorderStyle}>
+                <div />
+                <div />
+            </div>
             <div className={wheelHeadStyle}>
                 <span>Spin</span>
             </div>
-            <div className={wheelHeadPointerStyle}></div>
         </>
     )
 }
 
+
+const wheelHeadBorderStyle = css`
+    position: absolute;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 2px 5px #1c1c1c);
+
+    div:first-child {
+        width: 9.5em;
+        height: 9.5em;
+        border-radius: 50%;
+        background: linear-gradient(315deg, #a96f44 0%, #f2ecb6 74%);
+        
+        @media (max-width: 600px) {
+            width: 7.5em;
+            height: 7.5em;
+        }
+    }
+
+    div:last-child {
+        position: absolute;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 25px solid #f2ecb6;
+        margin-top: -10.5em;
+
+        @media (max-width: 600px) {
+            margin-top: -8.5em;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+        }
+    }
+`
 
 const wheelHeadStyle = css`
     background-color: black;
@@ -39,32 +76,5 @@ const wheelHeadStyle = css`
         @media (max-width: 600px) {
             font-size: 2em;
         }
-    }
-`
-
-const wheelHeadBorderStyle = css`
-    position: absolute;
-    z-index: 9;
-    width: 9.5em;
-    height: 9.5em;
-    border-radius: 50%;
-    background: radial-gradient(#B59410, #FFD700);
-
-    @media (max-width: 600px) {
-        width: 7.5em;
-        height: 7.5em;
-    }
-`
-
-const wheelHeadPointerStyle = css`
-    position: absolute;
-    z-index: 8;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 25px solid #FFD700;
-    margin-bottom: 10.5em;
-
-    @media (max-width: 600px) {
-        margin-bottom: 8.5em;
     }
 `
