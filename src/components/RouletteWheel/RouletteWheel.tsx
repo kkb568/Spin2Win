@@ -72,7 +72,6 @@ export default function RouletteWheel() {
         position: absolute;
         z-index: 8;
         visibility: ${displayWheel};
-        // visibility: visible;
     `
 
     const wheelHeightStyle = css`

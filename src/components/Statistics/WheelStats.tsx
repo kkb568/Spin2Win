@@ -18,16 +18,14 @@ export default function WheelStats() {
     
 
     return (
-        <>
-            <canvas className={wheelRefStyle} ref={wheelRef} />
-        </>
+        <canvas className={wheelRefStyle} ref={wheelRef} />
     )
 }
 
 
 const wheelRefStyle = css`
     position: absolute;
-    margin-top: -29em;
+    margin-top: -26em;
     margin-left: 16em;
     width: 25em;
     height: 25em;
