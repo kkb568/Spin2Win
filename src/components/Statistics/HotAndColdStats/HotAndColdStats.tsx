@@ -13,17 +13,17 @@ export default function HotAndColdStats() {
 
 
 const HotAndColdStatsStyle = css`
-    margin-left: 2.5em;
+    display: flex;
+    gap: 12em;
+    margin-left: 1.5em;
     margin-top: 1em;
     text-transform: uppercase;
-    width: 53em;
-    height: 10em;
 
     @media (max-width: 900px) {
-        width: 33em;
+        gap: 0;
     }
 
     @media (max-width: 600px) {
-        width: 18em;
+        display: block;
     }
 `

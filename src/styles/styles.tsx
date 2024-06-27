@@ -116,7 +116,7 @@ export const HotColdNumDiv = styled.div`
 `
 
 export const HotColdStatsDiv = styled.div`
-    width: 20em;
+    width: 22em;
     height: 7em;
 
     p {

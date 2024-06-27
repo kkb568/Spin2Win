@@ -13,6 +13,6 @@ export default function RightHandStats() {
 
 const rightSideStatsStyle = css`
     float: right;
-    margin-right: 2.5em;
+    margin-right: 1.5em;
     margin-top: 1em;
 `

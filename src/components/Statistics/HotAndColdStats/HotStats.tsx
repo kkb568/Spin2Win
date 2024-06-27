@@ -53,4 +53,8 @@ const hotStatsStyle = css`
     > span {
         margin-left: 1em;
     }
+
+    @media (max-width: 600px) {
+        margin-bottom: 5em;
+    }
 `

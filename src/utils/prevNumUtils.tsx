@@ -31,3 +31,54 @@ export function getPrevNumFrequency(prevNumsArr: prevNumDataType[]): rowNumFreqD
     const sortedNumFreqArr = rowNumFreqArr.sort((a, b) => b.frequency - a.frequency);
     return sortedNumFreqArr;
 }
+
+/* The function is used to get the slice length for each number based on the frequency value
+and the background color for each slice based on whether the value is hot value, cold value or neither. */
+export function getSliceLengthAndColor(prevNumsArr: prevNumDataType[], 
+    num: number,
+    radius: number) {
+    // Get the frequencies of each number from 0 to 36.
+    const numFreqArr = getPrevNumFrequency(prevNumsArr);
+
+    // Get the frequency for the specified num parameter value from the numFreqArr array.
+    let freq: number = 0;
+    numFreqArr.forEach((numFreq) => {
+        if (num === numFreq.number) {
+            freq = numFreq.frequency;
+        }
+    });
+
+    // Initialise the full slice length that the slice can maximumly occupy.
+    let fullSliceLength: number = 0;
+    if (radius > 0) {
+        fullSliceLength = radius - 10;
+    }
+
+    // Get the highest frequency value from the numFreArr array.
+    const topFreqValue: number = numFreqArr.slice(0, 1)[0].frequency;
+    // Initialise the sliceLength using the specified freq, fullSlicelength and topFreqValue values.
+    const sliceLength = Math.floor((freq * fullSliceLength) / topFreqValue);
+
+    // Set the default color to gray.
+    let color: string = "#b3b3b3";
+    // Get the top five and bottom five numbers from numFreqArr by the frequency value.
+    const topFiveFreqArr = numFreqArr.slice(0, 5);
+    const bottomFiveFreqArr = numFreqArr.slice(-5);
+    
+    // If the num value is present in the topFiveFreqArr array, set the color to yellow.
+    topFiveFreqArr.forEach((numFreq) => {
+        if (numFreq.number === num) {
+            color = "#fff400";
+        }
+    })
+
+    // If the num value is present in the bottomFiveFreqArr array, set the color to blue.
+    bottomFiveFreqArr.forEach((numFreq) => {
+        if (numFreq.number === num) {
+            color = "#7eccff"
+        }
+    })
+
+    // Return the sliceLength and color values in one object.
+    return { sliceLength, color};
+}

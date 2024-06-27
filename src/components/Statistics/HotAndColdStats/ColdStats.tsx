@@ -43,7 +43,6 @@ export default function ColdStats() {
 
 
 const coldStatsStyle = css`
-    float: right;
     background: linear-gradient(90deg,rgba(30,111,255,0) 0,#31d1ff 84.22%,#46f4fd 100%);;
     border-radius: 0 0 1em 0;
 
@@ -54,15 +53,20 @@ const coldStatsStyle = css`
 
     > span {
         float: right;
-        margin-right: 1.5em;
+        margin-right: 3.5em;
     }
 
     @media (max-width: 900px) {
-        margin-top: 1em;
+        margin-right: 1.5em;
 
         > span {
             margin-right: -4em;
             margin-top: 3em;
         }
+    }
+
+    @media (max-width: 600px) {
+        float: right;
+        margin-top: -3em;
     }
 `

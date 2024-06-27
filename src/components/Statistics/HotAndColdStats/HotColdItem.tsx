@@ -45,6 +45,7 @@ const numStyle = css`
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,.5);
 `
 
 const diamondStyle = css`

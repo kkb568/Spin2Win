@@ -16,10 +16,10 @@ export default function LastResults() {
         // Get the most recent previous number's key.
         const recentPrevNumKey: number = prevNumsArr[0].key;
 
-        /* Show only the last 14 previous chosen numbers 
+        /* Show only the last 15 previous chosen numbers 
         (to prevent the numbers overlapping over other elements). */
             prevNumsList = prevNumsArr.map((prev) => {
-            if (prev.key > (prevChosenNums.length - 14)) {
+            if (prev.key > (prevChosenNums.length - 15)) {
                 const color: string = prev.value !== 0 && 
                 assignBackgroundColor(prev.value);
 
@@ -48,10 +48,10 @@ export default function LastResults() {
 const lastResultsStyle = css`
     position: absolute;
     top: 88%;
-    width: 53em;
+    width: 56em;
     height: 3em;
     background-color: #86000f;
-    margin-left: 3em;
+    margin-left: 1.5em;
     border-radius: 50px;
     display: flex;
     gap: 1.5em;
@@ -68,14 +68,14 @@ const lastResultsStyle = css`
         display: block;
         width: 31em;
         height: 12em;
-        margin-top: -15em;
+        margin-top: -7em;
         padding: 1em;
     }
 
     @media (max-width: 600px) {
         width: 18em;
         height: 18em;
-        margin-top: -30em;
+        margin-top: -10em;
         margin-left: 1em;
     }
 `

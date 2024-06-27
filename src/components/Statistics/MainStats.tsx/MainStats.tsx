@@ -13,14 +13,14 @@ export default function MainStatistics() {
 
 
 const mainStatisticsStyle = css`
-    width: 53em;
+    width: 56em;
     height: 19em;
     background-color: #86000f;
-    margin-left: 2.5em;
+    margin-left: 1.5em;
     border-radius: 1em 1em 0 0;
 
     @media (max-width: 900px) {
-        width: 33em;
+        width: 34.5em;
     }
 
     @media (max-width: 600px) {

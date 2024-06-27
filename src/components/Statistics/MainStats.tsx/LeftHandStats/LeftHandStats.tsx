@@ -26,7 +26,7 @@ export default function LeftHandStats() {
 
 const leftSideStatsStyle = css`
     float: left;
-    margin-left: 2.5em;
+    margin-left: 1.5em;
     margin-top: 1em;
     font-weight: bold;
     text-transform: uppercase;

@@ -4,6 +4,7 @@ import MainStatistics from "./MainStats.tsx/MainStats";
 import { useContext } from "react";
 import { MainContext } from "../../App";
 import HotAndColdStats from "./HotAndColdStats/HotAndColdStats";
+import WheelStats from "./WheelStats";
 
 // The component shows the statistics modal.
 export default function Statistics() {
@@ -12,15 +13,6 @@ export default function Statistics() {
 
     const StatisticsDisplayStyle = css`
         display: ${displayStatistics};
-        height: 598.5px;
-
-        @media (max-width: 900px) {
-            height: 1035.5px;
-        }
-
-        @media (max-width: 600px) {
-            height: 1875.8px;
-        }
     `
 
     return (
@@ -35,6 +27,7 @@ export default function Statistics() {
             onClick={() => setMainState("displayStatistics", "none")}></i>
             <MainStatistics />
             <HotAndColdStats />
+            <WheelStats />
             <LastResults />
         </div>
     )
@@ -47,6 +40,7 @@ const statistics_style = css`
     width: 960px;
     color: white;
     background-color: rgba(45,0,4,.9);
+    height: 598.5px;
 
     i {
         float: right;
@@ -67,10 +61,12 @@ const statistics_style = css`
 
     @media (max-width: 900px) {
         width: 600px;
+        height: 1035.5px;
     }
 
     @media (max-width: 600px) {
         width: 350px;
+        height: 1875.8px;
     }
 `
 
