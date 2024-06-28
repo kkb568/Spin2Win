@@ -63,12 +63,13 @@ export interface MainDataStoreType {
     displayStatistics: string,
     betsData: betDataType[],
     previousChosenNums: prevNumDataType[],
-    correctValueData: correctValueDataType
+    correctValueData: correctValueDataType,
+    deg: number
 }
 
 export interface MainContextType {
     mainData: MainDataStoreType,
-    setMainState: ((key: string, value: string | object) => void) | null
+    setMainState: ((key: string, value: string | object | number) => void) | null
 }
 
 export interface buttonStateType {

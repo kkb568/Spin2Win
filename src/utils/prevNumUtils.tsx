@@ -57,7 +57,15 @@ export function getSliceLengthAndColor(prevNumsArr: prevNumDataType[],
     // Get the highest frequency value from the numFreArr array.
     const topFreqValue: number = numFreqArr.slice(0, 1)[0].frequency;
     // Initialise the sliceLength using the specified freq, fullSlicelength and topFreqValue values.
-    const sliceLength = Math.floor((freq * fullSliceLength) / topFreqValue);
+    let sliceLength = Math.floor((freq * fullSliceLength) / topFreqValue);
+
+    /* If the sliceLength is not equal to zero or the highest frequency value,
+    increase the sliceLength to 3/4 of the original sliceLength. 
+    This is for compensating the visibility of the smaller slices, 
+    especially when the topFreqValue is a higher value. */
+    if (freq !== 0 && freq !== topFreqValue) {
+        sliceLength += Math.floor(adjustLength(topFreqValue) * sliceLength);
+    }
 
     // Set the default color to gray.
     let color: string = "#b3b3b3";
@@ -81,4 +89,21 @@ export function getSliceLengthAndColor(prevNumsArr: prevNumDataType[],
 
     // Return the sliceLength and color values in one object.
     return { sliceLength, color};
+}
+
+function adjustLength(maxFreq: number): number {
+    let adjust = 0;
+
+    switch (true) {
+        case maxFreq === 2:
+            adjust = .75;
+            break;
+        case maxFreq > 2 && maxFreq < 6:
+            adjust = .3;
+            break;
+        default:
+            break;
+    }
+
+    return adjust;
 }

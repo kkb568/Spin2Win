@@ -15,7 +15,7 @@ function App() {
   whereas the displayWheel does the same but for the RouletteWheel. */
   const [mainData, setMainData] = useState<MainDataStoreType>(AppContext.mainData)
 
-  function setMainState(key: string, value: string | object) {
+  function setMainState(key: string, value: string | object | number) {
     setMainData(prevState => {
       return {
         ...prevState,

@@ -4,7 +4,7 @@ import MainStatistics from "./MainStats.tsx/MainStats";
 import { useContext } from "react";
 import { MainContext } from "../../App";
 import HotAndColdStats from "./HotAndColdStats/HotAndColdStats";
-import WheelStats from "./WheelStats";
+import WheelStats from "./WheelStats/WheelStats";
 
 // The component shows the statistics modal.
 export default function Statistics() {
@@ -45,7 +45,7 @@ const statistics_style = css`
     i {
         float: right;
         cursor: pointer;
-        margin-right: 2.5em;
+        margin-right: 1.5em;
         margin-top: -1.8em;
         font-size: 2em;
         transition: .3s ease;

@@ -26,7 +26,7 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
         if (spinWheel) {
             const getWinValue = async () => {
                 // Get the prize, previousChosenNums array and chosenNumDetails object.
-                const { prize, prevChosenNums, chosenNumDetails} = await setRotation(wheelCanvasRef, betsData, previousChosenNums);
+                const { prize, prevChosenNums, chosenNumDetails, deg} = await setRotation(wheelCanvasRef, betsData, previousChosenNums);
                 // Set the winningPrize state to the prize's value.
                 setWheelState("winningPrize", prize);
                 
@@ -39,10 +39,11 @@ export default function Wheel({ spinWheel, setWheelState }: wheelProps) {
                 }, 2000);
 
                 /* After 8 seconds (from the time the wheel stops to spins to the time the whole RouletteWheel component is closed),
-                set the previousChosenNums and correctValueData states to the respective returned values from the wheel spin. */
+                set the previousChosenNums, correctValueData and deg states to the respective returned values from the wheel spin. */
                 setTimeout(() => {
                     setMainState("previousChosenNums", prevChosenNums);
                     setMainState("correctValueData", chosenNumDetails);
+                    setMainState("deg", deg)
                 }, 8000);
             }
             getWinValue();

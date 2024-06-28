@@ -194,6 +194,7 @@ const initialCorrectValueData: correctValueDataType = {
  * 4. betsData: Storage for all the bets that the user has put in the current game play.
  * 5. previousChosenNums: Storage for all the numbers chosen from all the previous wheel spins implementation.
  * 6. correctValueData: For showing the details of the chosen value from the wheel spin implementation.
+ * 7. deg: The actual degrees value thaat the wheel canvas in the RouletteWheel component rotated by. Used in the wheelStats component.
  */
 export const AppContext: MainContextType = {
     mainData: {
@@ -202,7 +203,8 @@ export const AppContext: MainContextType = {
         displayStatistics: "none",
         betsData: [],
         previousChosenNums: [],
-        correctValueData: initialCorrectValueData
+        correctValueData: initialCorrectValueData,
+        deg: 0
     },
     setMainState: null
 }

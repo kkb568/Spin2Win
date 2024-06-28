@@ -4,7 +4,8 @@ import { betDataType, correctValueDataType, prevNumDataType } from "../data/data
 interface rotateReturnValues {
     prize: number,
     prevChosenNums: prevNumDataType[],
-    chosenNumDetails: correctValueDataType
+    chosenNumDetails: correctValueDataType,
+    deg: number
 }
 
 /*The function is used to set the rotation of the roulette wheel 
@@ -44,7 +45,8 @@ export function setRotation(ref: React.MutableRefObject<HTMLCanvasElement>,
             resolve({ 
                 prize: winningPrize, 
                 prevChosenNums: previousChosenNums,
-                chosenNumDetails: chosenNumDetails
+                chosenNumDetails: chosenNumDetails,
+                deg: actualDeg
             });
         }, 10000);
      })

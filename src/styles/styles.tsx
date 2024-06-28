@@ -143,3 +143,38 @@ export const HotColdStatsDiv = styled.div`
         width: 18em;
     }
 `
+
+export const WheelHeadBorder = styled.div`
+    position: absolute;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 2px 5px #1c1c1c);
+
+    div:first-child {
+        border-radius: 50%;
+        background: linear-gradient(315deg, #a96f44 0%, #f2ecb6 74%);
+    }
+
+    div:last-child {
+        position: absolute;
+    }
+`
+
+export const WheelHeadContent = styled.div`
+    background-color: black;
+    font-family: 'Adamina';
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    display: table;
+    border: 3px solid transparent;
+
+    span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+`
