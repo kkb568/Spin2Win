@@ -309,4 +309,5 @@ const correctChipStyle = css`
     z-index: 3;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,.5);
     border-radius: 50%;
+    margin-top: 4.5em;
 `
