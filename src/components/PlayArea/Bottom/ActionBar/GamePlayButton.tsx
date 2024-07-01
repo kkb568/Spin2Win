@@ -29,6 +29,8 @@ export default function GamePlayButton() {
     and change the displayWheel value to visible after 1 second. */
     function startPlay() {
         setTimeout(() => {
+            updatePlayAreaState("enableButton", false);
+            updatePlayAreaState("disableButtonEvents", true);
             updatePlayAreaState("disableFooterButtons", true);
             updatePlayAreaState("actionsData", clearUserActions(actionsData));
             updatePlayAreaState("lastBetData", clearLastBets(lastBetData));

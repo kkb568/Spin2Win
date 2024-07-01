@@ -88,14 +88,10 @@ export default function NumButton({ num, chosenNum }: Props) {
         updatePlayAreaState("totalBet", getTotalBet(betsData));
     }
 
-    /* In case the chosenNum changes, set the disableButtonEvents to true 
-    and if the correct value (from the chosen value from the wheel spin functionality)
-    is equal to the num value, update the correctHover to true
-    and then after 5 seconds, update the correctHover to false, the showChessPiece to true
-    and the disableButtonEvents to false. */
+    /* In case the chosenNum changes, if the correct value (from the chosen value from the wheel spin functionality)
+    is equal to the num value, update the correctHover to true and then after 5 seconds, 
+    update the correctHover to false, the showChessPiece to true and the disableButtonEvents to false. */
     useEffect(() => {
-        updatePlayAreaState("disableButtonEvents", true);
-
         if (chosenNum === num) {
             updateButtonState("correctHover", true);
 
