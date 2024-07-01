@@ -222,7 +222,6 @@ function addCorrectValue(value: number): correctValueDataType {
     }
 
     const winValue: correctValueDataType = {
-        value: value,
         even_odd: evenOdd,
         low_high: lowHigh,
         numColor: numColor,

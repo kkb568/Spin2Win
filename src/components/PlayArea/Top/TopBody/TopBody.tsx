@@ -14,17 +14,14 @@ export default function TopBody() {
     const { playDataStore, updatePlayAreaState } = useContext(ChipContext);
     const { ifSpinned } = playDataStore;
 
-    const { mainData, setMainState } = useContext(MainContext);
-    const { correctValueData } = mainData;
+    const { setMainState } = useContext(MainContext);
 
     /* If ifSpinned is true, after 5 seconds (to wait for the correctHover div from each button to be fully shown),
     update the correctValueData state to the newCorrectValueData and update the ifSpinned to false.*/
     useEffect(() => {
         if (ifSpinned) {
             setTimeout(() => {
-                const correctValue = correctValueData.value;
                 const newCorrectValueData: correctValueDataType = {
-                    value: correctValue,
                     even_odd: "",
                     low_high: "",
                     numColor: "",

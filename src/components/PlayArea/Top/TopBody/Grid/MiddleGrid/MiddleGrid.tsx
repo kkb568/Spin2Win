@@ -10,12 +10,14 @@ import { MainContext } from "../../../../../../App";
 // The component renders the number buttons, the green button and the buttons showing a group of dozen.
 export default function MiddleGrid() {
     const { mainData } = useContext(MainContext);
-    const { value, dozenRange } = mainData.correctValueData;
+    const { correctValueData, previousChosenNums } = mainData;
+    // Get the last chosen number from the last wheel spin implementation.
+    const chosenNum: number = previousChosenNums.length > 0 && previousChosenNums[0].value;
     
     function renderNumButtons(numArr: arrayNum) {
         const rowNum = numArr.map((num) => {
             return (
-                <NumButton key={num} num={num} chosenNum={value}/>
+                <NumButton key={num} num={num} chosenNum={chosenNum}/>
             )
         })
         return rowNum;
@@ -25,7 +27,7 @@ export default function MiddleGrid() {
         return (
             <DozenButton key={button.key} 
                 name={button.name}
-                chosenDozenRange={dozenRange}/>
+                chosenDozenRange={correctValueData.dozenRange}/>
         )
     })
 
@@ -39,7 +41,7 @@ export default function MiddleGrid() {
             <div className={MiddleGridDozenStyle}>
                 {dozenButtonList}
             </div>
-            <GreenButton chosenNum={value}/>
+            <GreenButton chosenNum={chosenNum}/>
         </>
     )
 }

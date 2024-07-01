@@ -105,7 +105,6 @@ export interface ActionData {
 }
 
 export interface correctValueDataType {
-    value: number,
     even_odd: string,
     low_high: string,
     numColor: string,

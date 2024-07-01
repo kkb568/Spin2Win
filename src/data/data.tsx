@@ -180,7 +180,6 @@ export const playAreaContext: ChipContextType = {
  * 5. dozenRange: The dozen range in which the value lies.
  */
 const initialCorrectValueData: correctValueDataType = {
-    value: null,
     even_odd: "",
     low_high: "",
     numColor: "",
