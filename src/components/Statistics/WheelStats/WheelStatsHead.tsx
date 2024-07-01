@@ -35,13 +35,16 @@ const wheelStatsHeadStyle = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -13em;
-    margin-right: 18.5em;
+    margin-top: -14em;
+    margin-left: 28.3em;
+
+    @media (min-width: 900px) {
+        position: absolute;
+    }
 
     @media (max-width: 900px) {
         margin-top: 9em;
         margin-left: -1em;
-        margin-right: 0;
     }
 
     @media (max-width: 600px) {

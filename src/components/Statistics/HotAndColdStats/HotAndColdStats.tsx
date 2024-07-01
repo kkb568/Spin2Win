@@ -19,6 +19,11 @@ const HotAndColdStatsStyle = css`
     margin-top: 1em;
     text-transform: uppercase;
 
+    @media (min-width: 900px) {
+        position: absolute;
+        z-index: -1;
+    }
+
     @media (max-width: 900px) {
         gap: 0;
     }

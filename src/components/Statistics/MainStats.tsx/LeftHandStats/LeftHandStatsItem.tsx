@@ -75,13 +75,17 @@ const leftHandStatsItemStyle = css`
     
     span {
         display: flex;
-        gap: 7em;
+        gap: 6em;
         margin-bottom: -.5em;
+
+        @media (max-width: 900px) {
+            gap: 7em;
+        }
     }
 `
 
 const statsBarStyle = css`
-    width: 12.5em;
+    width: 11em;
     height: 1.3em;
     border: 1px solid #1f1f1f;
     border-radius: 1em;
@@ -90,9 +94,17 @@ const statsBarStyle = css`
     
     div ~ span {
         position: absolute;
-        margin-left: 13em;
+        margin-left: 11em;
         margin-top: -.5em;
         font-size: .8em;
+
+        @media (max-width: 900px) {
+            margin-left: 13em;
+        }
+    }
+
+    @media (max-width: 900px) {
+        width: 12.5em;
     }
 `
 

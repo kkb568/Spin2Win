@@ -37,7 +37,10 @@ const dozenStatsStyle = css`
     display: flex;
     align-items: center;
     gap: 1em;
-    margin-bottom: -.7em;
+
+    p {
+        font-size: .8em;
+    }
 `
 
 const statsBarStyle = css`

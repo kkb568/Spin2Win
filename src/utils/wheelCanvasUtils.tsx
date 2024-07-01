@@ -67,7 +67,7 @@ export function wheelStatsDraw (
         drawSlice(rotateAngle, sliceDeg, backgroundColor, ctx, center, center);
         drawSlice(rotateAngle, sliceDeg, "#262626", ctx, center, fullStatsRadius, true);
         if (wheelSequence[i] !== 0) {
-            insertNum(rotateAngle, center, wheelSequence[i].toString(), ctx, 180, 22, 1);
+            insertNum(rotateAngle, center, wheelSequence[i].toString(), ctx, 200, 22, 1);
         }
 
         const { sliceLength, color } = getSliceLengthAndColor(prevNumsArr, wheelSequence[i], fullStatsRadius);
