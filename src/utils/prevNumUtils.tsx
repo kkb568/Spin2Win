@@ -91,6 +91,7 @@ export function getSliceLengthAndColor(prevNumsArr: prevNumDataType[],
     return { sliceLength, color};
 }
 
+// The function is used to set the value for adjusting the sliceLength, depending on the maxFreq parameter value.
 function adjustLength(maxFreq: number): number {
     let adjust = 0;
 
@@ -98,8 +99,11 @@ function adjustLength(maxFreq: number): number {
         case maxFreq === 2:
             adjust = .75;
             break;
-        case maxFreq > 2 && maxFreq < 6:
+        case maxFreq === 3:
             adjust = .3;
+            break;
+        case maxFreq === 4:
+            adjust = .15;
             break;
         default:
             break;

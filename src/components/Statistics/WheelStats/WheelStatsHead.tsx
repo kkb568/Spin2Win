@@ -7,10 +7,9 @@ export default function WheelStatsHead() {
     const { mainData } = useContext(MainContext);
     const { previousChosenNums } = mainData;
     
-    /* Get the chosen number from the last previous wheel spin implementation.
-    If the array is empty, set the value to zero. */
-    const lastChosenNum: number = previousChosenNums.length === 0 ? 0 
-    : previousChosenNums[0].value;
+    /* Get the chosen number from the last previous wheel spin implementation 
+    if the previousChosenNums array is not empty. */
+    const lastChosenNum: number = previousChosenNums.length > 0 && previousChosenNums[0].value;
 
     return (
         <div className={wheelStatsHeadStyle}>
