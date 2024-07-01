@@ -163,7 +163,6 @@ export const WheelHeadBorder = styled.div`
 `
 
 export const WheelHeadContent = styled.div`
-    background-color: black;
     font-family: 'Adamina';
     color: white;
     border-radius: 50%;

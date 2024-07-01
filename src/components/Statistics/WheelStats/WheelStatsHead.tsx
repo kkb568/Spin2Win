@@ -1,7 +1,9 @@
-import { css } from "@emotion/css"
+import { css, cx } from "@emotion/css"
 import { WheelHeadBorder, WheelHeadContent } from "../../../styles/styles"
 import { useContext } from "react"
 import { MainContext } from "../../../App"
+import { green } from "../../../data/data";
+import { assignBackgroundColor } from "../../../utils/chipUtils";
 
 export default function WheelStatsHead() {
     const { mainData } = useContext(MainContext);
@@ -11,14 +13,18 @@ export default function WheelStatsHead() {
     if the previousChosenNums array is not empty. */
     const lastChosenNum: number = previousChosenNums.length > 0 && previousChosenNums[0].value;
 
+    const wheelHeadColor = css`
+        background-color: ${lastChosenNum === 0 ? green : assignBackgroundColor(lastChosenNum)};
+    `
+
     return (
         <div className={wheelStatsHeadStyle}>
             <WheelHeadBorder className={wheelHeadBorderStyle}>
                 <div />
                 <div />
             </WheelHeadBorder>
-            <WheelHeadContent className={wheelHeadStyle}>
-                <span>{lastChosenNum}</span>
+            <WheelHeadContent className={cx(wheelHeadStyle, wheelHeadColor)}>
+                {lastChosenNum !== 0 && <span>{lastChosenNum}</span>}
             </WheelHeadContent>
         </div>
     )

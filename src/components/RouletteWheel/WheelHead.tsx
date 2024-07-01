@@ -42,6 +42,7 @@ const wheelHeadBorderStyle = css`
 `
 
 const wheelHeadStyle = css`
+    background-color: black;
     width: 8em;
     height: 8em;
 
